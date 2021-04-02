@@ -1,0 +1,9 @@
+<?php
+	session_start();
+	session_destroy();
+	setcookie('log','',time()-3600);
+	setcookie('psswd','',time()-3600);
+	setcookie('accept_cookie',false,time()-3600,'/',null,false,true);
+	header('Location:'.$_SERVER['HTTP_REFERER'].'');
+	exit();
+?>

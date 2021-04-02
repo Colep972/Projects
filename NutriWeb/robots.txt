@@ -1,0 +1,6 @@
+Sitemap : https://www.nutriwebbos.fr/sitemap.xml
+User-agent: *
+Disallow: /recuperation.php
+Disallow: /email.php
+Disallow: /User.php
+Disallow: /gestion.php

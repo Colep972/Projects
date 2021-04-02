@@ -1,0 +1,17 @@
+Quest 
+Tuer 5 ennemis.
+
+Quest
+Aller en [0,0].
+
+Quest 
+Ne pas mourir.
+
+Quest
+Etre un BG  comme Colep
+
+Quest
+Finir KTB1.
+
+Quest 
+Entamer KTB2. 
