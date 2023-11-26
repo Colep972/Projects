@@ -1,0 +1,1222 @@
+# depslib dependency file v1.0
+1631995781 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\main.cpp
+	"src/SDL/SDL_Motor.h"
+
+1631978100 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\sdl_motor.h
+	<iostream>
+	"Window.h"
+	"Sprite.h"
+	"Scene.h"
+	"../Others/toolbox.h"
+	"TextureManager.h"
+	"SceneManager.h"
+
+1631914681 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\window.h
+	<iostream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+
+1632018731 D
+
+1561873968 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_image.h
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1631975286 d34af5b1e10fb1f946c9620aba025b5c60126
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+	<iostream>
+	"Window.h"
+	"Sprite.h"
+	"Scene.h"
+	"../Static/toolbox.h"
+	"TextureManager.h"
+	"SceneManager.h"
+	<iostream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	<SDL.h>
+	<SDL_mixer.h>
+	<vector>
+	"Sprite.h"
+	"Input.h"
+	"TextureManager.h"
+	"MusicManager.h"
+	<SDL_image.h>
+	<string>
+	<map>
+	<iostream>
+	"Scene.h"
+	<Windows.h>
+	"SceneManager.h"
+	"MainScene.h"
+	"PauseScene.h"
+	"GameScene.h"
+	"SDL_Motor.h"
+	"SceneManager.h"
+	"TextureManager.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_assert.h"
+	"SDL_atomic.h"
+	"SDL_audio.h"
+	"SDL_clipboard.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_filesystem.h"
+	"SDL_gamecontroller.h"
+	"SDL_haptic.h"
+	"SDL_hints.h"
+	"SDL_joystick.h"
+	"SDL_loadso.h"
+	"SDL_log.h"
+	"SDL_messagebox.h"
+	"SDL_metal.h"
+	"SDL_mutex.h"
+	"SDL_power.h"
+	"SDL_render.h"
+	"SDL_rwops.h"
+	"SDL_sensor.h"
+	"SDL_shape.h"
+	"SDL_system.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_version.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894278 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<wchar.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<math.h>
+	<float.h>
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	<sal.h>
+	"begin_code.h"
+	"close_code.h"
+
+1583894278 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_config.h
+	"SDL_platform.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_platform.h
+	"AvailabilityMacros.h"
+	"TargetConditionals.h"
+	<winapifamily.h>
+	"begin_code.h"
+	"close_code.h"
+
+1583894278 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\begin_code.h
+
+1583894278 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\close_code.h
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_assert.h
+	"SDL_config.h"
+	"begin_code.h"
+	<signal.h>
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_atomic.h
+	"SDL_stdinc.h"
+	"SDL_platform.h"
+	"begin_code.h"
+	<sys/cpuinline.h>
+	<mbarrier.h>
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_endian.h
+	"SDL_stdinc.h"
+	<endian.h>
+	<endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894278 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_atomic.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	<process.h>
+	<stdlib.h>
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_clipboard.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	<intrin.h>
+	<intrin.h>
+	<altivec.h>
+	<arm_neon.h>
+	<armintr.h>
+	<arm_neon.h>
+	<arm64intr.h>
+	<arm64_neon.h>
+	<mm3dnow.h>
+	<immintrin.h>
+	<mmintrin.h>
+	<xmmintrin.h>
+	<emmintrin.h>
+	<pmmintrin.h>
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_quit.h"
+	"SDL_gesture.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894278 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_pixels.h
+	"SDL_stdinc.h"
+	"SDL_endian.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_rect.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_pixels.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894278 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_surface.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_blendmode.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_blendmode.h
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keycode.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_keycode.h
+	"SDL_stdinc.h"
+	"SDL_scancode.h"
+
+1583894278 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_scancode.h
+	"SDL_stdinc.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_gamecontroller.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_gesture.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894278 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_touch.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_filesystem.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_haptic.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_hints.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_log.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_messagebox.h
+	"SDL_stdinc.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_metal.h
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_power.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894277 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_render.h
+	"SDL_stdinc.h"
+	"SDL_rect.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894278 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_sensor.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894278 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_shape.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894278 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_system.h
+	"SDL_stdinc.h"
+	"SDL_keyboard.h"
+	"SDL_render.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894278 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1583894278 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1541001592 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_mixer.h
+	"SDL_stdinc.h"
+	"SDL_rwops.h"
+	"SDL_audio.h"
+	"SDL_endian.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1632076895 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\sprite.h
+	<iostream>
+	"Input.h"
+	"SDL.h"
+
+1632081375 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\scene.h
+	<SDL.h>
+	<SDL_mixer.h>
+	<vector>
+	"Sprite.h"
+	"Input.h"
+	"TextureManager.h"
+	"MusicManager.h"
+
+1632059423 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\input.h
+	<SDL.h>
+	<string>
+	<iostream>
+	<vector>
+
+1631834468 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\texturemanager.h
+	<SDL_image.h>
+	<string>
+	<map>
+
+1632081375 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\musicmanager.h
+	<SDL_mixer.h>
+	<string>
+	<map>
+
+1631006776 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\static\toolbox.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<iostream>
+	<sstream>
+	<fstream>
+
+1547325881 c:\program files (x86)\codeblocks\mingw\sdl-2.0.12\include\sdl2\sdl_ttf.h
+	"SDL.h"
+	"begin_code.h"
+	"close_code.h"
+
+1631965559 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\scenemanager.h
+	"Scene.h"
+
+1632076895 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\mainscene.h
+	"Scene.h"
+
+1632079417 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\pausescene.h
+	"Scene.h"
+
+1632059423 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\input.cpp
+	"Input.h"
+
+1632079701 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\mainscene.cpp
+	"MainScene.h"
+
+1631984341 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\musicmanager.cpp
+	"MusicManager.h"
+	<iostream>
+
+1632079417 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\pausescene.cpp
+	"PauseScene.h"
+
+1632059423 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\scenemanager.cpp
+	"SceneManager.h"
+	"MainScene.h"
+	"PauseScene.h"
+	"../Game/GameScene.h"
+	"../Game/TaskScene.h"
+
+1632076895 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\sprite.cpp
+	"Sprite.h"
+
+1632080438 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\texturemanager.cpp
+	"TextureManager.h"
+	<iostream>
+
+1631006776 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\static\toolbox.cpp
+	"toolbox.h"
+
+1632059423 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\scene.cpp
+	<iostream>
+	"Scene.h"
+	<Windows.h>
+
+1632022607 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\sdl_motor.cpp
+	"SDL_Motor.h"
+	"SceneManager.h"
+	"TextureManager.h"
+
+1631914670 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\sdl\window.cpp
+	"Window.h"
+	<stdlib.h>
+	<SDL_ttf.h>
+
+1631924609 source:c:\users\33669\documents\dev\github\alakajam13th\main.cpp
+	"src/SDL/SDL_Motor.h"
+
+1631976942 c:\users\33669\documents\dev\github\alakajam13th\src\sdl\sdl_motor.h
+	<iostream>
+	"Window.h"
+	"Sprite.h"
+	"Scene.h"
+	"../Others/toolbox.h"
+	"TextureManager.h"
+	"SceneManager.h"
+
+1631911500 c:\users\33669\documents\dev\github\alakajam13th\src\sdl\window.h
+	<iostream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+
+1632043489 c:\users\33669\documents\dev\github\alakajam13th\src\sdl\sprite.h
+	<iostream>
+	"Input.h"
+	"SDL.h"
+
+1632049356 c:\users\33669\documents\dev\github\alakajam13th\src\sdl\scene.h
+	<SDL.h>
+	<SDL_mixer.h>
+	<vector>
+	"Sprite.h"
+	"Input.h"
+	"TextureManager.h"
+	"MusicManager.h"
+
+1632042369 c:\users\33669\documents\dev\github\alakajam13th\src\sdl\input.h
+	<SDL.h>
+	<string>
+	<iostream>
+	<vector>
+
+1631934230 c:\users\33669\documents\dev\github\alakajam13th\src\sdl\texturemanager.h
+	<SDL_image.h>
+	<string>
+	<map>
+
+1631981387 c:\users\33669\documents\dev\github\alakajam13th\src\sdl\musicmanager.h
+	<SDL_mixer.h>
+	<string>
+	<map>
+
+1631908920 c:\users\33669\documents\dev\github\alakajam13th\src\static\toolbox.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<iostream>
+	<sstream>
+	<fstream>
+
+1631975286 c:\users\33669\documents\dev\github\alakajam13th\src\sdl\scenemanager.h
+	"Scene.h"
+
+1631948048 c:\users\33669\documents\dev\github\alakajam13th\src\sdl\mainscene.h
+	"Scene.h"
+
+1632048786 c:\users\33669\documents\dev\github\alakajam13th\src\sdl\pausescene.h
+	"Scene.h"
+
+1632042381 source:c:\users\33669\documents\dev\github\alakajam13th\src\sdl\input.cpp
+	"Input.h"
+
+1632049072 source:c:\users\33669\documents\dev\github\alakajam13th\src\sdl\mainscene.cpp
+	"MainScene.h"
+
+1631981387 source:c:\users\33669\documents\dev\github\alakajam13th\src\sdl\musicmanager.cpp
+	"MusicManager.h"
+	<iostream>
+
+1632048922 source:c:\users\33669\documents\dev\github\alakajam13th\src\sdl\pausescene.cpp
+	"PauseScene.h"
+
+1632049318 source:c:\users\33669\documents\dev\github\alakajam13th\src\sdl\scene.cpp
+	<iostream>
+	"Scene.h"
+	<Windows.h>
+
+1632049459 source:c:\users\33669\documents\dev\github\alakajam13th\src\sdl\scenemanager.cpp
+	"SceneManager.h"
+	"MainScene.h"
+	"PauseScene.h"
+	"../Game/GameScene.h"
+	"../Game/TaskScene.h"
+
+1632005743 source:c:\users\33669\documents\dev\github\alakajam13th\src\sdl\sdl_motor.cpp
+	"SDL_Motor.h"
+	"SceneManager.h"
+	"TextureManager.h"
+
+1632043391 source:c:\users\33669\documents\dev\github\alakajam13th\src\sdl\sprite.cpp
+	"Sprite.h"
+
+1632004897 source:c:\users\33669\documents\dev\github\alakajam13th\src\sdl\texturemanager.cpp
+	"TextureManager.h"
+	<iostream>
+
+1631911500 source:c:\users\33669\documents\dev\github\alakajam13th\src\sdl\window.cpp
+	"Window.h"
+	<stdlib.h>
+	<SDL_ttf.h>
+
+1631908920 source:c:\users\33669\documents\dev\github\alakajam13th\src\static\toolbox.cpp
+	"toolbox.h"
+
+1632049459 c:\users\33669\documents\dev\github\alakajam13th\src\game\gamescene.h
+	"../SDL/Scene.h"
+	"../Others/Vector2D.h"
+	"Player.h"
+	"../SDL/Sprite.h"
+
+1632049594 source:c:\users\33669\documents\dev\github\alakajam13th\src\game\gamescene.cpp
+	"GameScene.h"
+
+1632056234 source:d:\alakajam\alakajam13th\src\sdl\input.cpp
+	"Input.h"
+
+1632056234 d:\alakajam\alakajam13th\src\sdl\input.h
+	<SDL.h>
+	<string>
+	<iostream>
+	<vector>
+
+1631985292 source:d:\alakajam\alakajam13th\src\sdl\musicmanager.cpp
+	"MusicManager.h"
+	<iostream>
+
+1631985292 d:\alakajam\alakajam13th\src\sdl\musicmanager.h
+	<SDL_mixer.h>
+	<string>
+	<map>
+
+1631912345 source:d:\alakajam\alakajam13th\src\static\toolbox.cpp
+	"toolbox.h"
+
+1631912345 d:\alakajam\alakajam13th\src\static\toolbox.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<iostream>
+	<sstream>
+	<fstream>
+
+1631924471 source:d:\alakajam\alakajam13th\main.cpp
+	"src/SDL/SDL_Motor.h"
+
+1631981102 d:\alakajam\alakajam13th\src\sdl\sdl_motor.h
+	<iostream>
+	"Window.h"
+	"Sprite.h"
+	"Scene.h"
+	"../Others/toolbox.h"
+	"TextureManager.h"
+	"SceneManager.h"
+
+1632039884 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\main.cpp
+	"src/SDL/SDL_Motor.h"
+
+1632039884 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\sdl_motor.h
+	<iostream>
+	"Window.h"
+	"Sprite.h"
+	"Scene.h"
+	"../Others/toolbox.h"
+	"TextureManager.h"
+	"SceneManager.h"
+
+1631924471 d:\alakajam\alakajam13th\src\sdl\window.h
+
+1632039884 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\window.h
+	<iostream>
+	<SDL_image.h>
+	<SDL_mixer.h>
+
+1632056234 d:\alakajam\alakajam13th\src\sdl\sprite.h
+	<iostream>
+	"Input.h"
+	"SDL.h"
+
+1632056234 d:\alakajam\alakajam13th\src\sdl\scene.h
+	<SDL.h>
+	<SDL_mixer.h>
+	<vector>
+	"Sprite.h"
+	"Input.h"
+	"TextureManager.h"
+	"MusicManager.h"
+
+1632057812 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\sprite.h
+	<iostream>
+	"Input.h"
+	"SDL.h"
+
+1632057812 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\scene.h
+	<SDL.h>
+	<SDL_mixer.h>
+	<vector>
+	"Sprite.h"
+	"Input.h"
+	"TextureManager.h"
+	"MusicManager.h"
+
+1631912345 d:\alakajam\alakajam13th\src\sdl\texturemanager.h
+
+1632057812 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\input.h
+	<SDL.h>
+	<string>
+	<iostream>
+	<vector>
+
+1632039884 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\texturemanager.h
+	<SDL_image.h>
+	<string>
+	<map>
+
+1631981102 d:\alakajam\alakajam13th\src\sdl\scenemanager.h
+	"Scene.h"
+
+1632058108 source:d:\alakajam\alakajam13th\src\game\gamescene.cpp
+	"GameScene.h"
+
+1632058083 d:\alakajam\alakajam13th\src\game\gamescene.h
+	"../SDL/Scene.h"
+	"../Others/Vector2D.h"
+	"Player.h"
+	"../SDL/Sprite.h"
+	"../Game/Furniture.h"
+	"vector"
+
+1632057713 source:d:\alakajam\alakajam13th\src\game\partprocessor.cpp
+	"PartProcessor.h"
+
+1632057697 d:\alakajam\alakajam13th\src\game\partprocessor.h
+	"product.h"
+	"Furniture.h"
+
+1632056234 source:d:\alakajam\alakajam13th\src\sdl\mainscene.cpp
+	"MainScene.h"
+
+1631957631 d:\alakajam\alakajam13th\src\sdl\mainscene.h
+	"Scene.h"
+
+1632056234 source:d:\alakajam\alakajam13th\src\sdl\pausescene.cpp
+	"PauseScene.h"
+
+1632056234 d:\alakajam\alakajam13th\src\sdl\pausescene.h
+	"Scene.h"
+
+1632056234 source:d:\alakajam\alakajam13th\src\sdl\scene.cpp
+	<iostream>
+	"Scene.h"
+	<Windows.h>
+
+1632039884 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\musicmanager.h
+	<SDL_mixer.h>
+	<string>
+	<map>
+
+1631925210 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\static\toolbox.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<iostream>
+	<sstream>
+	<fstream>
+
+1632039884 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\scenemanager.h
+	"Scene.h"
+
+1632057812 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\input.cpp
+	"Input.h"
+
+1632039884 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\musicmanager.cpp
+	"MusicManager.h"
+	<iostream>
+
+1632039884 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\window.cpp
+	"Window.h"
+	<stdlib.h>
+	<SDL_ttf.h>
+
+1631925210 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\static\toolbox.cpp
+	"toolbox.h"
+
+1632063537 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\game\gamescene.cpp
+	"GameScene.h"
+
+1632062327 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\game\gamescene.h
+	"../SDL/Scene.h"
+	"../Others/Vector2D.h"
+	"Player.h"
+	"../SDL/Sprite.h"
+	"../Game/Furniture.h"
+	"vector"
+
+1632041880 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\mainscene.cpp
+	"MainScene.h"
+
+1632039884 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\mainscene.h
+	"Scene.h"
+
+1632062327 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\pausescene.cpp
+	"PauseScene.h"
+
+1632062327 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\pausescene.h
+	"Scene.h"
+
+1632057812 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\scene.cpp
+	<iostream>
+	"Scene.h"
+	<Windows.h>
+
+1632056234 source:d:\alakajam\alakajam13th\src\sdl\scenemanager.cpp
+	"SceneManager.h"
+	"MainScene.h"
+	"PauseScene.h"
+	"../Game/GameScene.h"
+	"../Game/TaskScene.h"
+
+1632062327 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\scenemanager.cpp
+	"SceneManager.h"
+	"MainScene.h"
+	"PauseScene.h"
+	"../Game/GameScene.h"
+	"../Game/TaskScene.h"
+
+1632043311 source:d:\alakajam\alakajam13th\src\sdl\sdl_motor.cpp
+	"SDL_Motor.h"
+	"SceneManager.h"
+	"TextureManager.h"
+
+1632039884 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\sdl_motor.cpp
+	"SDL_Motor.h"
+	"SceneManager.h"
+	"TextureManager.h"
+
+1632056234 source:d:\alakajam\alakajam13th\src\sdl\sprite.cpp
+	"Sprite.h"
+
+1632009304 source:d:\alakajam\alakajam13th\src\sdl\texturemanager.cpp
+	"TextureManager.h"
+	<iostream>
+
+1631924471 source:d:\alakajam\alakajam13th\src\sdl\window.cpp
+	"Window.h"
+	<stdlib.h>
+	<SDL_ttf.h>
+
+1632057709 source:d:\alakajam\alakajam13th\src\game\partdistributor.cpp
+	"PartDistributor.h"
+
+1632057686 d:\alakajam\alakajam13th\src\game\partdistributor.h
+	"Product.h"
+	"Furniture.h"
+
+1632043311 d:\alakajam\alakajam13th\src\game\product.h
+	<iostream>
+
+1632009304 source:d:\alakajam\alakajam13th\src\game\workbench.cpp
+	"WorkBench.h"
+
+1632043311 d:\alakajam\alakajam13th\src\game\workbench.h
+	"Product.h"
+	"Furniture.h"
+
+1631976955 >
+
+1632057812 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\sprite.cpp
+	"Sprite.h"
+
+1632039884 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\sdl\texturemanager.cpp
+	"TextureManager.h"
+	<iostream>
+
+1632035767 source:c:\users\33669\documents\dev\github\alakajam13th\src\game\partdistributor.cpp
+	"PartDistributor.h"
+
+1632035767 c:\users\33669\documents\dev\github\alakajam13th\src\game\partdistributor.h
+	"Product.h"
+	"Furniture.h"
+
+1632071757 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\partdistributor.cpp
+	"PartDistributor.h"
+
+1632071709 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\partdistributor.h
+	"PartEnum.h"
+	"Furniture.h"
+
+1632081122 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\gamescene.cpp
+	"GameScene.h"
+
+1632079661 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\gamescene.h
+	"../SDL/Scene.h"
+	"../Others/Vector2D.h"
+	"Player.h"
+	"../SDL/Sprite.h"
+	"vector"
+	"EnumObject.h"
+
+1631006776 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\others\toolbox.cpp
+	"toolbox.h"
+
+1631006776 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\others\toolbox.h
+
+1631960476 3e06ac518ebfb68fe391078591b872c4caa6a
+
+1631995194 source:c:\users\33669\documents\dev\github\alakajam13th\src\others\vector2d.cpp
+	"Vector2D.h"
+	<cmath>
+
+1631995227 c:\users\33669\documents\dev\github\alakajam13th\src\others\vector2d.h
+	<cfloat>
+	<climits>
+
+1631975286 c:\users\33669\documents\dev\github\alakajam13th\src\others\toolbox.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<iostream>
+	<sstream>
+	<fstream>
+
+1631981102 d:\alakajam\alakajam13th\src\others\toolbox.h
+
+1631978315 90e5d28886767b842913389022fbb84a7f01e
+	<SDL.h>
+	<SDL_ttf.h>
+	<iostream>
+	<sstream>
+	<fstream>
+
+1631977441 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\others\timer.cpp
+	"Timer.h"
+
+1631977016 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\others\timer.h
+	<SDL.h>
+
+1632043311 source:d:\alakajam\alakajam13th\src\game\product.cpp
+	"Product.h"
+
+1631981387 source:c:\users\33669\documents\dev\github\alakajam13th\src\others\timer.cpp
+	"Timer.h"
+
+1631981387 c:\users\33669\documents\dev\github\alakajam13th\src\others\timer.h
+	<SDL.h>
+
+1631975286 source:c:\users\33669\documents\dev\github\alakajam13th\src\others\toolbox.cpp
+	"toolbox.h"
+
+1632035767 source:c:\users\33669\documents\dev\github\alakajam13th\src\game\partprocessor.cpp
+	"PartProcessor.h"
+
+1632035767 c:\users\33669\documents\dev\github\alakajam13th\src\game\partprocessor.h
+	"product.h"
+	"Furniture.h"
+
+1632035767 source:c:\users\33669\documents\dev\github\alakajam13th\src\game\product.cpp
+	"Product.h"
+
+1632035767 c:\users\33669\documents\dev\github\alakajam13th\src\game\product.h
+	<iostream>
+
+1632004897 source:c:\users\33669\documents\dev\github\alakajam13th\src\game\workbench.cpp
+	"WorkBench.h"
+
+1631988265 .h"
+
+1631985292 source:d:\alakajam\alakajam13th\src\others\timer.cpp
+	"Timer.h"
+
+1631985292 d:\alakajam\alakajam13th\src\others\timer.h
+	<SDL.h>
+
+1631981102 source:d:\alakajam\alakajam13th\src\others\toolbox.cpp
+	"toolbox.h"
+
+1632009304 source:d:\alakajam\alakajam13th\src\others\vector2d.cpp
+	"Vector2D.h"
+	<cmath>
+
+1632009304 d:\alakajam\alakajam13th\src\others\vector2d.h
+	<cfloat>
+	<climits>
+
+1631978315 68506405bf0670e9e9316d324d2e422adcc1a
+
+1632035767 c:\users\33669\documents\dev\github\alakajam13th\src\game\workbench.h
+	"Product.h"
+	"Furniture.h"
+
+1632038485 source:c:\users\33669\documents\dev\github\alakajam13th\src\game\player.cpp
+	"Player.h"
+	<cassert>
+	"math.h"
+
+1632035767 c:\users\33669\documents\dev\github\alakajam13th\src\game\player.h
+	"../SDL/Sprite.h"
+	"../SDL/Scene.h"
+	"../SDL/Input.h"
+	"Product.h"
+	"../Others/Vector2D.h"
+
+1631981649 0c685ab1691fbabb0c7e9571b9a3b28215853
+
+1631999557 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\others\vector2d.h
+	<cfloat>
+	<climits>
+
+1632077088 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\player.cpp
+	"Player.h"
+	<cassert>
+	"math.h"
+
+1632076895 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\player.h
+	"../SDL/Sprite.h"
+	"../SDL/Scene.h"
+	"../SDL/Input.h"
+	"PartEnum.h"
+	"../Others/Vector2D.h"
+	"WorkBench.h"
+	"PartDistributor.h"
+	"PartProcessor.h"
+	"Collector.h"
+
+1632020133 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\product.h
+	<iostream>
+
+1632020163 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\product.cpp
+	"Product.h"
+
+1631999557 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\others\vector2d.cpp
+	"Vector2D.h"
+	<cmath>
+
+1632039884 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\others\toolbox.h
+	<SDL.h>
+	<SDL_ttf.h>
+	<iostream>
+	<sstream>
+	<fstream>
+
+1632039884 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\others\vector2d.h
+	<cfloat>
+	<climits>
+
+1632063537 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\game\player.h
+	"../SDL/Sprite.h"
+	"../SDL/Scene.h"
+	"../SDL/Input.h"
+	"PartEnum.h"
+	"Furniture.h"
+	"../Others/Vector2D.h"
+
+1632039884 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\game\product.h
+	<iostream>
+
+1632066222 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\game\partdistributor.cpp
+	"PartDistributor.h"
+
+1632066222 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\game\partdistributor.h
+	"PartEnum.h"
+	"Furniture.h"
+	"Player.h"
+
+1632063537 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\game\furniture.h
+	"PartEnum.h"
+	"../SDL/Sprite.h"
+
+1632066613 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\game\partprocessor.cpp
+	"partProcessor.h"
+
+1632066484 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\game\partprocessor.h
+	"PartEnum.h"
+	"Player.h"
+	"Furniture.h"
+
+1632063537 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\game\player.cpp
+	"Player.h"
+	<cassert>
+	"math.h"
+
+1632039884 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\game\product.cpp
+	"Product.h"
+
+1632063538 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\game\workbench.cpp
+	"WorkBench.h"
+
+1632063538 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\game\workbench.h
+	"PartEnum.h"
+	"Furniture.h"
+
+1632039884 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\others\timer.cpp
+	"Timer.h"
+
+1632039884 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\others\timer.h
+	<SDL.h>
+
+1632039884 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\others\toolbox.cpp
+	"toolbox.h"
+
+1632039884 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\others\vector2d.cpp
+	"Vector2D.h"
+	<cmath>
+
+1632063537 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\game\furniture.cpp
+	"Furniture.h"
+
+1632076203 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\workbench.cpp
+	"WorkBench.h"
+
+1632076226 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\workbench.h
+	"PartEnum.h"
+	"Furniture.h"
+
+1632063359 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\furniture.h
+	"PartEnum.h"
+	"../SDL/Sprite.h"
+
+1632073436 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\partprocessor.cpp
+	"partProcessor.h"
+
+1632071953 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\partprocessor.h
+	"PartEnum.h"
+	"../SDL/Sprite.h"
+
+1632063375 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\furniture.cpp
+	"Furniture.h"
+
+1632041026 c:\users\33669\documents\dev\github\alakajam13th\src\game\furniture.h
+	"Product.h"
+	"Product.h"
+
+1632035767 source:c:\users\33669\documents\dev\github\alakajam13th\src\game\furniture.cpp
+	"Furniture.h"
+
+1632035767 6c2d9cec3f15af6a471227365d4c17bb1623c
+
+1632004897 13cd975c90926de601a28016aad3d361bf3c2
+	"Furniture.h"
+
+1632062291 source:c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\game\taskscene.cpp
+	"TaskScene.h"
+
+1632062291 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\game\taskscene.h
+	"../SDL/Scene.h"
+
+1632049072 c:\users\33669\documents\dev\github\alakajam13th\src\game\taskscene.h
+	"../SDL/Scene.h"
+
+1632049072 source:c:\users\33669\documents\dev\github\alakajam13th\src\game\taskscene.cpp
+	"TaskScene.h"
+
+1632057918 d:\alakajam\alakajam13th\src\game\furniture.h
+	"Product.h"
+	"../SDL/Sprite.h"
+
+1632043311 d:\alakajam\alakajam13th\src\game\player.h
+	"../SDL/Sprite.h"
+	"../SDL/Scene.h"
+	"../SDL/Input.h"
+	"Product.h"
+	"../Others/Vector2D.h"
+
+1632056234 source:d:\alakajam\alakajam13th\src\game\player.cpp
+	"Player.h"
+	<cassert>
+	"math.h"
+
+1632056234 d:\alakajam\alakajam13th\src\game\taskscene.h
+	"../SDL/Scene.h"
+
+1632057671 source:d:\alakajam\alakajam13th\src\game\furniture.cpp
+	"Furniture.h"
+
+1632056234 source:d:\alakajam\alakajam13th\src\game\taskscene.cpp
+	"TaskScene.h"
+
+1632059423 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\taskscene.cpp
+	"TaskScene.h"
+
+1632059423 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\taskscene.h
+	"../SDL/Scene.h"
+
+1632073558 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\partenum.h
+
+1632066597 c:\users\franc\onedrive\documents\c++\alakajam\2021\alakajam13th\src\game\partenum.h
+
+1632076786 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\collector.cpp
+	"Collector.h"
+
+1632076757 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\collector.h
+	"PartEnum.h"
+	"Furniture.h"
+
+1632078452 source:c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\enumobject.cpp
+	"EnumObject.h"
+
+1632079629 c:\users\joaki\onedrive\documents\projets\alakajam13th\alakajam13th\src\game\enumobject.h
+	"PartEnum.h"
+	"../SDL/Sprite.h"
+

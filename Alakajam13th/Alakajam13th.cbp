@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Alakajam13th" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Alakajam13th" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="src/Others" />
+					<Add directory="C:/Users/joaki/OneDrive/Documents/Projets/Alakajam13th/Alakajam13th/" />
+				</Compiler>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-std=c++11" />
+			<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/SDL-2.0.12/include/SDL2" />
+		</Compiler>
+		<Linker>
+			<Add library="mingw32" />
+			<Add library="SDL2main" />
+			<Add library="SDL2_image" />
+			<Add library="SDL2_ttf" />
+			<Add library="SDL2_mixer" />
+			<Add library="SDL2.dll" />
+			<Add library="user32" />
+			<Add library="gdi32" />
+			<Add library="winmm" />
+			<Add library="dxguid" />
+			<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/SDL-2.0.12/lib" />
+		</Linker>
+		<ExtraCommands>
+			<Add after="XCOPY $(#sdl2)\bin\*.dll $(TARGET_OUTPUT_DIR) /D /Y" />
+		</ExtraCommands>
+		<Unit filename="main.cpp" />
+		<Unit filename="src/Game/Collector.cpp" />
+		<Unit filename="src/Game/Collector.h" />
+		<Unit filename="src/Game/EnumObject.cpp" />
+		<Unit filename="src/Game/EnumObject.h" />
+		<Unit filename="src/Game/Furniture.cpp" />
+		<Unit filename="src/Game/Furniture.h" />
+		<Unit filename="src/Game/GameScene.cpp" />
+		<Unit filename="src/Game/GameScene.h" />
+		<Unit filename="src/Game/PartDistributor.cpp" />
+		<Unit filename="src/Game/PartDistributor.h" />
+		<Unit filename="src/Game/PartEnum.h" />
+		<Unit filename="src/Game/PartProcessor.cpp" />
+		<Unit filename="src/Game/PartProcessor.h" />
+		<Unit filename="src/Game/Player.cpp" />
+		<Unit filename="src/Game/Player.h" />
+		<Unit filename="src/Game/TaskScene.cpp" />
+		<Unit filename="src/Game/TaskScene.h" />
+		<Unit filename="src/Game/WorkBench.cpp" />
+		<Unit filename="src/Game/WorkBench.h" />
+		<Unit filename="src/Others/Timer.cpp" />
+		<Unit filename="src/Others/Timer.h" />
+		<Unit filename="src/Others/Vector2D.cpp" />
+		<Unit filename="src/Others/Vector2D.h" />
+		<Unit filename="src/Others/toolbox.cpp" />
+		<Unit filename="src/Others/toolbox.h" />
+		<Unit filename="src/SDL/Input.cpp" />
+		<Unit filename="src/SDL/Input.h" />
+		<Unit filename="src/SDL/MainScene.cpp" />
+		<Unit filename="src/SDL/MainScene.h" />
+		<Unit filename="src/SDL/MusicManager.cpp" />
+		<Unit filename="src/SDL/MusicManager.h" />
+		<Unit filename="src/SDL/PauseScene.cpp" />
+		<Unit filename="src/SDL/PauseScene.h" />
+		<Unit filename="src/SDL/SDL_Motor.cpp" />
+		<Unit filename="src/SDL/SDL_Motor.h" />
+		<Unit filename="src/SDL/Scene.cpp" />
+		<Unit filename="src/SDL/Scene.h" />
+		<Unit filename="src/SDL/SceneManager.cpp" />
+		<Unit filename="src/SDL/SceneManager.h" />
+		<Unit filename="src/SDL/Sprite.cpp" />
+		<Unit filename="src/SDL/Sprite.h" />
+		<Unit filename="src/SDL/TextureManager.cpp" />
+		<Unit filename="src/SDL/TextureManager.h" />
+		<Unit filename="src/SDL/Window.cpp" />
+		<Unit filename="src/SDL/Window.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
