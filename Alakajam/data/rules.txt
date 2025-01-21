@@ -1,8 +1,0 @@
-Le jeu se joue avec la souris, sur la carte pour deplacer votre bateau il faut cliquer sur l'une 
-des 6 tuiles autour de votre bateau (colorie en bleu-vert) votre but est l'elimination des 
-bateaux vous entourant et de ne pas mourir. Pour entrer en combat avec un ennemi cliquez dessus 
-lorsqu'il se trouve dans votre zone coloree. Le combat repose sur un tour a tour ou celui qui 
-n'a plus de vie a perdu, vous disposez de 3 actions coutant chacune en stamina. La stamina est 
-ce qui vous permet de faire des actions vous en gagnez un point par tour. Si vous descendez en 
-dessous de 3 vous subirez un malus de vos stats qui durera 3 tours, si vous n'avez plus assez 
-pour effectuer une action alors vous ne pourrez plus l'effectuer jusqu'a avoir assez de points.
