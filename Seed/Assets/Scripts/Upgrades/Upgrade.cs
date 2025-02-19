@@ -27,7 +27,9 @@ public class Upgrade
     public int GetNextLevelPrice()
     {
         // Prix pour le prochain niveau
-        return Mathf.RoundToInt(data.basePrice * Mathf.Pow(data.priceMultiplier, currentLevel));
+        return Mathf.RoundToInt(data.basePrice * Mathf.Exp(data.priceMultiplier));
+        //return Mathf.RoundToInt(data.basePrice * Mathf.Pow(data.priceMultiplier, currentLevel));
+        
     }
 
     public void LevelUp()
