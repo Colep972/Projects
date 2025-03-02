@@ -9,8 +9,8 @@ public class GameData
     public int totalPlants;
     public int coins;
     public string factoryName;
-    public List<string> unlockedUpgrades = new List<string>();
     public List<PotData> pots = new List<PotData>();
+    public List<UpgradeSaveData> upgrades = new List<UpgradeSaveData>();
 }
 
 [System.Serializable]

@@ -391,7 +391,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3313814766883154473}
-  m_Text: 'Plant/Prod : 1'
+  m_Text: 'Production: 1'
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -490,7 +490,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4047985155152794395}
-  m_Text: 'Produced : 0'
+  m_Text: 'Produced: 0'
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -674,7 +674,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4824194596238323609}
-  m_Text: 'GrowSpeed : 1'
+  m_Text: 'GrowSpeed: 1'
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -773,7 +773,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5100223341219375928}
-  m_Text: 'AutoPlant : False'
+  m_Text: 'AutoPlant: False'
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -872,7 +872,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5222711461486862936}
-  m_Text: 'Grow Power : 1'
+  m_Text: 'Grow Power: 1'
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -1240,7 +1240,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5985079315244373040}
-  m_Text: 'AutoGrow : False'
+  m_Text: 'AutoGrow: False'
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1

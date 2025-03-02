@@ -8,11 +8,13 @@ public class MenuManager : MonoBehaviour
 {
     // Start is called before the first frame update
     private Button loadGameButton;
+    private GameManager gameManager;
 
     private void Awake()
     {
         loadGameButton = GameObject.Find("Load Game").GetComponent<Button>();
         loadGameButton.interactable = false;
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
     private void Start()
@@ -41,7 +43,14 @@ public class MenuManager : MonoBehaviour
 
     public void LoadGame()
     {
-        SaveSystem.Load();
+        if (gameManager != null)
+        {
+            gameManager.LoadGame();
+        }
+        else
+        {
+            Debug.LogError("GameManager not found in scene!");
+        }
     }
 
     // Update is called once per frame

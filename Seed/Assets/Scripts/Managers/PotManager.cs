@@ -39,6 +39,8 @@ public class PotManager : MonoBehaviour
 
     private readonly List<GameObject> objectsToDestroy = new List<GameObject>();
 
+    public bool isFirstPotGotten = false;
+
 
     public int GetPotState(int slotIndex)
     {
@@ -88,6 +90,7 @@ public class PotManager : MonoBehaviour
                 if (Application.isPlaying)
                 {
                     AssignPotToSlot(potSlot1, _potStateSlot1);
+                    isFirstPotGotten = true;
                 }
             }
         }

@@ -4,61 +4,104 @@ using UnityEngine;
 
 public class SavingManager : MonoBehaviour
 {
-    public GrowButton _growButton;
-    public PotManager _potManager;
-    public MoneyManager _moneyManager;
+    public GameData gameData;
+    public List<Upgrade> upgrades;
     public GetName _factoryName;
+
+    private void Start()
+    {
+        if (upgrades == null)
+        {
+            upgrades = new List<Upgrade>();
+            Debug.LogWarning("`upgrades` list was NULL, creating an empty list.");
+        }
+
+        if (upgrades.Count == 0)
+        {
+            Debug.LogWarning("`upgrades` list was EMPTY, trying to get upgrades from GameManager...");
+
+            GameManager gameManager = FindFirstObjectByType<GameManager>();
+            if (gameManager != null && gameManager._upgrades != null)
+            {
+                upgrades = gameManager._upgrades;
+            }
+
+            if (upgrades == null || upgrades.Count == 0)
+            {
+                Debug.LogError("ERROR: `upgrades` list is STILL NULL or EMPTY after trying to get it!");
+            }
+        }
+    }
 
     public GameData GetGameData()
     {
-        GameData gameData = new GameData
+        if (gameData == null)
         {
-            factoryName = _factoryName.name,
-            totalPlants = _growButton.totalPlantesProduites,
-            coins = _moneyManager.GetMoney(),
-            unlockedUpgrades = new List<string>() /* Ajoutez les améliorations débloquées */,
-            pots = new List<PotData>()
-        };
-
-        for (int i = 0; i < _potManager.potAutomationSettings.Length; i++)
-        {
-            PotData potData = new PotData
-            {
-                slotIndex = i,
-                potState = _potManager.GetPotState(i),
-                pousse = _potManager.GetPotPousse(i),
-                produced = _potManager.GetPotProduced(i),
-                isAutoGrow = _potManager.potAutomationSettings[i].isAutoGrowing,
-                isAutoPlant = _potManager.potAutomationSettings[i].isAutoPlanting
-            };
-            gameData.pots.Add(potData);
+            Debug.LogError("ERROR: gameData is NULL in SavingManager!");
+            return null;
         }
 
-        return gameData;
-    }
-
-    public void LoadGameData(GameData gameData)
-    {
-        if (gameData == null) return;
-
-        _growButton.totalPlantesProduites = gameData.totalPlants;
-
-        for (int i = 0; i < gameData.pots.Count; i++)
+        if (_factoryName == null)
         {
-            PotData potData = gameData.pots[i];
-            _potManager.AssignPotToSlot(_potManager.GetSlotByIndex(potData.slotIndex), potData.potState);
+            Debug.LogError("ERROR: _factoryName (GetName) is NULL in SavingManager!");
+            return null;
+        }
 
-            Transform potSlot = _potManager.GetSlotByIndex(potData.slotIndex).transform;
-            GrowthCycle growthCycle = potSlot.GetComponentInChildren<GrowthCycle>();
+        if (upgrades == null)
+        {
+            Debug.LogWarning("`upgrades` list is NULL in SavingManager, initializing it...");
+            upgrades = new List<Upgrade>();
+        }
 
-            if (growthCycle != null)
+        GameData data = new GameData
+        {
+            totalPlants = gameData.totalPlants,
+            coins = gameData.coins,
+            pots = gameData.pots,
+            factoryName = _factoryName.getFactoryName(),
+            upgrades = new List<UpgradeSaveData>()
+        };
+
+        foreach (var upgrade in upgrades)
+        {
+            if (upgrade == null || upgrade.data == null)
             {
-                growthCycle.pousse = potData.pousse;
-                growthCycle.IncrementProduced(potData.produced);
+                Debug.LogWarning("Skipping NULL upgrade in Save!");
+                continue;
             }
 
-            _potManager.potAutomationSettings[potData.slotIndex].isAutoGrowing = potData.isAutoGrow;
-            _potManager.potAutomationSettings[potData.slotIndex].isAutoPlanting = potData.isAutoPlant;
+            UpgradeSaveData saveData = new UpgradeSaveData
+            {
+                id = upgrade.data.name,
+                currentLevel = upgrade.currentLevel,
+                isUnlocked = upgrade.isUnlocked,
+                currentValue = upgrade.currentValue,
+                currentPrice = upgrade.currentPrice
+            };
+
+            data.upgrades.Add(saveData);
+        }
+
+        return data;
+    }
+
+    public void LoadGameData(GameData data)
+    {
+        if (data == null) return;
+
+        gameData.totalPlants = data.totalPlants;
+        gameData.coins = data.coins;
+        gameData.pots = data.pots;
+
+        _factoryName.setFactoryName(data.factoryName);
+
+        foreach (var upgrade in upgrades)
+        {
+            UpgradeSaveData savedUpgrade = data.upgrades.Find(u => u.id == upgrade.data.name);
+            if (savedUpgrade != null)
+            {
+                upgrade.LoadFromData(savedUpgrade);
+            }
         }
     }
 }

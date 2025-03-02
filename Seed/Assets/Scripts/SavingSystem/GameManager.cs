@@ -4,22 +4,37 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameData gameData;
+    public GameData _gameData;
+    public SavingManager _save; 
+    public List<Upgrade> _upgrades;
 
-    public SavingManager _save;
+    private void Start()
+    {
+        if (SaveSystem.SaveExists())
+        {
+            LoadGame();
+        }
+    }
 
     public void SaveGame()
     {
-        GameData gameData = _save.GetGameData();
-        SaveSystem.Save(gameData); // Utilisez votre système de sauvegarde JSON/Binaire
-        Debug.Log("Jeu sauvegardé.");
+        _gameData = _save.GetGameData();
+        SaveSystem.Save(_gameData, _upgrades);
+        Debug.Log("Game saved successfully.");
     }
 
     public void LoadGame()
     {
-        GameData gameData = SaveSystem.Load();
-        _save.LoadGameData(gameData);
-        Debug.Log("Jeu chargé.");
+        if (SaveSystem.SaveExists())
+        {
+            _gameData = SaveSystem.Load(_upgrades);
+            _save.LoadGameData(_gameData);
+            Debug.Log("Game loaded successfully.");
+        }
+        else
+        {
+            Debug.LogWarning("No save data found!");
+        }
     }
 
 }

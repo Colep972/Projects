@@ -16,7 +16,7 @@ public class Upgrade
         currentLevel = 0;
         isUnlocked = false;
         currentValue = data.baseValue;
-        currentPrice = data.basePrice; // Prix initial
+        currentPrice = data.basePrice; 
     }
 
     public bool CanLevelUp(int playerMoney)
@@ -40,5 +40,16 @@ public class Upgrade
         isUnlocked = true;
         currentValue = data.baseValue + (data.valueIncrement * (currentLevel - 1));
         currentPrice = GetNextLevelPrice(); // Met à jour le prix pour le prochain niveau
+    }
+
+    public void LoadFromData(UpgradeSaveData data)
+    {
+        if (data.id == this.data.name)
+        {
+            currentLevel = data.currentLevel;
+            isUnlocked = data.isUnlocked;
+            currentValue = data.currentValue;
+            currentPrice = data.currentPrice;
+        }
     }
 }

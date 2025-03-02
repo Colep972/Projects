@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
+using UnityEditor.VersionControl;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class CameraRaycastPigController : MonoBehaviour
 {
     public string animationTriggerName = "PlayPigAnimation";
     public AudioSource pigAudioSource;
+    public PotManager _PotManager;
     public LayerMask pigLayer;
     public float raycastDistance = 100f;
     public List<string> randomMessages;
@@ -22,11 +26,19 @@ public class CameraRaycastPigController : MonoBehaviour
         {
             Debug.LogError("PnjTextDisplay component not found in the scene.");
         }
+        
     }
 
     private void Update()
     {
         PerformRaycast();
+        if (_PotManager != null)
+        {
+            if (!_PotManager.isFirstPotGotten)
+            {
+                DisplayTutorialMessage();
+            }
+        }
     }
 
     private void PerformRaycast()
@@ -71,6 +83,14 @@ public class CameraRaycastPigController : MonoBehaviour
             {
                 Debug.Log(message);
             }
+        }
+    }
+
+    private void DisplayTutorialMessage()
+    {
+        if (pnjTextDisplay != null)
+        {
+            pnjTextDisplay.DisplayMessagePublic("Get a pot by going in the shop, plant a seed, and grow it to 100 %.");
         }
     }
 }

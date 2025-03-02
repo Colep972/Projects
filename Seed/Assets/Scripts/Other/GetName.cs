@@ -18,4 +18,14 @@ public class GetName : MonoBehaviour
             pseudoText.text = "Guest Factory";
         }
     }
+
+    public string getFactoryName()
+    {
+        return pseudoText.text;
+    }
+
+    public void setFactoryName(string name)
+    {
+        pseudoText.text = name;
+    }
 }
