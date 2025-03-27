@@ -7,6 +7,7 @@ public class SellScript : MonoBehaviour
 {
     [Header("UI Reference")]
     [SerializeField] private TextMeshProUGUI priceText;
+    [SerializeField] public TMP_InputField priceField;
 
     [Header("Price Settings")]
     [SerializeField] private int currentPrice = 1;
@@ -44,6 +45,32 @@ public class SellScript : MonoBehaviour
         else
         {
             Debug.LogWarning("Le prix a atteint sa valeur minimale !");
+        }
+    }
+
+    public void Confirm()
+    {
+        if (int.TryParse(priceField.text, out int inputValue))
+        {
+            if (inputValue < minPrice)
+            {
+                Debug.LogWarning("La valeur saisie est inférieure au prix minimum !");
+                priceField.text = minPrice.ToString(); // Reset to minimum
+            }
+            else if (inputValue > maxPrice)
+            {
+                Debug.LogWarning("La valeur saisie dépasse le prix maximum !");
+                priceField.text = maxPrice.ToString(); // Reset to maximum
+            }
+
+            // Update the displayed price
+            priceText.text = priceField.text;
+            currentPrice = int.Parse(priceField.text); // Update currentPrice as well
+        }
+        else
+        {
+            Debug.LogError("Entrée invalide ! Assurez-vous de saisir un nombre.");
+            priceField.text = currentPrice.ToString(); // Reset to the last valid value
         }
     }
 

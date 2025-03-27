@@ -42,9 +42,9 @@ public class Upgrade
         currentPrice = GetNextLevelPrice(); // Met à jour le prix pour le prochain niveau
     }
 
-    public void LoadFromData(UpgradeSaveData data)
+    public void LoadFromData(SaveSystem.UpgradeSaveData data)
     {
-        if (data.id == this.data.name)
+        if (data.id == this.data.upgradeType)
         {
             currentLevel = data.currentLevel;
             isUnlocked = data.isUnlocked;

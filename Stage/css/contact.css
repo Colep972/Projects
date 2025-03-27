@@ -1,0 +1,675 @@
+#bg-image
+{
+    background: linear-gradient(0deg, rgba(231, 102, 61, 0.90) 0%, rgba(231, 102, 61, 0.90) 100%), url("../data/Frame606.svg") lightgray 50% / cover no-repeat;
+}
+
+#section0
+{
+    display: flex;
+    padding: 60px 100px;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+}
+
+#section0-bold
+{
+    color:#F3F2F2;
+    text-align: center;
+    font-family: 'Arial';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.ariane-links
+{
+    text-decoration: none;
+    color:#F3F2F2;
+    font-family: 'Arial';
+    text-align: center;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#section1
+{
+    display: flex;
+    height: 657px;
+    padding: 60px 100px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:30px;
+    align-self: stretch;
+}
+
+#section1-title
+{
+    color:#F3F2F2;
+    font-family: 'Asap';
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+    z-index: 0;
+}
+
+.highlight
+{
+    position: relative;
+    display: inline-block;
+}
+
+.highlight::after
+{
+    background-color:#FCDB28B2;
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 0.5em;
+    width: 100%;
+    z-index: -1;
+}
+
+#section1-text
+{
+    color:#F3F2F2;
+    text-align: center;
+    font-family: 'Arial';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    align-self: stretch;
+}
+
+#section1-container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 51%;
+}
+
+#section2
+{
+    display: flex;
+    padding: 60px 100px 0 100px;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+#section2-up-title
+{
+    color:#E7663D;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+    padding:100px;
+}
+
+#section2-left-form
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+    font-size:20px;
+}
+
+#section2-left
+{
+    display: flex;
+    width: 727px;
+    padding: 60px 80px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    flex:1 0 0;
+    align-self: stretch;
+    background-color: #F3F2F2;
+    box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.10);
+}
+
+#section2-left-title
+{
+    color:#E7663D;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+#section2-right-title
+{
+    color: #F3F2F2;
+    text-align: center;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.must::after
+{
+    content:"*"
+}
+
+#name
+{
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    border-radius: 60px;
+    background: #FFF;
+    border:none;
+    width:70%;
+}
+
+#tel
+{
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: flex-end;
+    border-radius: 60px;
+    background: #FFF;
+    border:none;
+    width:70%;
+}
+
+#message
+{
+    font-family: 'Arial';
+    display: flex;
+    width: 567px;
+    height: 148px;
+    padding: 10px;
+    align-items: flex-start;
+    border-radius: 20px;
+    background: #FFF;
+    border:none;
+}
+
+#mail
+{
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    border-radius: 60px;
+    background: #FFF;
+    border:none;
+    width:70%;
+}
+
+#submit
+{
+    border:none;
+}
+
+input[type=submit]:hover
+{
+    box-shadow: 0 4px 20px 0 rgba(168, 56, 21, 0.70);
+}
+
+#section2-right
+{
+    display: flex;
+    padding: 60px 80px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex: 1 0 0;
+    align-self: stretch;
+    background-image: url("../data/bg_contact.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+#section2-right-container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:auto;
+    gap: 10px;
+    align-self: stretch;
+}
+
+
+.section2-right-text
+{
+    display:flex;
+    border:2px solid #F3F2F2;
+    background-color:#E7663D;
+    padding:10px 30px;
+    color:#F3F2F2;
+    gap:10px;
+    position: absolute;
+    width: 21%;
+    line-height: 1.5;
+    font-size: 20px;
+}
+
+#section2-right-rect0
+{
+    position: absolute;
+    width:50%;
+    top:200px;
+    left:-50px;
+}
+
+#section2-right-rect1
+{
+    position: absolute;
+    width:50%;
+    top:255px;
+    left:-50px;
+}
+
+#section2-right-rect2
+{
+    position: absolute;
+    width:50%;
+    top:310px;
+    left:-50px;
+}
+
+#section2-right-rect3
+{
+    position: absolute;
+    width:50%;
+    top:365px;
+    left:-50px;
+    display:flex;
+    flex-direction: column;
+    line-height:1.5;
+}
+
+#section2-interlocutrices
+{
+    width: 118.392px;
+    height: 106.795px;
+    transform: rotate(7deg);
+    position: absolute;
+    left: 420px;
+    bottom:40px;
+}
+
+.section2-links
+{
+    display:flex;
+    flex-direction: column;
+}
+
+#section2-down
+{
+    display: flex;
+    width:1440px;
+    padding:0 100px;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 10px;
+    position: relative;
+}
+
+#Fatima
+{
+    width: 59.684px;
+    height: auto;
+    flex-shrink: 0;
+}
+
+i
+{
+    color:#E7663D;
+    font-size:16px;
+}
+
+::placeholder
+{
+    font-size: 16px;
+}
+
+#Lucie
+{
+    width: 52.254px;
+    height: auto;
+    flex-shrink: 0;
+}
+
+#section2-fl
+{
+    display: flex;
+    padding:50px 10px 10px 10px;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+}
+
+.section2-name
+{
+    color:#1B1918;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-decoration: none;
+}
+
+.section2-job
+{
+    color:#1B1918;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
+}
+
+#section2-f
+{
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    gap: 10px;
+}
+
+#section2-l
+{
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    gap: 10px;
+}
+
+@media screen and (min-width: 335px) and (max-width: 1023px)
+{
+    #section0
+    {
+        padding: 60px 20px;
+    }
+
+    .ariane-links
+    {
+        font-size: 10px;
+    }
+
+    #section1
+    {
+        padding: 0 20px 60px 20px;
+        height: 462px;
+    }
+
+    #section1-title
+    {
+        font-size:32px;
+    }
+
+    #section1-container
+    {
+        width:100%;
+    }
+
+    #section1-text
+    {
+        font-size: 16px;
+    }
+
+    #section2
+    {
+        flex-direction: column;
+        padding: 0 20px 60px 20px;
+    }
+
+    #section2-left
+    {
+        padding: 30px 10px;
+        width:auto;
+        align-items: center;
+    }
+
+    #section2-left-form
+    {
+        font-size: 16px;
+    }
+
+    form
+    {
+        padding:60px 20px;
+    }
+
+    #tel,#mail,#name,#message
+    {
+        width:92%;
+    }
+
+    #submit
+    {
+        margin-top: 30px;
+        width:278px;
+        padding:15px 50px;
+        font-size: 16px;
+    }
+
+    #section2-right-rect0,#section2-right-rect1,#section2-right-rect2,#section2-right-rect3
+    {
+        position: static;
+        width: 100%;
+    }
+
+    .section2-right-text
+    {
+        padding:10px;
+    }
+
+    #section2-right
+    {
+        padding: 30px 10px;
+    }
+
+    #section2-down
+    {
+        width: auto;
+        padding: 0;
+        flex-direction: column;
+    }
+
+    #section2-interlocutrices
+    {
+        display: none;
+    }
+
+    #section2-fl
+    {
+        align-self: auto;
+        flex-direction: column;
+    }
+
+    #section2-l
+    {
+        padding: 0 20px 0 0;
+    }
+}
+
+@media screen and (min-width: 1023px) and (max-width: 1279px)
+{
+
+    #section2
+    {
+        flex-direction: column;
+        padding: 0 100px 30px 100px;
+        align-items: center;
+    }
+
+    #section2-left
+    {
+        padding: 30px 10px;
+        width: 98%;
+        align-self:auto;
+        align-items: center;
+    }
+
+    #tel,#mail,#name,#message
+    {
+        width:92%;
+    }
+
+    #submit
+    {
+        margin-top: 30px;
+        width:278px;
+        font-size: 16px;
+    }
+
+
+    #section2-right-rect0,#section2-right-rect1,#section2-right-rect2,#section2-right-rect3
+    {
+        position: static;
+        width: 100%;
+    }
+
+    #section2-down
+    {
+        width: auto;
+        padding: 0;
+        flex-direction: column;
+    }
+
+    #section2-interlocutrices
+    {
+        display: none;
+    }
+
+    #section2-fl
+    {
+        align-self: flex-start;
+        flex-direction: column;
+        padding:30px 0 60px 100px;
+    }
+
+    #section2-f
+    {
+        padding:0;
+    }
+
+    #section2-l
+    {
+        padding: 0 20px 0 0;
+    }
+
+    .section2-name,.section2-job
+    {
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 1279px) and (max-width:1439px)
+{
+    #section0,#section1
+    {
+        padding:60px 20px;
+    }
+
+    #section2-up-title
+    {
+        padding: 100px 20px;
+    }
+
+    #section2
+    {
+        padding: 60px 20px 0 20px;
+    }
+
+    #section2-right-rect0
+    {
+        width:76%;
+    }
+
+    #section2-right-rect1
+    {
+        width:76%;
+    }
+
+    #section2-right-rect2
+    {
+        width:76%;
+    }
+
+    #section2-right-rect3
+    {
+        width:76%;
+    }
+
+    #section2-down
+    {
+        width: auto;
+        padding: 0 20px;
+    }
+
+    #tel,#mail,#name
+    {
+        width:80%;
+    }
+}
+
+@media screen and (min-width: 1439px) and (max-width:1707px)
+{
+    #section0, #section1
+    {
+        padding: 60px 100px;
+    }
+
+    #section2-up-title
+    {
+        padding: 100px;
+    }
+
+    #section2
+    {
+        padding: 60px 100px 0 100px;
+    }
+
+    #section2-right-rect0
+    {
+        width:76%;
+    }
+
+    #section2-right-rect1
+    {
+        width:76%;
+    }
+
+    #section2-right-rect2
+    {
+        width:76%;
+    }
+
+    #section2-right-rect3
+    {
+        width:76%;
+    }
+
+    #section2-down
+    {
+        width: auto;
+        padding: 0 100px;
+    }
+}

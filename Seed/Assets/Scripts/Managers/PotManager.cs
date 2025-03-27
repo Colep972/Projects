@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+
+
 // Définition de la classe de configuration d'automation des pots
 [System.Serializable]
 public class PotAutomationSettings
@@ -17,6 +19,21 @@ public class PotAutomationSettings
 
 public class PotManager : MonoBehaviour
 {
+    public static PotManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Keep SaveSystem between scenes
+        }
+        else
+        {
+            Destroy(gameObject); // Prevent duplicates
+        }
+    }
+
     public GrowButton growButton;
 
     [Header("-- SLOTS --")]
@@ -292,8 +309,56 @@ public class PotManager : MonoBehaviour
     }
 
 
+    public List<SaveSystem.PotData> GetPotData()
+    {
+        List<SaveSystem.PotData> potDataList = new List<SaveSystem.PotData>();
 
+        for (int i = 0; i < 4; i++)
+        {
+            Transform potSlot = transform.Find($"Pot_Slot_{i + 1}");
+            if (potSlot != null)
+            {
+                GrowthCycle growthCycle = potSlot.GetComponentInChildren<GrowthCycle>();
+                if (growthCycle != null)
+                {
+                    SaveSystem.PotData potData = new SaveSystem.PotData
+                    {
+                        slotIndex = i,
+                        potState = GetPotState(i),
+                        pousse = growthCycle.pousse,
+                        produced = growthCycle.Produced,
+                        isAutoGrow = growthCycle.isAutoGrowing,
+                        isAutoPlant = growthCycle.isAutoPlanting
+                    };
+                    potDataList.Add(potData);
+                }
+            }
+        }
 
+        return potDataList;
+    }
+
+    public void LoadPotData(List<SaveSystem.PotData> savedPots)
+    {
+        foreach (var pot in savedPots)
+        {
+            GameObject slot = GetSlotByIndex(pot.slotIndex);
+            if (slot != null)
+            {
+                AssignPotToSlot(slot, pot.potState);
+
+                GrowthCycle growthCycle = slot.GetComponentInChildren<GrowthCycle>();
+                if (growthCycle != null)
+                {
+                    growthCycle.pousse = pot.pousse;
+                    growthCycle.IncrementProduced(pot.produced);
+                    growthCycle.isAutoGrowing = pot.isAutoGrow;
+                    growthCycle.isAutoPlanting = pot.isAutoPlant;
+                    growthCycle.UpdateTextMeshes();
+                }
+            }
+        }
+    }
 
     GameObject GetPotPrefab(int potState)
     {

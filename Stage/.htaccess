@@ -1,0 +1,20 @@
+RewriteEngine On
+RewriteBase /
+
+# Si le fichier demandé n'existe pas physiquement
+RewriteCond %{REQUEST_FILENAME} !-f
+# Si le répertoire demandé n'existe pas
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirige les requêtes vers les fichiers PHP
+RewriteRule ^accueil$ index.php [L]
+RewriteRule ^qui-sommes-nous$ php/identite.php [L]
+RewriteRule ^nos-services$ php/prestations.php [L]
+RewriteRule ^offre-autonomie$ php/autonomie.php [L]
+RewriteRule ^offre-confort$ php/confort.php [L]
+RewriteRule ^offre-famille$ php/famille.php [L]
+RewriteRule ^article/reduction-credit-impot$ php/impot.php [L]
+RewriteRule ^analysons-vos-besoins$ php/analyse.php [L]
+RewriteRule ^contact$ php/contact.php [L]
+RewriteRule ^mentions-legales$ php/mentions.php [L]
+RewriteRule ^charte-respect-vie-prive$ php/charte.php [L]

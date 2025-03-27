@@ -1,10 +1,9 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SavingManager : MonoBehaviour
 {
-    public GameData gameData;
     public List<Upgrade> upgrades;
     public GetName _factoryName;
 
@@ -105,3 +104,4 @@ public class SavingManager : MonoBehaviour
         }
     }
 }
+*/

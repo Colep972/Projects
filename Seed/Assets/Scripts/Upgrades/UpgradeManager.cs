@@ -9,10 +9,21 @@ public class UpgradeManager : MonoBehaviour
     private PotManager potManager;
     private GrowButton growButton;
 
+    public static UpgradeManager Instance { get; private set; }
+
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Keep SaveSystem between scenes
+        }
+        else
+        {
+            Destroy(gameObject); // Prevent duplicates
+        }
         InitializeUpgrades();
-        potManager = FindFirstObjectByType<PotManager>();
+        potManager = PotManager.Instance;
         growButton = FindFirstObjectByType<GrowButton>();
 
         if (potManager == null)

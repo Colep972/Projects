@@ -4,37 +4,28 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameData _gameData;
-    public SavingManager _save; 
+    public static GameManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Keep SaveSystem between scenes
+        }
+        else
+        {
+            Destroy(gameObject); // Prevent duplicates
+        }
+    }
+
     public List<Upgrade> _upgrades;
 
     private void Start()
     {
-        if (SaveSystem.SaveExists())
+        if (SaveSystem.Instance.SaveExists())
         {
-            LoadGame();
+            SaveSystem.Instance.Load();
         }
     }
-
-    public void SaveGame()
-    {
-        _gameData = _save.GetGameData();
-        SaveSystem.Save(_gameData, _upgrades);
-        Debug.Log("Game saved successfully.");
-    }
-
-    public void LoadGame()
-    {
-        if (SaveSystem.SaveExists())
-        {
-            _gameData = SaveSystem.Load(_upgrades);
-            _save.LoadGameData(_gameData);
-            Debug.Log("Game loaded successfully.");
-        }
-        else
-        {
-            Debug.LogWarning("No save data found!");
-        }
-    }
-
 }
