@@ -17,4 +17,4 @@ Bienvenue dans ce dossier regroupant plusieurs projets réalisés lors de diffé
 - **Type** : Site web  
 - **Technologies** : HTML, PHP, SQL, JavaScript, CSS  
 - **Description** :  
-  Développé sur une période de 3 mois avec une maquette, ce projet web m’a permis de renforcer mes compétences en développement full-stack. Ce fut un défi enrichissant, tant sur l’aspect technique que sur la conception, et il m’a aidé à progresser dans plusieurs domaines du développement web.
+  Développé sur une période de 3 mois avec une maquette, ce projet web m’a permis de renforcer mes compétences en développement full-stack. Ce fut un défi enrichissant, tant sur l’aspect technique que sur la conception, et il m’a aidé à progresser dans plusieurs domaines du développement web. https://couleurs-services.com/
