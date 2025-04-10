@@ -13,7 +13,7 @@ public class UpgradeGridGenerator : MonoBehaviour
     [Header("Grid Settings")]
     [SerializeField] private int columns = 3;
     [SerializeField] private float spacing = 10f;
-    [SerializeField] private Vector2 buttonSize = new Vector2(100, 100);
+    [SerializeField] private Vector2 buttonSize = new Vector2(1, 1);
 
     [Header("Button Components")]
     [SerializeField] private Color unlockedColor = Color.white;

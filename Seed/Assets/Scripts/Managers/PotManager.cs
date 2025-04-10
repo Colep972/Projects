@@ -5,7 +5,6 @@ using UnityEngine;
 
 
 
-// Définition de la classe de configuration d'automation des pots
 [System.Serializable]
 public class PotAutomationSettings
 {

@@ -34,6 +34,8 @@ public class GrowthCycle : MonoBehaviour
     private const float maxScaleX = 0.75f;
     private GameObject currentPousse;
 
+    private SeedData currentSeed;
+
     public float clickPower = 1.0f;
 
     public bool isMouseOver = false;
@@ -140,7 +142,14 @@ public class GrowthCycle : MonoBehaviour
         {
             return;
         }
+        SeedData seedToPlant = FindFirstObjectByType<SeedInventoryUI>()?.GetSelectedSeed();
+        if (seedToPlant == null)
+        {
+            Debug.LogError("No seed selected from SeedInventoryUI!");
+            return;
+        }
 
+        currentSeed = seedToPlant;
         StartNewCycle();
     }
 
@@ -186,6 +195,8 @@ public class GrowthCycle : MonoBehaviour
         {
             Destroy(currentPousse);
         }
+
+        /* Ici pour modifier les pousses selon les graines */
 
         if (stage >= 0 && stage < poussePrefabs.Length)
         {
