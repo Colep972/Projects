@@ -18,6 +18,7 @@ public class CameraRaycastPigController : MonoBehaviour
     private Transform currentTarget = null;
 
     private PnjTextDisplay pnjTextDisplay;
+    private bool tutorialMessageShown = false;
 
     private void Start()
     {
@@ -36,7 +37,22 @@ public class CameraRaycastPigController : MonoBehaviour
         {
             if (!_PotManager.isFirstPotGotten)
             {
-                DisplayTutorialMessage();
+                if (!tutorialMessageShown)
+                {
+                    DisplayTutorialMessage();
+                }
+            }
+            else
+            {
+                tutorialMessageShown = true;
+                if (tutorialMessageShown)
+                {
+                    if (pnjTextDisplay != null)
+                    {
+                        pnjTextDisplay.HideConsoleBox(); // Hide the tutorial message
+                    }
+                    tutorialMessageShown = false;
+                }
             }
         }
     }
@@ -60,8 +76,8 @@ public class CameraRaycastPigController : MonoBehaviour
                 {
                     pigAudioSource.Play();
                 }
-
-                DisplayRandomMessage();
+                if (_PotManager.isFirstPotGotten)
+                    DisplayRandomMessage();
             }
         }
         else

@@ -118,6 +118,7 @@ public class PnjTextDisplay : MonoBehaviour
         DisplayMessage(message);
     }
 
+    
 
     private IEnumerator FadeElements(float startAlpha, float endAlpha, float duration)
     {
@@ -140,6 +141,27 @@ public class PnjTextDisplay : MonoBehaviour
         if (textCanvasGroup != null) textCanvasGroup.alpha = endAlpha;
         if (image1CanvasGroup != null) image1CanvasGroup.alpha = endAlpha;
         if (image2CanvasGroup != null) image2CanvasGroup.alpha = endAlpha;
+    }
+
+    public void HideConsoleBox()
+    {
+        if (currentCoroutine != null)
+        {
+            StopCoroutine(currentCoroutine);
+        }
+        currentCoroutine = StartCoroutine(FadeElements(1, 0, fadeDuration));
+
+        // After the fade out, fully disable the objects
+        StartCoroutine(DisableAfterFade());
+    }
+
+    private IEnumerator DisableAfterFade()
+    {
+        yield return new WaitForSeconds(fadeDuration);
+
+        if (textDisplay != null) textDisplay.gameObject.SetActive(false);
+        if (image1 != null) image1.SetActive(false);
+        if (image2 != null) image2.SetActive(false);
     }
 
     private void EnsureCanvasGroup(GameObject obj)

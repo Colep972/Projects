@@ -13,6 +13,7 @@ public class SeedInventoryUI : MonoBehaviour
 
     private Button selectedButton;
     private SeedData selectedSeed; // The currently selected seed
+    private static SeedData globalSelectedSeed = null;
 
     void Start()
     {
@@ -85,9 +86,13 @@ public class SeedInventoryUI : MonoBehaviour
 
         Debug.Log("Selected button text changed for: " + selectedButton.name);
         selectedSeed = seed;
+        globalSelectedSeed = seed;
     }
 
-
+    public static SeedData GetGlobalSelectedSeed()
+    {
+        return globalSelectedSeed;
+    }
 
 
     public SeedData GetSelectedSeed()

@@ -40,8 +40,11 @@ public class GrowthCycle : MonoBehaviour
 
     public bool isMouseOver = false;
 
+    private bool hasSeedPlanted = false;
+
     private void Start()
     {
+
         if (produceAudio != null && sfxAudioMixerGroup != null)
         {
             produceAudio.outputAudioMixerGroup = sfxAudioMixerGroup;
@@ -49,6 +52,9 @@ public class GrowthCycle : MonoBehaviour
 
         SetTextMeshesVisibility(false);
         UpdateTextMeshes();
+        hasSeedPlanted = false;
+        currentSeed = null;
+        UpdateSeedStateVisual();
     }
 
     private void OnMouseEnter()
@@ -61,6 +67,21 @@ public class GrowthCycle : MonoBehaviour
     {
         isMouseOver = false;
         SetTextMeshesVisibility(false);
+    }
+
+    private void UpdateSeedStateVisual()
+    {
+        if (poussePercentageText == null) return;
+
+        if (!hasSeedPlanted || currentSeed == null)
+        {
+            poussePercentageText.text = "SEED";
+        }
+        else
+        {
+            float percentage = Mathf.Clamp01((float)pousse / (maxStage * 10)) * 100;
+            poussePercentageText.text = $"{Mathf.RoundToInt(percentage)}%";
+        }
     }
 
     private void SetTextMeshesVisibility(bool isVisible)
@@ -108,6 +129,12 @@ public class GrowthCycle : MonoBehaviour
             return false;
         }
 
+        if (!hasSeedPlanted)
+        {
+            Debug.LogWarning("Cannot grow! No seed planted.");
+            return false; // Block growing if no seed planted
+        }
+
         // Convertir la puissance en entier et l'ajouter à pousse
         int powerIncrement = Mathf.RoundToInt(clickPower);
         Debug.Log($"Incrementing growth by {powerIncrement} (from clickPower: {clickPower})");
@@ -131,25 +158,32 @@ public class GrowthCycle : MonoBehaviour
 
         // Calculer et afficher le pourcentage
         float percentage = Mathf.Clamp01((float)pousse / (maxStage * 10)) * 100;
-        UpdatePoussePercentageText(Mathf.RoundToInt(percentage));
+        UpdateSeedStateVisual();
 
         return false;
     }
 
     public void Plant()
     {
-        if (!isReadyToProduce)
+        if (hasSeedPlanted)
         {
-            return;
-        }
-        SeedData seedToPlant = FindFirstObjectByType<SeedInventoryUI>()?.GetSelectedSeed();
-        if (seedToPlant == null)
-        {
-            Debug.LogError("No seed selected from SeedInventoryUI!");
+            Debug.LogWarning("Seed already planted!");
             return;
         }
 
-        currentSeed = seedToPlant;
+        SeedData selectedSeed = SeedInventoryUI.GetGlobalSelectedSeed();
+        if (selectedSeed == null)
+        {
+            Debug.LogError("No seed selected!");
+            UpdateSeedStateVisual();
+            return;
+        }
+
+        currentSeed = selectedSeed;
+        hasSeedPlanted = true;
+        pousse = 0;
+        isReadyToProduce = false;
+        Debug.Log("Planting seed: " + currentSeed.seedName);
         StartNewCycle();
     }
 
@@ -173,20 +207,30 @@ public class GrowthCycle : MonoBehaviour
         if (isReadyToProduce) return;
 
         isReadyToProduce = true;
+        hasSeedPlanted = false;
+        currentSeed = null;
         growthParticleSystem?.Play();
         PlayProduceAudio();
-        poussePercentageText.text = "SEED";
         RemovePousseVisual();
         IncrementProduced(Production);
+        UpdateSeedStateVisual();
     }
+
 
     private void StartNewCycle()
     {
-        poussePercentageText.text = "0%";
+        if (currentSeed == null)
+        {
+            isReadyToProduce = true;
+            UpdateSeedStateVisual();
+            return;
+        }
+        //poussePercentageText.text = "0%";
         pousse = 0;
         isReadyToProduce = false;
         UpdateCubeAppearance();
-        UpdatePoussePercentageText(0);
+        //UpdatePoussePercentageText(0);
+        UpdateSeedStateVisual();
     }
 
     private void UpdateGrowthStage(int stage)
@@ -227,9 +271,15 @@ public class GrowthCycle : MonoBehaviour
 
     private void UpdatePoussePercentageText(int percentage)
     {
-        if (poussePercentageText != null)
+        if (poussePercentageText == null) return;
+
+        if (!hasSeedPlanted || currentSeed == null)
         {
-            poussePercentageText.text = $"{percentage}%";
+            poussePercentageText.text = "SEED"; //Display SEED if nothing is planted
+        }
+        else
+        {
+            poussePercentageText.text = $"{percentage}%"; //Display % normally
         }
     }
 

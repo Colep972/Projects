@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Seed 0
   m_EditorClassIdentifier: 
   seedName: Seed 0
-  icon: {fileID: 21300000, guid: eff87bd28d3c8e8478f46ee405d2104b, type: 3}
+  icon: {fileID: 21300000, guid: c3a7d8e7bba46bd4e9a7526c96010685, type: 3}
