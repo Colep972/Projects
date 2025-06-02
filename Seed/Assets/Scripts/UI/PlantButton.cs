@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PlantButton : MonoBehaviour
@@ -38,6 +38,10 @@ public class PlantButton : MonoBehaviour
                 if (growthCycle != null)
                 {
                     growthCycle.Plant();
+                    if (growthCycle.getCurrentSeed() == null)
+                    {
+                        Debug.LogError("seed NULL !!!!");
+                    }
                 }
             }
         }

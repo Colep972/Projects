@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.Audio;
+using System.Linq;
 
 public class GrowthCycle : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class GrowthCycle : MonoBehaviour
     private GameObject currentPousse;
 
     private SeedData currentSeed;
+    private PlantsData currentPlantData;
 
     public float clickPower = 1.0f;
 
@@ -141,6 +143,14 @@ public class GrowthCycle : MonoBehaviour
 
         pousse += powerIncrement;
 
+        if (currentSeed == null)
+        {
+            Debug.LogError("seed NULL !!!!");
+        }
+        else
+        {
+            Debug.LogError("TRUUUUC !!!");
+        }
         // Calculer le stade actuel
         int currentStage = Mathf.Clamp(pousse / 10, 0, maxStage - 1);
 
@@ -148,7 +158,22 @@ public class GrowthCycle : MonoBehaviour
         if (pousse >= maxStage * 10)
         {
             Debug.Log("Plant reached max stage!");
+            SeedData plantedSeed = currentSeed;
             ActivateSeedState();
+            PlantsData plantData = null;
+            foreach (PlantsData plant in PlantDataManager.Instance.grownPlants)
+            {
+                if (plant.originSeed.seedName == plantedSeed.seedName)
+                {
+                    plantData = plant;
+                    break;
+                }
+            }
+            if (plantData != null)
+            {
+                plantData.number++;
+                SeedInventoryUI.Instance.UpdatePlantSlot(plantedSeed);
+            }
             return true;
         }
 
@@ -162,6 +187,11 @@ public class GrowthCycle : MonoBehaviour
 
         return false;
     }
+    
+    public SeedData getCurrentSeed()
+    {
+        return currentSeed;
+    }
 
     public void Plant()
     {
@@ -171,14 +201,13 @@ public class GrowthCycle : MonoBehaviour
             return;
         }
 
-        SeedData selectedSeed = SeedInventoryUI.GetGlobalSelectedSeed();
+        SeedData selectedSeed = SeedInventoryUI.Instance.GetSelectedSeed();
         if (selectedSeed == null)
         {
             Debug.LogError("No seed selected!");
             UpdateSeedStateVisual();
             return;
         }
-
         currentSeed = selectedSeed;
         hasSeedPlanted = true;
         pousse = 0;
@@ -225,11 +254,9 @@ public class GrowthCycle : MonoBehaviour
             UpdateSeedStateVisual();
             return;
         }
-        //poussePercentageText.text = "0%";
         pousse = 0;
         isReadyToProduce = false;
         UpdateCubeAppearance();
-        //UpdatePoussePercentageText(0);
         UpdateSeedStateVisual();
     }
 

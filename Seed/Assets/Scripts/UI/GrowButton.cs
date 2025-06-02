@@ -59,6 +59,7 @@ public class GrowButton : MonoBehaviour
                     {
                         // Utiliser la puissance de clic pour faire pousser la plante
                         bool plantProduced = growthCycle.IncrementPousse(clickPower);
+                        
 
                         // Si une plante a été produite
                         if (plantProduced)

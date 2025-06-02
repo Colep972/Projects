@@ -4,42 +4,72 @@ using TMPro;
 using System.Collections.Generic;
 using System.Linq;
 
-public class SeedInventoryUI : MonoBehaviour
+public class SeedInventoryUI : MonoBehaviour // InventoryUI
 {
+    public static SeedInventoryUI Instance { get; private set; }
+
     [Header("Seed Data")]
     [SerializeField] private List<SeedData> availableSeeds; // List of seeds the player owns
     [SerializeField] private GameObject seedButtonPrefab; // Prefab for the buttons
     [SerializeField] private Transform seedButtonContainer; // Where buttons are placed
 
+    [Header("Plant Panel")]
+    [SerializeField] private Transform plantPanelContainer;
+    [SerializeField] private GameObject plantSlotPrefab;
+
+    private Dictionary<SeedData, PlantsUI> plantSlotMap;
+
     private Button selectedButton;
     private SeedData selectedSeed; // The currently selected seed
-    private static SeedData globalSelectedSeed = null;
+    public List<Sprite> icons;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // Or disable if you prefer
+            return;
+        }
+        Instance = this;
+        plantSlotMap = new Dictionary<SeedData, PlantsUI>();
+    }
 
     void Start()
     {
         GenerateSeedButtons();
     }
 
-    void GenerateSeedButtons()
+    public void GenerateSeedButtons()
     {
+        int cmpt = 0;
         foreach (SeedData seed in availableSeeds)
         {
             GameObject buttonObj = Instantiate(seedButtonPrefab, seedButtonContainer);
 
             Button button = buttonObj.GetComponent<Button>();
-            if (button == null) Debug.LogError("Button component is missing on: " + buttonObj.name);
 
             Image icon = buttonObj.transform.Find("Icon")?.GetComponent<Image>();
-            if (icon == null) Debug.LogError("Icon child or Image component is missing on: " + buttonObj.name);
 
             TMP_Text seedText = buttonObj.transform.Find("Text").GetComponent<TMP_Text>();
-            if (seedText == null) Debug.LogError("Text child or Text component is missing on: " + buttonObj.name);
-
 
             icon.sprite = seed.icon;
             seedText.text = seed.seedName;
             SeedData seedCopy = seed;
-            button.onClick.AddListener(() => SelectSeed(seedCopy));
+            PlantsData plantData = PlantDataManager.Instance.grownPlants[cmpt];
+            cmpt++;
+
+            GameObject plantSlotObj = Instantiate(plantSlotPrefab, plantPanelContainer);
+            PlantsUI plantSlot = plantSlotObj.GetComponent<PlantsUI>();
+            plantSlot.Set(plantData);
+            plantSlotMap.Add(seedCopy, plantSlot);
+        }
+    }
+
+    public void UpdatePlantSlot(SeedData seed)
+    {
+        if (plantSlotMap.TryGetValue(seed, out PlantsUI slot))
+        {
+            slot.UpdateCount();
         }
     }
 
@@ -77,23 +107,15 @@ public class SeedInventoryUI : MonoBehaviour
             return;
         }
 
-        // Change only the text color of the selected button
         TMP_Text selectedText = selectedButton.GetComponentInChildren<TMP_Text>();
         if (selectedText != null)
         {
-            selectedText.color = Color.green; // Highlight selected button's text
+            selectedText.color = Color.green; 
         }
 
         Debug.Log("Selected button text changed for: " + selectedButton.name);
         selectedSeed = seed;
-        globalSelectedSeed = seed;
     }
-
-    public static SeedData GetGlobalSelectedSeed()
-    {
-        return globalSelectedSeed;
-    }
-
 
     public SeedData GetSelectedSeed()
     {
