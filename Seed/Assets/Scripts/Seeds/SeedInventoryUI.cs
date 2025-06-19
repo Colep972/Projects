@@ -62,6 +62,7 @@ public class SeedInventoryUI : MonoBehaviour // InventoryUI
             PlantsUI plantSlot = plantSlotObj.GetComponent<PlantsUI>();
             plantSlot.Set(plantData);
             plantSlotMap.Add(seedCopy, plantSlot);
+            button.onClick.AddListener(() => SelectSeed(seedCopy));
         }
     }
 
@@ -110,7 +111,7 @@ public class SeedInventoryUI : MonoBehaviour // InventoryUI
         TMP_Text selectedText = selectedButton.GetComponentInChildren<TMP_Text>();
         if (selectedText != null)
         {
-            selectedText.color = Color.green; 
+            selectedText.color = Color.green;
         }
 
         Debug.Log("Selected button text changed for: " + selectedButton.name);

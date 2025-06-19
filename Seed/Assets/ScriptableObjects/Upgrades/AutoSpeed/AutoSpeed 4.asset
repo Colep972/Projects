@@ -15,7 +15,7 @@ MonoBehaviour:
   upgradeName: 
   icon: {fileID: 21300000, guid: 795b83cfee489ce4990a54dd04654d71, type: 3}
   basePrice: 10
-  priceMultiplier: 1.5
+  priceMultiplier: 1
   upgradeType: 3
   baseValue: 1
   valueIncrement: 0.5

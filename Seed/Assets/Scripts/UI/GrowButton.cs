@@ -41,11 +41,10 @@ public class GrowButton : MonoBehaviour
     private void OnClick()
     {
         PlayClickSound();
-
-        // Debug pour vérifier la puissance actuelle
         Debug.Log($"Clicking with power: {clickPower}");
 
-        // Parcourir tous les pots
+        bool hasAnyPot = false;
+
         for (int i = 1; i <= 4; i++)
         {
             Transform potSlot = potsParent.Find($"Pot_Slot_{i}");
@@ -57,11 +56,9 @@ public class GrowButton : MonoBehaviour
                     GrowthCycle growthCycle = potChild.GetComponent<GrowthCycle>();
                     if (growthCycle != null)
                     {
-                        // Utiliser la puissance de clic pour faire pousser la plante
+                        hasAnyPot = true;
                         bool plantProduced = growthCycle.IncrementPousse(clickPower);
-                        
 
-                        // Si une plante a été produite
                         if (plantProduced)
                         {
                             totalPlantesProduites += growthCycle.Production;
@@ -71,7 +68,12 @@ public class GrowButton : MonoBehaviour
                 }
             }
         }
+        if (!hasAnyPot)
+        {
+            PnjTextDisplay.Instance.DisplayMessagePublic("You need a pot before growing a plant!");
+        }
     }
+
 
     public void UpdateTotalPlantesText()
     {

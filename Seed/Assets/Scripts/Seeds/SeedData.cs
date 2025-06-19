@@ -5,4 +5,6 @@ public class SeedData : ScriptableObject
 {
     public string seedName;
     public Sprite icon;
+    public GameObject[] poussePrefabs;
+    public Color pousseColor;
 }

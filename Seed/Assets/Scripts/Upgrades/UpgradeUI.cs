@@ -20,9 +20,6 @@ public class UpgradeUI : MonoBehaviour
 
     [SerializeField] private UpgradeManager upgradeManager;
     [SerializeField] private UpgradeButton[] upgradeButtons;
-    [SerializeField] private Color unlockedColor = Color.white;
-    [SerializeField] private Color lockedColor = Color.gray;
-    [SerializeField] private Color cantAffordColor = new Color(1, 0.5f, 0.5f); // Nouvelle couleur
 
     private MoneyManager moneyManager;
 
@@ -91,14 +88,14 @@ public class UpgradeUI : MonoBehaviour
         bool canAfford = moneyManager.GetMoney() >= upgrade.currentPrice;
 
         // Mise à jour de l'apparence du bouton
-        upgradeButton.button.interactable = !isMaxLevel && canAfford;
+        //upgradeButton.button.interactable = !isMaxLevel && canAfford;
 
         // Choix de la couleur
-        if (isMaxLevel)
+        /*if (isMaxLevel)
             upgradeButton.icon.color = lockedColor;
         else if (!canAfford)
-            upgradeButton.icon.color = cantAffordColor;
+            upgradeButton.icon.color = Color.white;
         else
-            upgradeButton.icon.color = unlockedColor;
+            upgradeButton.icon.color = Color.white;*/
     }
 }

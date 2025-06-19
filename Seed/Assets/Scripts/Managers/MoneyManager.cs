@@ -33,13 +33,18 @@ public class MoneyManager : MonoBehaviour
     [Header("Buttons")]
     [SerializeField] private Button sellOneButton;
     [SerializeField] private Button sellTenButton;
-
-    [Header("Debug Tools")]
-    [SerializeField] private int debugAmount = 10;
     
-
     private int currentMoney = 0;
-  
+
+    [Header("Market Dynamics")]
+    [SerializeField] private float baseMarketPrice; // Prix de référence
+    [SerializeField] private float maxMultiplier;    // Le joueur peut tenter de vendre jusqu’à 2x plus cher
+    [SerializeField] private float minMultiplier;  // Ou vendre à perte à 50%
+    [SerializeField] private float baseSuccessRate; // Taux de réussite moyen à prix correct
+    [SerializeField] private float bulkBonus;       // Bonus de réussite par plante vendue
+
+    private System.Random rng = new System.Random();
+
 
     private void Awake()
     {
@@ -69,6 +74,11 @@ public class MoneyManager : MonoBehaviour
         {
             Debug.LogError("Sell Ten Button is not assigned.");
         }
+        baseMarketPrice = 10f;
+        maxMultiplier = 2f;
+        minMultiplier = 0.5f;
+        baseSuccessRate = 0.6f;
+        bulkBonus = 0.01f;
     }
 
     private int GetCurrentPlantsFromPotManager()
@@ -111,41 +121,82 @@ public class MoneyManager : MonoBehaviour
     private void SellOnePlant()
     {
         int currentPlants = GetCurrentPlantsFromPotManager();
-
-        if (amountText == null || string.IsNullOrEmpty(amountText.text))
+        if (currentPlants <= 0)
         {
-            Debug.LogError("Amount text is null or empty");
+            PnjTextDisplay.Instance.DisplayMessagePublic("Not enough plants to sell !");
             return;
         }
-        if (currentPlants > 0)
+        if (string.IsNullOrEmpty(amountText.text)) return;
+        int quantity = 1;
+        int priceAsked = int.Parse(amountText.text);
+        bool success = EvaluateMarketSuccess(priceAsked, quantity);
+        if (success)
         {
-                
-            AddMoney(currentPlants * int.Parse(amountText.text));
+            AddMoney(priceAsked);
             UpdatePlantDisplay(--currentPlants);
+            PnjTextDisplay.Instance.DisplayMessagePublic("Sold 1 plant at " + priceAsked + " coins.");
         }
         else
         {
-            Debug.LogWarning("Not enough plants to sell.");
+            UpdatePlantDisplay(--currentPlants);
+            PnjTextDisplay.Instance.DisplayMessagePublic("Sale failed: Price too high or too low for market conditions.");
         }
     }
 
     private void SellAllPlants()
     {
         int currentPlants = GetCurrentPlantsFromPotManager();
-        Debug.Log("Attempting to sell all plants...");
-        Debug.Log($"Before Sale: Current Plants: {currentPlants}, Current Money: {currentMoney}");
-
-        if (currentPlants > 0)
+        if (currentPlants <= 0)
         {
-            AddMoney(currentPlants*int.Parse(amountText.text));
-            UpdatePlantDisplay(0);
-            Debug.Log($"Sold all plants. After Sale: Current Plants: 0, Current Money: {currentMoney}");
+            PnjTextDisplay.Instance.DisplayMessagePublic("Not enough plants to sell !");
+            return;
+        }
+        if (string.IsNullOrEmpty(amountText.text)) return;
+
+        int priceAsked = int.Parse(amountText.text);
+        int sold = 0;
+
+        for (int i = 0; i < currentPlants; i++)
+        {
+            if (EvaluateMarketSuccess(priceAsked, currentPlants))
+            {
+                sold++;
+            }
+        }
+
+        int totalEarned = sold * priceAsked;
+        AddMoney(totalEarned);
+        UpdatePlantDisplay(currentPlants - sold);
+        PnjTextDisplay.Instance.DisplayMessagePublic("Tried to sell" + currentPlants + " ,sold " + sold + " ,earned " + totalEarned + " coins ! ");
+    }
+
+    private bool EvaluateMarketSuccess(int askedPrice, int quantity)
+    {
+        float priceRatio = askedPrice / baseMarketPrice;
+        float successChance;
+
+        if (priceRatio <= minMultiplier)
+        {
+            successChance = 0.95f; // Très bon marché = presque toujours vendu
+        }
+        else if (priceRatio >= maxMultiplier)
+        {
+            successChance = 0.1f; // Trop cher = vente très difficile
         }
         else
         {
-            Debug.LogWarning("No plants available to sell.");
+            // Linéarise autour de baseSuccessRate
+            float t = (priceRatio - minMultiplier) / (maxMultiplier - minMultiplier);
+            successChance = Mathf.Lerp(0.95f, 0.1f, t);
         }
+
+        // Ajoute un bonus si le joueur vend en grande quantité
+        successChance += quantity * bulkBonus;
+        successChance = Mathf.Clamp01(successChance);
+
+        return rng.NextDouble() < successChance;
     }
+
 
     private void UpdateMoneyDisplay()
     {
@@ -171,23 +222,5 @@ public class MoneyManager : MonoBehaviour
                 potManager.growButton.UpdateTotalPlantesText();
             }
         }
-    }
-
-    public void DebugSetMoney()
-    {
-        SetMoney(debugAmount);
-        Debug.Log($"Money set to {debugAmount} via DebugSetMoney.");
-    }
-
-    public void DebugAddMoney()
-    {
-        AddMoney(debugAmount);
-        Debug.Log($"Added {debugAmount} money via DebugAddMoney.");
-    }
-
-    public void DebugRemoveMoney()
-    {
-        RemoveMoney(debugAmount);
-        Debug.Log($"Removed {debugAmount} money via DebugRemoveMoney.");
     }
 }

@@ -14,3 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seedName: Seed 2
   icon: {fileID: 21300000, guid: 361894d4dfcf6684da54c1d843ff2247, type: 3}
+  poussePrefabs:
+  - {fileID: 2514652602097645593, guid: caf54ab43a52bfe488336c61085c938a, type: 3}
+  - {fileID: 2494838123749025355, guid: 3bb5794424be4134baf5f495681bb4a5, type: 3}
+  - {fileID: 9136393067668286029, guid: dbdc968a75fdcdc4d8abec6a08c98777, type: 3}
+  - {fileID: 1243197114105515729, guid: e172d32a43ce1f840a6a5e369d68d13a, type: 3}
+  pousseColor: {r: 0.41960785, g: 0.24705882, b: 0.627451, a: 0}

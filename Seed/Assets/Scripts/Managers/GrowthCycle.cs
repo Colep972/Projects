@@ -15,7 +15,7 @@ public class GrowthCycle : MonoBehaviour
     public int potState;
     public int pousse = 0;
     public bool isReadyToProduce = false;
-    public GameObject[] poussePrefabs;
+    private GameObject[] currentPoussePrefabs;
     public ParticleSystem growthParticleSystem;
     public Transform cubeTransform;
     public Renderer cubeRenderer;
@@ -133,7 +133,7 @@ public class GrowthCycle : MonoBehaviour
 
         if (!hasSeedPlanted)
         {
-            Debug.LogWarning("Cannot grow! No seed planted.");
+            PnjTextDisplay.Instance.DisplayMessagePublic("Cannot grow! No seed planted. Seed can be found in your inventory !");
             return false; // Block growing if no seed planted
         }
 
@@ -209,6 +209,7 @@ public class GrowthCycle : MonoBehaviour
             return;
         }
         currentSeed = selectedSeed;
+        currentPoussePrefabs = currentSeed.poussePrefabs;
         hasSeedPlanted = true;
         pousse = 0;
         isReadyToProduce = false;
@@ -267,13 +268,30 @@ public class GrowthCycle : MonoBehaviour
             Destroy(currentPousse);
         }
 
-        /* Ici pour modifier les pousses selon les graines */
-
-        if (stage >= 0 && stage < poussePrefabs.Length)
+        if (currentSeed == null || currentSeed.poussePrefabs == null)
         {
-            currentPousse = Instantiate(poussePrefabs[stage], transform);
+            Debug.LogWarning("No seed or pousse prefabs available.");
+            return;
+        }
+
+        if (stage >= 0 && stage < currentSeed.poussePrefabs.Length)
+        {
+            GameObject pousseInstance = Instantiate(currentSeed.poussePrefabs[stage], transform);
+            currentPousse = pousseInstance;
+
+            // Applique la couleur de pousse définie dans la graine
+            Color seedColor = currentSeed.pousseColor;
+
+            foreach (var renderer in pousseInstance.GetComponentsInChildren<Renderer>())
+            {
+                if (renderer.material.HasProperty("_Color"))
+                {
+                    renderer.material.color = seedColor;
+                }
+            }
         }
     }
+
 
     private void RemovePousseVisual()
     {

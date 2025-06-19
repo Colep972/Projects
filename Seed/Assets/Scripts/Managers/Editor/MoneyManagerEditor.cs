@@ -1,6 +1,6 @@
 
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(MoneyManager))]
 public class MoneyManagerEditor : Editor
@@ -21,20 +21,6 @@ public class MoneyManagerEditor : Editor
         EditorGUILayout.Space(10);
 
         // Ajoute les boutons
-        if (GUILayout.Button("Set Money"))
-        {
-            manager.DebugSetMoney();
-        }
-
-        if (GUILayout.Button("Add Money"))
-        {
-            manager.DebugAddMoney();
-        }
-
-        if (GUILayout.Button("Remove Money"))
-        {
-            manager.DebugRemoveMoney();
-        }
     }
 }
 

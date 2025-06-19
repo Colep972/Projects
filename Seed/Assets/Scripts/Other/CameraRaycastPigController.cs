@@ -17,22 +17,23 @@ public class CameraRaycastPigController : MonoBehaviour
     private Animator pigAnimator;
     private Transform currentTarget = null;
 
-    private PnjTextDisplay pnjTextDisplay;
     private bool tutorialMessageShown = false;
+
+    private float messageCooldown = 1.5f;
+    private float lastMessageTime = -10f;
+
+    private bool hasStartedHideRoutine = false;
+
 
     private void Start()
     {
-        pnjTextDisplay = Object.FindFirstObjectByType<PnjTextDisplay>();
-        if (pnjTextDisplay == null)
-        {
-            Debug.LogError("PnjTextDisplay component not found in the scene.");
-        }
-        
+       
     }
 
     private void Update()
     {
         PerformRaycast();
+
         if (_PotManager != null)
         {
             if (!_PotManager.isFirstPotGotten)
@@ -40,73 +41,81 @@ public class CameraRaycastPigController : MonoBehaviour
                 if (!tutorialMessageShown)
                 {
                     DisplayTutorialMessage();
+                    tutorialMessageShown = true;
                 }
             }
             else
             {
-                tutorialMessageShown = true;
+                // Si le joueur vient juste d’obtenir son premier pot
                 if (tutorialMessageShown)
                 {
-                    if (pnjTextDisplay != null)
-                    {
-                        pnjTextDisplay.HideConsoleBox(); // Hide the tutorial message
-                    }
+                    Debug.Log("[COCHON] Pot obtenu, on masque le message de tutoriel.");
+                    PnjTextDisplay.Instance.HideConsoleBox(); // Masque proprement
                     tutorialMessageShown = false;
+                    PnjTextDisplay.Instance.isPersistentMessageActive = false;
                 }
             }
         }
     }
+
 
     private void PerformRaycast()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance, pigLayer))
+        Vector3 inputPosition;
+
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            if (currentTarget != hit.transform)
-            {
-                currentTarget = hit.transform;
-                pigAnimator = hit.collider.GetComponent<Animator>();
-
-                if (pigAnimator != null)
-                {
-                    pigAnimator.SetTrigger(animationTriggerName);
-                }
-
-                if (pigAudioSource != null)
-                {
-                    pigAudioSource.Play();
-                }
-                if (_PotManager.isFirstPotGotten)
-                    DisplayRandomMessage();
-            }
+            inputPosition = Input.GetTouch(0).position;
+        }
+        else if (Input.GetMouseButtonDown(0))
+        {
+            inputPosition = Input.mousePosition;
         }
         else
         {
-            currentTarget = null;
+            return;
+        }
+
+        Ray ray = Camera.main.ScreenPointToRay(inputPosition);
+        if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance, pigLayer))
+        {
+            currentTarget = hit.transform;
+            pigAnimator = hit.collider.GetComponent<Animator>();
+
+            if (pigAnimator != null)
+                pigAnimator.SetTrigger(animationTriggerName);
+
+            if (pigAudioSource != null)
+                pigAudioSource.Play();
+
+            if (_PotManager != null && _PotManager.isFirstPotGotten)
+                DisplayRandomMessage();
         }
     }
+
+
 
     private void DisplayRandomMessage()
     {
+        Debug.Log("[COCHON] Tentative d’affichage d’un message aléatoire");
+
+        if (Time.time - lastMessageTime < messageCooldown) return;
+
         if (randomMessages != null && randomMessages.Count > 0)
         {
             string message = randomMessages[Random.Range(0, randomMessages.Count)];
-            if (pnjTextDisplay != null)
-            {
-                pnjTextDisplay.DisplayMessagePublic(message);
-            }
-            else
-            {
-                Debug.Log(message);
-            }
+            Debug.Log("[COCHON] Message choisi : " + message);
+            PnjTextDisplay.Instance.DisplayMessagePublic(message);
+            lastMessageTime = Time.time;
         }
     }
 
+
+
     private void DisplayTutorialMessage()
     {
-        if (pnjTextDisplay != null)
-        {
-            pnjTextDisplay.DisplayMessagePublic("Get a pot by going in the shop, plant a seed, and grow it to 100 %.");
-        }
+        PnjTextDisplay.Instance.DisplayPersistentMessage("Get a pot by going in the shop, plant a seed, and grow it to 100 %.");
     }
+
+
 }

@@ -14,7 +14,7 @@ public class UpgradeData : ScriptableObject
 {
     public string upgradeName;
     public Sprite icon;
-    public int basePrice = 10; // Prix de base (niveau 0)
+    public int basePrice = 10; 
     public float priceMultiplier = 1.5f;
     public UpgradeType upgradeType;
     public float baseValue = 1f;
