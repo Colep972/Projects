@@ -37,13 +37,8 @@ public class MoneyManager : MonoBehaviour
     private int currentMoney = 0;
 
     [Header("Market Dynamics")]
-    [SerializeField] private float baseMarketPrice; // Prix de référence
-    [SerializeField] private float maxMultiplier;    // Le joueur peut tenter de vendre jusqu’à 2x plus cher
-    [SerializeField] private float minMultiplier;  // Ou vendre à perte à 50%
-    [SerializeField] private float baseSuccessRate; // Taux de réussite moyen à prix correct
-    [SerializeField] private float bulkBonus;       // Bonus de réussite par plante vendue
-
-    private System.Random rng = new System.Random();
+    [SerializeField] private DynamicMarket dynamicMarket;
+    [SerializeField] private bool debugLogMarket = false;
 
 
     private void Awake()
@@ -74,11 +69,6 @@ public class MoneyManager : MonoBehaviour
         {
             Debug.LogError("Sell Ten Button is not assigned.");
         }
-        baseMarketPrice = 10f;
-        maxMultiplier = 2f;
-        minMultiplier = 0.5f;
-        baseSuccessRate = 0.6f;
-        bulkBonus = 0.01f;
     }
 
     private int GetCurrentPlantsFromPotManager()
@@ -120,84 +110,50 @@ public class MoneyManager : MonoBehaviour
 
     private void SellOnePlant()
     {
-        int currentPlants = GetCurrentPlantsFromPotManager();
-        if (currentPlants <= 0)
-        {
-            PnjTextDisplay.Instance.DisplayMessagePublic("Not enough plants to sell !");
-            return;
-        }
-        if (string.IsNullOrEmpty(amountText.text)) return;
-        int quantity = 1;
-        int priceAsked = int.Parse(amountText.text);
-        bool success = EvaluateMarketSuccess(priceAsked, quantity);
-        if (success)
-        {
-            AddMoney(priceAsked);
-            UpdatePlantDisplay(--currentPlants);
-            PnjTextDisplay.Instance.DisplayMessagePublic("Sold 1 plant at " + priceAsked + " coins.");
-        }
-        else
-        {
-            UpdatePlantDisplay(--currentPlants);
-            PnjTextDisplay.Instance.DisplayMessagePublic("Sale failed: Price too high or too low for market conditions.");
-        }
+        SellPlants(1);
     }
 
     private void SellAllPlants()
     {
-        int currentPlants = GetCurrentPlantsFromPotManager();
-        if (currentPlants <= 0)
-        {
-            PnjTextDisplay.Instance.DisplayMessagePublic("Not enough plants to sell !");
-            return;
-        }
-        if (string.IsNullOrEmpty(amountText.text)) return;
-
-        int priceAsked = int.Parse(amountText.text);
-        int sold = 0;
-
-        for (int i = 0; i < currentPlants; i++)
-        {
-            if (EvaluateMarketSuccess(priceAsked, currentPlants))
-            {
-                sold++;
-            }
-        }
-
-        int totalEarned = sold * priceAsked;
-        AddMoney(totalEarned);
-        UpdatePlantDisplay(currentPlants - sold);
-        PnjTextDisplay.Instance.DisplayMessagePublic("Tried to sell" + currentPlants + " ,sold " + sold + " ,earned " + totalEarned + " coins ! ");
+        int total = GetCurrentPlantsFromPotManager();
+        SellPlants(total);
     }
 
-    private bool EvaluateMarketSuccess(int askedPrice, int quantity)
+    private void SellPlants(int quantity)
     {
-        float priceRatio = askedPrice / baseMarketPrice;
-        float successChance;
+        if (quantity <= 0) return;
 
-        if (priceRatio <= minMultiplier)
+        int currentPlants = GetCurrentPlantsFromPotManager();
+        if (currentPlants < quantity)
         {
-            successChance = 0.95f; // Très bon marché = presque toujours vendu
+            PnjTextDisplay.Instance.DisplayMessagePublic("Not enough plants to sell.");
+            return;
         }
-        else if (priceRatio >= maxMultiplier)
+
+        if (!int.TryParse(amountText.text, out int askedPrice))
         {
-            successChance = 0.1f; // Trop cher = vente très difficile
+            PnjTextDisplay.Instance.DisplayMessagePublic("Invalid amount in input field.");
+            return;
+        }
+
+        float chance = dynamicMarket.GetSuccessChance(askedPrice, quantity);
+        bool success = Random.value < chance;
+
+        if (success)
+        {
+            AddMoney(quantity * askedPrice);
+            UpdatePlantDisplay(currentPlants - quantity);
+            dynamicMarket.RegisterSale();
+            if (debugLogMarket) Debug.Log($"[Market] Sale success! Chance: {chance * 100f:F1}%, New base price: {dynamicMarket.baseMarketPrice}");
         }
         else
         {
-            // Linéarise autour de baseSuccessRate
-            float t = (priceRatio - minMultiplier) / (maxMultiplier - minMultiplier);
-            successChance = Mathf.Lerp(0.95f, 0.1f, t);
+            dynamicMarket.RegisterFailure();
+            if (debugLogMarket) Debug.Log($"[Market] Sale failed. Chance: {chance * 100f:F1}%, New base price: {dynamicMarket.baseMarketPrice}");
         }
-
-        // Ajoute un bonus si le joueur vend en grande quantité
-        successChance += quantity * bulkBonus;
-        successChance = Mathf.Clamp01(successChance);
-
-        return rng.NextDouble() < successChance;
     }
 
-
+    
     private void UpdateMoneyDisplay()
     {
         if (moneyText != null)

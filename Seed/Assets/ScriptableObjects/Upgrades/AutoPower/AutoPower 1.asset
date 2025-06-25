@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeName: 
   icon: {fileID: 21300000, guid: 615b877087d0984489b14bae6f77a18a, type: 3}
-  basePrice: 500
+  basePrice: 100
   priceMultiplier: 1.5
   upgradeType: 2
   baseValue: 2

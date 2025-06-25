@@ -6,6 +6,29 @@ public class PotUpgradeManager : MonoBehaviour
     [SerializeField] private PotManager potManager;
     [SerializeField] private List<PotUpgradeData> potUpgrades;
     private MoneyManager moneyManager;
+    public PotUpgradeData potData;
+    public int totalPots = 4;
+
+    public int GetScaledUpgradePrice(int currentLevel, int globalOtherLevels)
+    {
+        if (currentLevel < 0 || currentLevel >= potData.levelCosts.Length)
+        {
+            Debug.LogWarning("Niveau de pot invalide");
+            return -1;
+        }
+
+        int basePrice = potData.levelCosts[currentLevel];
+
+        // Ratio de progression globale : [0, 1]
+        float globalProgressRatio = (float)globalOtherLevels / (totalPots * 3f);
+
+        // Facteur de scaling plus doux (ex: jusqu’à +40%)
+        float scalingFactor = 1f + 0.4f * globalProgressRatio;
+
+        float finalPrice = basePrice * scalingFactor;
+
+        return Mathf.CeilToInt(finalPrice);
+    }
 
     private void Start()
     {

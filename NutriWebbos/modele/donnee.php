@@ -22,7 +22,7 @@ function insert_full_aliments ($link,$id,$nom,$kcal,$glucides,$lipides,$proteine
 {
 	if ($link)
 	{
-		$req = "INSERT INTO journal VALUES (\"$id\",NULL,\"$date\",\"$nom\",\"$kcal\",\"$glucides\",\"$lipides\",\"$proteines\",\"$gramme\",\"$spe\") ";
+		$req = "INSERT INTO journal VALUES (NULL,\"$id\",\"$date\",\"$nom\",\"$kcal\",\"$glucides\",\"$lipides\",\"$proteines\",\"$gramme\",\"$spe\") ";
 		if ($res = executeUpdate ($link,$req) == NULL)
 		{
 			return false;
@@ -38,7 +38,7 @@ function insert_aliments ($link,$id,$nom,$kcal,$glucides,$lipides,$proteines,$gr
 {
 	if ($link)
 	{
-		$req = "INSERT INTO journal VALUES (\"$id\",NULL,\"$date\",\"$nom\",\"$kcal\",\"$glucides\",\"$lipides\",\"$proteines\",\"$gramme\",NULL) ";
+		$req = "INSERT INTO journal VALUES (NULL,\"$id\", \"$date\",\"$nom\",\"$kcal\",\"$glucides\",\"$lipides\",\"$proteines\",\"$gramme\",NULL) ";
 		if ($res = executeUpdate ($link,$req) == NULL)
 		{
 			return false;
@@ -172,7 +172,7 @@ function getCategorieId ($link,$nom)
 {
 	if($link)
 	{
-		$req = "SELECT id_c FROM categorie WHERE nom=\"$nom\" ";
+		$req = "SELECT id_c FROM categories WHERE nom=\"$nom\" ";
 		$res = executeQuery($link,$req);
 		return $res;
 	}

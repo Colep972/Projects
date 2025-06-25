@@ -16,6 +16,15 @@ public class PlantDropdownUI : MonoBehaviour
     [SerializeField] private Transform selectedPlantContainer;
 
     private GameObject currentSelectedUI;
+    [SerializeField] private TextMeshProUGUI plantAmountText;
+
+    private void UpdateSelectedPlantDisplay()
+    {
+        if (selectedPlant != null && plantAmountText != null)
+        {
+            plantAmountText.text = selectedPlant.number.ToString();
+        }
+    }
 
     private void Awake()
     {
@@ -57,6 +66,7 @@ public class PlantDropdownUI : MonoBehaviour
                 int choice = 0;
                 dropdownListPanel.SetActive(false);
                 selectedPlant = plant;
+                UpdateSelectedPlantDisplay();
                 if (currentSelectedUI != null)
                     Destroy(currentSelectedUI);
 

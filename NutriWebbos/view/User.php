@@ -28,7 +28,7 @@
 	}
 	if ($a['admin'] == '1')
 	{
-		echo '<a href="admin.php" title="admin"> Admin </a><br />';
+		echo '<a href="../view/admin.php" title="admin"> Admin </a><br />';
 	}
 	if (empty($mail['email']))
 	{

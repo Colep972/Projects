@@ -21,6 +21,7 @@ public class PnjTextDisplay : MonoBehaviour
     public float milestoneMultiplier = 1.5f;
 
     private Coroutine currentCoroutine;
+    private int cmptMilestone;
     private int lastMilestone = 0;
     private int nextMilestone;
 
@@ -30,6 +31,7 @@ public class PnjTextDisplay : MonoBehaviour
 
     public bool isPersistentMessageActive = false;
     public static PnjTextDisplay Instance { get; private set; }
+
 
     private void Awake()
     {
@@ -43,6 +45,7 @@ public class PnjTextDisplay : MonoBehaviour
 
     void Start()
     {
+        cmptMilestone = 0;
         nextMilestone = initialMilestone;
 
         textCanvasGroup = EnsureCanvasGroup(textDisplay?.gameObject);
@@ -72,9 +75,20 @@ public class PnjTextDisplay : MonoBehaviour
 
             if (currentProduction >= nextMilestone)
             {
-                DisplayMessagePublic($"Vous avez produit {currentProduction} plante.s bravo !");
+                if (cmptMilestone > 5)
+                {
+                    SeedInventoryUI.Instance.availableSeeds[1].unlocked = true;
+                    SeedInventoryUI.Instance.GenerateSeedButtons();
+                }
+                if (cmptMilestone > 12)
+                {
+                    SeedInventoryUI.Instance.availableSeeds[2].unlocked = true;
+                    SeedInventoryUI.Instance.GenerateSeedButtons();
+                }
+                DisplayMessagePublic("Vous avez produit " + currentProduction + " plante.s bravo !");
                 lastMilestone = nextMilestone;
                 nextMilestone = Mathf.CeilToInt(nextMilestone * milestoneMultiplier);
+                cmptMilestone++;
             }
         }
     }

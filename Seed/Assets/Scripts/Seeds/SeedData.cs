@@ -7,4 +7,5 @@ public class SeedData : ScriptableObject
     public Sprite icon;
     public GameObject[] poussePrefabs;
     public Color pousseColor;
+    public bool unlocked;
 }

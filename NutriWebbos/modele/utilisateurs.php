@@ -101,7 +101,7 @@ function AddFood($link,$nom,$k,$g,$l,$p,$c,$spe)
 {
 	if ($link)
 	{
-		$req = "INSERT INTO aliments VALUES (NULL,\"$nom\",\"$k\",\"$g\",\"$l\",\"$p\",'100',\"$c\",NULL,\"$spe\")";
+		$req = "INSERT INTO aliments VALUES (NULL,\"$c\",\"$nom\",\"$k\",\"$g\",\"$l\",\"$p\",'100',\"$spe\")";
 		executeUpdate($link,$req);
 	}
 }
@@ -110,7 +110,7 @@ function getCat($link)
 {
 	if($link)
 	{
-		$req = "SELECT nom, id_c FROM categorie ORDER BY nom";
+		$req = "SELECT nom, id_c FROM categories ORDER BY nom";
 		$res = executeQuery($link,$req);
 		return $res;
 	}
@@ -120,7 +120,7 @@ function addCat($link,$nom)
 {
 	if ($link)
 	{
-		$req = "INSERT INTO categorie VALUES (NULL,\"$nom\")";
+		$req = "INSERT INTO categories VALUES (NULL,\"$nom\")";
 		executeUpdate($link,$req);
 	}
 }

@@ -9,7 +9,7 @@ public class SeedInventoryUI : MonoBehaviour // InventoryUI
     public static SeedInventoryUI Instance { get; private set; }
 
     [Header("Seed Data")]
-    [SerializeField] private List<SeedData> availableSeeds; // List of seeds the player owns
+    public List<SeedData> availableSeeds; // List of seeds the player owns
     [SerializeField] private GameObject seedButtonPrefab; // Prefab for the buttons
     [SerializeField] private Transform seedButtonContainer; // Where buttons are placed
 
@@ -44,6 +44,8 @@ public class SeedInventoryUI : MonoBehaviour // InventoryUI
         int cmpt = 0;
         foreach (SeedData seed in availableSeeds)
         {
+            if (!seed.unlocked) continue;
+
             GameObject buttonObj = Instantiate(seedButtonPrefab, seedButtonContainer);
 
             Button button = buttonObj.GetComponent<Button>();
