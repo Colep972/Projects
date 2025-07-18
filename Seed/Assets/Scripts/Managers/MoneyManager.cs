@@ -34,7 +34,7 @@ public class MoneyManager : MonoBehaviour
     [SerializeField] private Button sellOneButton;
     [SerializeField] private Button sellAllButton;
     
-    private int currentMoney = 500000;
+    private int currentMoney = 0;
 
     [Header("Market Dynamics")]
     [SerializeField] private DynamicMarket dynamicMarket;
