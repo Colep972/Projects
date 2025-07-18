@@ -63,7 +63,7 @@ public class UpgradeManager : MonoBehaviour
         return true;
     }
 
-    private void ApplyUpgradeEffects(Upgrade upgrade)
+    public void ApplyUpgradeEffects(Upgrade upgrade)
     {
         if (potManager == null || growButton == null) return;
 

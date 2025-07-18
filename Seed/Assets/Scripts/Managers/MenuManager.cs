@@ -8,7 +8,6 @@ public class MenuManager : MonoBehaviour
 {
     // Start is called before the first frame update
     private Button loadGameButton;
-    //private GameManager gameManager;
 
     private void Awake()
     {
@@ -18,7 +17,7 @@ public class MenuManager : MonoBehaviour
             loadGameButton = loadGameButtonObject.GetComponent<Button>();
             if (loadGameButton != null)
             {
-                loadGameButton.interactable = SaveSystem.Instance.SaveExists();
+                loadGameButton.interactable = System.IO.File.Exists(Application.persistentDataPath + "/save.json");
             }
         }
     }
@@ -43,20 +42,20 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
+        GameState.shouldLoadGame = false;
+        Debug.Log("oooooooooouuuut");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        
     }
 
-    /*public void LoadGame()
+    public void LoadGame()
     {
-        if (gameManager != null)
-        {
-            gameManager.LoadGame();
-        }
-        else
-        {
-            Debug.LogError("GameManager not found in scene!");
-        }
-    }*/
+        GameState.shouldLoadGame = true;
+        Debug.Log("iiiiiiiiiiiiin");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+       
+    }
+
 
     // Update is called once per frame
     public void ExitGame()

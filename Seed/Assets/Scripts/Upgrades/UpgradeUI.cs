@@ -67,11 +67,12 @@ public class UpgradeUI : MonoBehaviour
 
     private void UpdateButtonUI(UpgradeButton upgradeButton)
     {
-        var upgrade = upgradeManager.GetUpgrade(upgradeButton.upgradeType);
+        Upgrade upgrade = upgradeManager.GetUpgrade(upgradeButton.upgradeType);
         if (upgrade == null) return;
 
         // Mise à jour de l'icône
-        upgradeButton.icon.sprite = upgrade.data.icon;
+        upgradeButton.icon.sprite = upgrade.data.icons[Mathf.Clamp(upgrade.currentLevel, 0, upgrade.data.icons.Count - 1)];
+
 
         // Mise à jour du texte
         upgradeButton.levelText.text = $"Level {upgrade.currentLevel}/{upgrade.data.maxLevel}";

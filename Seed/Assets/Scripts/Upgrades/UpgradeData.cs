@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum UpgradeType
@@ -13,9 +14,9 @@ public enum UpgradeType
 public class UpgradeData : ScriptableObject
 {
     public string upgradeName;
-    public Sprite icon;
+    public List<Sprite> icons = new List<Sprite>();
     public int basePrice = 10; 
-    public float priceMultiplier = 1.5f;
+    public float priceMultiplier = 1.8f;
     public UpgradeType upgradeType;
     public float baseValue = 1f;
     public float valueIncrement = 1f;

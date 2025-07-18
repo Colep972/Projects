@@ -17,56 +17,94 @@ public class SeedInventoryUI : MonoBehaviour // InventoryUI
     [SerializeField] private Transform plantPanelContainer;
     [SerializeField] private GameObject plantSlotPrefab;
 
-    private Dictionary<SeedData, PlantsUI> plantSlotMap;
+    public Dictionary<SeedData, PlantsUI> plantSlotMap;
 
     private Button selectedButton;
-    private SeedData selectedSeed; // The currently selected seed
+    public SeedData selectedSeed; // The currently selected seed
     public List<Sprite> icons;
 
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject); // Or disable if you prefer
+            Destroy(gameObject);
             return;
         }
         Instance = this;
+        Debug.Log("SeedInventoryUI Awake OK");
         plantSlotMap = new Dictionary<SeedData, PlantsUI>();
     }
 
     void Start()
     {
+        availableSeeds[1].unlocked = false;
+        availableSeeds[2].unlocked = false;
         GenerateSeedButtons();
     }
 
     public void GenerateSeedButtons()
     {
+        // Nettoyage : on détruit les anciens boutons
+        foreach (Transform child in seedButtonContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (Transform child in plantPanelContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Nettoyage de la map pour éviter les doublons
+        plantSlotMap.Clear();
+
         int cmpt = 0;
         foreach (SeedData seed in availableSeeds)
         {
             if (!seed.unlocked) continue;
 
             GameObject buttonObj = Instantiate(seedButtonPrefab, seedButtonContainer);
-
             Button button = buttonObj.GetComponent<Button>();
-
             Image icon = buttonObj.transform.Find("Icon")?.GetComponent<Image>();
-
             TMP_Text seedText = buttonObj.transform.Find("Text").GetComponent<TMP_Text>();
 
             icon.sprite = seed.icon;
             seedText.text = seed.seedName;
             SeedData seedCopy = seed;
+
+            // Sécurise l'accès à grownPlants (évite les IndexOutOfRange)
+            if (cmpt >= PlantDataManager.Instance.grownPlants.Count)
+            {
+                Debug.LogWarning($"Pas assez de grownPlants pour seed {seed.seedName}");
+                continue;
+            }
+
             PlantsData plantData = PlantDataManager.Instance.grownPlants[cmpt];
             cmpt++;
 
             GameObject plantSlotObj = Instantiate(plantSlotPrefab, plantPanelContainer);
             PlantsUI plantSlot = plantSlotObj.GetComponent<PlantsUI>();
             plantSlot.Set(plantData);
-            plantSlotMap.Add(seedCopy, plantSlot);
+
+            if (PlantDropdownUI.Instance != null)
+            {
+                PlantDropdownUI.Instance.SetSelectedPlantFromSeed(seed);
+            }
+
+            if (!plantSlotMap.ContainsKey(seed))
+            {
+                plantSlotMap.Add(seedCopy, plantSlot);
+            }
+            else
+            {
+                Debug.LogWarning($"La graine {seed.seedName} est déjà dans plantSlotMap !");
+            }
+
             button.onClick.AddListener(() => SelectSeed(seedCopy));
+            Debug.Log($"Seed button created for {seed.seedName}");
         }
     }
+
 
     public void UpdatePlantSlot(SeedData seed)
     {

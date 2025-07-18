@@ -40,7 +40,7 @@ public class PlantButton : MonoBehaviour
                     growthCycle.Plant();
                     if (growthCycle.getCurrentSeed() == null)
                     {
-                        Debug.LogError("seed NULL !!!!");
+                        PnjTextDisplay.Instance.DisplayMessagePublic("You have to select a seed in the inventory (red bag)");
                     }
                 }
             }

@@ -7,7 +7,17 @@ public class GetName : MonoBehaviour
 {
     public TMP_Text pseudoText;
 
+    private bool factoryNameSet = false;
+
     void Start()
+    {
+        if (!factoryNameSet)
+        {
+            InitDefaultName();
+        }
+    }
+
+    public void InitDefaultName()
     {
         if (StaticClass._name != "")
         {
@@ -26,6 +36,15 @@ public class GetName : MonoBehaviour
 
     public void setFactoryName(string name)
     {
-        pseudoText.text = name;
+        if (pseudoText != null)
+        {
+            pseudoText.text = name;
+            Debug.Log("Factory name set to: " + pseudoText.text);
+            factoryNameSet = true;
+        }
+        else
+        {
+            Debug.LogError("pseudoText is null. Assigne-le dans l'inspecteur.");
+        }
     }
 }

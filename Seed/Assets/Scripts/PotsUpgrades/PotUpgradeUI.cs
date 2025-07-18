@@ -17,7 +17,7 @@ public class PotUpgradeUI : MonoBehaviour
     }
 
     [SerializeField] private PotUpgradeManager potUpgradeManager;
-    [SerializeField] private PotUpgradeButton[] upgradeButtons;
+    public PotUpgradeButton[] upgradeButtons;
     [SerializeField] private Color unlockedColor = Color.white;
     [SerializeField] private Color lockedColor = Color.gray;
     [SerializeField] private Color cantAffordColor = new Color(1, 0.5f, 0.5f);

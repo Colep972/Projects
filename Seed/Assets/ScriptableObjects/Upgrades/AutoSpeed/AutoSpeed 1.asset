@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: AutoSpeed 1
   m_EditorClassIdentifier: 
   upgradeName: 
-  icon: {fileID: 21300000, guid: 436238da7cc54bc42a20ef0771a430cb, type: 3}
-  basePrice: 100
+  icons:
+  - {fileID: 21300000, guid: 436238da7cc54bc42a20ef0771a430cb, type: 3}
+  - {fileID: 21300000, guid: 1ac2ce319e8319344b387e09c2e2aa43, type: 3}
+  - {fileID: 21300000, guid: 7bf6316687b259f419b6668acee306ed, type: 3}
+  - {fileID: 21300000, guid: 795b83cfee489ce4990a54dd04654d71, type: 3}
+  - {fileID: 21300000, guid: ffe3dad9aabac854a9923b8d0360b2f0, type: 3}
+  basePrice: 750
   priceMultiplier: 1.5
   upgradeType: 3
   baseValue: 1

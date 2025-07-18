@@ -116,7 +116,7 @@ public class UpgradeGridGenerator : MonoBehaviour
         }
         upgradeRef.upgradeData = upgradeData;
 
-        var upgrade = upgradeManager.GetUpgrade(upgradeData.upgradeType);
+        Upgrade upgrade = upgradeManager.GetUpgrade(upgradeData.upgradeType);
         if (upgrade != null)
         {
             int nextPrice = upgrade.GetNextLevelPrice();
@@ -124,7 +124,15 @@ public class UpgradeGridGenerator : MonoBehaviour
             bool isMaxLevel = upgrade.currentLevel >= upgradeData.maxLevel;
 
             // Configuration de l'apparence
-            icon.sprite = upgradeData.icon;
+            if (upgradeData.icons != null && upgradeData.icons.Count > 0)
+            {
+                int iconIndex = Mathf.Clamp(upgrade.currentLevel, 0, upgradeData.icons.Count - 1);
+                icon.sprite = upgradeData.icons[iconIndex];
+            }
+            else
+            {
+                Debug.LogWarning($"No icons defined for upgrade: {upgradeData.upgradeName}");
+            }
             levelText.text = $"Lvl {upgrade.currentLevel}/{upgradeData.maxLevel}";
             priceText.text = $"${nextPrice}";
 

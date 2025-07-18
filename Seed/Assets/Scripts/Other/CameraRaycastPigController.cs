@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI.Table;
 
@@ -17,17 +15,16 @@ public class CameraRaycastPigController : MonoBehaviour
     private Animator pigAnimator;
     private Transform currentTarget = null;
 
-    private bool tutorialMessageShown = false;
+    public bool tutorialMessageShown;
 
     private float messageCooldown = 1.5f;
     private float lastMessageTime = -10f;
 
-    private bool hasStartedHideRoutine = false;
-
+    public bool hasShownTutorialOnce = false;
 
     private void Start()
     {
-       
+        tutorialMessageShown = false;
     }
 
     private void Update()
@@ -38,26 +35,32 @@ public class CameraRaycastPigController : MonoBehaviour
         {
             if (!_PotManager.isFirstPotGotten)
             {
-                if (!tutorialMessageShown)
+                if (!hasShownTutorialOnce && !tutorialMessageShown)
                 {
+                    Debug.Log("Affichage du message tutoriel");
                     DisplayTutorialMessage();
                     tutorialMessageShown = true;
+                    hasShownTutorialOnce = true; // important
+                }
+                   
+                if (SaveSystem.Instance.firstPotAgain)
+                {
+                    Debug.Log("Save System");
+                    _PotManager.isFirstPotGotten = true;
                 }
             }
             else
             {
-                // Si le joueur vient juste d’obtenir son premier pot
                 if (tutorialMessageShown)
                 {
                     Debug.Log("[COCHON] Pot obtenu, on masque le message de tutoriel.");
-                    PnjTextDisplay.Instance.HideConsoleBox(); // Masque proprement
                     tutorialMessageShown = false;
+                    PnjTextDisplay.Instance.HideConsoleBox();
                     PnjTextDisplay.Instance.isPersistentMessageActive = false;
                 }
             }
         }
     }
-
 
     private void PerformRaycast()
     {
@@ -93,8 +96,6 @@ public class CameraRaycastPigController : MonoBehaviour
         }
     }
 
-
-
     private void DisplayRandomMessage()
     {
         Debug.Log("[COCHON] Tentative d’affichage d’un message aléatoire");
@@ -104,18 +105,13 @@ public class CameraRaycastPigController : MonoBehaviour
         if (randomMessages != null && randomMessages.Count > 0)
         {
             string message = randomMessages[Random.Range(0, randomMessages.Count)];
-            Debug.Log("[COCHON] Message choisi : " + message);
             PnjTextDisplay.Instance.DisplayMessagePublic(message);
             lastMessageTime = Time.time;
         }
     }
 
-
-
     private void DisplayTutorialMessage()
     {
         PnjTextDisplay.Instance.DisplayPersistentMessage("Get a pot by going in the shop, plant a seed, and grow it to 100 %.");
     }
-
-
 }

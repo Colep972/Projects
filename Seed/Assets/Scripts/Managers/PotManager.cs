@@ -188,7 +188,6 @@ public class PotManager : MonoBehaviour
 
     void Update()
     {
-        HandleMouseRaycastSelection();
         HandleAutomation();
         if (!Application.isPlaying)
         {
@@ -371,30 +370,6 @@ public class PotManager : MonoBehaviour
         };
     }
 
-    void HandleMouseRaycastSelection()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance, potLayerMask))
-        {
-            if (hit.transform != selectedPot)
-            {
-                if (selectedPot != null)
-                {
-                    StartCoroutine(ScaleTransition(selectedPot, Vector3.one));
-                }
-
-                selectedPot = hit.transform;
-                originalScale = selectedPot.localScale;
-                StartCoroutine(ScaleTransition(selectedPot, originalScale * raycastScaleIncrease));
-                UpdateInfoDisplay(selectedPot);
-            }
-        }
-        else if (selectedPot != null)
-        {
-            StartCoroutine(ScaleTransition(selectedPot, Vector3.one));
-            selectedPot = null;
-        }
-    }
 
     System.Collections.IEnumerator ScaleTransition(Transform pot, Vector3 targetScale)
     {

@@ -70,6 +70,18 @@ public class PotUpgradeManager : MonoBehaviour
         }
     }
 
+    public void TryForceSetLevel(int slotIndex, int level)
+    {
+        if (level < 0 || level > 3) return;
+        switch (slotIndex)
+        {
+            case 0: potManager.potStateSlot1 = level; break;
+            case 1: potManager.potStateSlot2 = level; break;
+            case 2: potManager.potStateSlot3 = level; break;
+            case 3: potManager.potStateSlot4 = level; break;
+        }
+    }
+
     private void SetPotLevel(int slotIndex, int level)
     {
         switch (slotIndex)

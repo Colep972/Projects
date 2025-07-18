@@ -133,11 +133,11 @@ public class GrowthCycle : MonoBehaviour
 
         if (!hasSeedPlanted)
         {
-            PnjTextDisplay.Instance.DisplayMessagePublic("Cannot grow! No seed planted. Seed can be found in your inventory !");
-            return false; // Block growing if no seed planted
+            PnjTextDisplay.Instance.DisplayMessagePublic("Cannot grow! No seed planted. Seed can be found in your inventory (red bag) !");
+            return false;
         }
 
-        // Convertir la puissance en entier et l'ajouter à pousse
+        
         int powerIncrement = Mathf.RoundToInt(clickPower);
         Debug.Log($"Incrementing growth by {powerIncrement} (from clickPower: {clickPower})");
 

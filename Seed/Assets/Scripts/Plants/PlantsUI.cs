@@ -21,5 +21,22 @@ public class PlantsUI : MonoBehaviour
     public void UpdateCount()
     {
         countText.text = plantData.number.ToString();
+
+    }
+
+    public int GetNumber()
+    {
+        return plantData.number;
+    }
+
+    public void SetNumber(int number)
+    {
+        plantData.number = number;
+        UpdateCount();
+    }
+
+    public PlantsData getData()
+    {
+        return plantData;
     }
 }

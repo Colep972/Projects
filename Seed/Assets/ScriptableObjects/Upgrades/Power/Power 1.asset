@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: Power 1
   m_EditorClassIdentifier: 
   upgradeName: 
-  icon: {fileID: 21300000, guid: dde1bfd0bbd52d54db81b1e317f7f78e, type: 3}
-  basePrice: 100
+  icons:
+  - {fileID: 21300000, guid: dde1bfd0bbd52d54db81b1e317f7f78e, type: 3}
+  - {fileID: 21300000, guid: cfe522f539bf26446a579ed942882336, type: 3}
+  - {fileID: 21300000, guid: 93131c02c2bf9574aa96c406ced367c3, type: 3}
+  - {fileID: 21300000, guid: f381f061dbfddbb44b84a7e098fbe159, type: 3}
+  - {fileID: 21300000, guid: 426a2eeeeb3c862409a4e9ccaf81c54e, type: 3}
+  basePrice: 750
   priceMultiplier: 1.5
   upgradeType: 0
   baseValue: 2

@@ -18,7 +18,7 @@ public class PnjTextDisplay : MonoBehaviour
     public float displayDuration = 3f;
     public float fadeDuration = 1f;
     public int initialMilestone = 10;
-    public float milestoneMultiplier = 1.5f;
+    public float milestoneMultiplier = 2f;
 
     private Coroutine currentCoroutine;
     private int cmptMilestone;
@@ -30,6 +30,8 @@ public class PnjTextDisplay : MonoBehaviour
     private CanvasGroup image2CanvasGroup;
 
     public bool isPersistentMessageActive = false;
+
+    private Coroutine hideCoroutine;
     public static PnjTextDisplay Instance { get; private set; }
 
 
@@ -75,17 +77,28 @@ public class PnjTextDisplay : MonoBehaviour
 
             if (currentProduction >= nextMilestone)
             {
-                if (cmptMilestone > 5)
+                if (cmptMilestone > 5 && !SeedInventoryUI.Instance.availableSeeds[1].unlocked)
                 {
+                    DisplayMessagePublic("You unlocked another seed ! Continue to work hard ");
                     SeedInventoryUI.Instance.availableSeeds[1].unlocked = true;
                     SeedInventoryUI.Instance.GenerateSeedButtons();
                 }
-                if (cmptMilestone > 12)
+                if (cmptMilestone > 12 && !SeedInventoryUI.Instance.availableSeeds[2].unlocked)
                 {
+                    DisplayMessagePublic("You unlocked another seed ! You're close to the end");
                     SeedInventoryUI.Instance.availableSeeds[2].unlocked = true;
                     SeedInventoryUI.Instance.GenerateSeedButtons();
                 }
-                DisplayMessagePublic("Vous avez produit " + currentProduction + " plante.s bravo !");
+                if(cmptMilestone > 25 && MoneyManager.Instance.GetMoney() > 50000 && 
+                    SeedInventoryUI.Instance.plantSlotMap[SeedInventoryUI.Instance.availableSeeds[0]]
+                    .GetNumber() > 50 && SeedInventoryUI.Instance.plantSlotMap[SeedInventoryUI.Instance.availableSeeds
+                    [1]].GetNumber() > 50 && 
+                    SeedInventoryUI.Instance.plantSlotMap[SeedInventoryUI.Instance.availableSeeds[2]]
+                    .GetNumber() > 50)
+                {
+                    DisplayMessagePublic("You successfully finish the alpha well done ");
+                }
+                DisplayMessagePublic("You produced " + currentProduction + " plants well done !");
                 lastMilestone = nextMilestone;
                 nextMilestone = Mathf.CeilToInt(nextMilestone * milestoneMultiplier);
                 cmptMilestone++;
@@ -97,18 +110,25 @@ public class PnjTextDisplay : MonoBehaviour
     {
         Debug.Log("[PNJ] Demande d’affichage : " + message);
 
-        if (currentCoroutine != null)
-        {
-            Debug.Log("[PNJ] Message ignoré car un message est déjà en cours.");
-            return;
-        }
+        // Si un message persistant est affiché, on ne fait rien
         if (isPersistentMessageActive)
         {
             Debug.Log("[PNJ] Message bloqué car un message persistant est actif.");
             return;
         }
+
+        // S'il y a déjà un message non persistant, on l'arrête proprement
+        if (currentCoroutine != null)
+        {
+            Debug.Log("[PNJ] Message interrompu pour afficher un nouveau message.");
+            StopCoroutine(currentCoroutine);
+            currentCoroutine = null;
+        }
+
+        // Démarre le nouveau message
         currentCoroutine = StartCoroutine(DisplayTextRoutine(message));
     }
+
 
     private IEnumerator DisplayTextRoutine(string message)
     {
@@ -133,8 +153,9 @@ public class PnjTextDisplay : MonoBehaviour
         if (currentCoroutine != null)
         {
             StopCoroutine(currentCoroutine);
+            currentCoroutine = null;
         }
-        currentCoroutine = StartCoroutine(HideBoxRoutine());
+        hideCoroutine = StartCoroutine(HideBoxRoutine());
     }
 
     private IEnumerator HideBoxRoutine()

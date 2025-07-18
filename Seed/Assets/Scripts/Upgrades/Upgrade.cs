@@ -25,12 +25,9 @@ public class Upgrade
     }
 
     public int GetNextLevelPrice()
-    {
-        // Prix pour le prochain niveau
-        return Mathf.RoundToInt(data.basePrice * Mathf.Exp(data.priceMultiplier));
-        //return Mathf.RoundToInt(data.basePrice * Mathf.Pow(data.priceMultiplier, currentLevel));
-        
-    }
+{
+    return Mathf.RoundToInt(data.basePrice * Mathf.Pow(data.priceMultiplier, currentLevel));
+}
 
     public void LevelUp()
     {
@@ -48,8 +45,10 @@ public class Upgrade
         {
             currentLevel = data.currentLevel;
             isUnlocked = data.isUnlocked;
-            currentValue = data.currentValue;
-            currentPrice = data.currentPrice;
+            currentValue = this.data.baseValue + this.data.valueIncrement * (currentLevel - 1);
+            currentPrice = GetNextLevelPrice();
+            UpgradeManager.Instance.ApplyUpgradeEffects(this);
         }
     }
+
 }

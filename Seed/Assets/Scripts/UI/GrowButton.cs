@@ -12,8 +12,8 @@ public class GrowButton : MonoBehaviour
 
     [Header("Game Settings")]
     public Transform potsParent;
-    public float clickPower = 1.0f;  // Cette valeur sera mise à jour par l'UpgradeManager
-    public int totalPlantesProduites = 0;
+    public float clickPower = 1f;  // Cette valeur sera mise à jour par l'UpgradeManager
+    public int totalPlantesProduites;
 
     [Header("Audio Settings")]
     [SerializeField] public AudioSource clickSound;
@@ -33,8 +33,12 @@ public class GrowButton : MonoBehaviour
         if (potsParent == null)
         {
             Debug.LogError("PotsParent not assigned in GrowButton!");
-        }
+        } 
+    }
 
+    public void SetTotalPlantesFromSave(int amount)
+    {
+        totalPlantesProduites = amount;
         UpdateTotalPlantesText();
     }
 

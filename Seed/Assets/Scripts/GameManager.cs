@@ -19,13 +19,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public List<Upgrade> _upgrades;
-
     private void Start()
     {
-        if (SaveSystem.Instance.SaveExists())
+        Load();
+    }
+
+
+    public void Load()
+    {
+        if (GameState.shouldLoadGame && SaveSystem.Instance.SaveExists())
         {
             SaveSystem.Instance.Load();
         }
+        else
+        {
+            Debug.Log("New Game started.");
+        }
+    }
+
+    public bool IsSaved()
+    {
+        return SaveSystem.Instance != null && SaveSystem.Instance.SaveExists();
     }
 }
