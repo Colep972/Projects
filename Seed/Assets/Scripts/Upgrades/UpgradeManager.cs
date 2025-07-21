@@ -96,6 +96,7 @@ public class UpgradeManager : MonoBehaviour
                 for (int i = 0; i < potManager.potAutomationSettings.Length; i++)
                 {
                     potManager.potAutomationSettings[i].plantsPerProduction = Mathf.RoundToInt(upgrade.currentValue);
+                  
                 }
                 break;
         }

@@ -254,6 +254,7 @@ public class SaveSystem : MonoBehaviour
             Debug.Log("here");
         }
         name.setFactoryName(data.factoryName);
+ 
 
         List<PotData> loadedPots = new List<PotData>();
         foreach (PotData pot in data.pots)
@@ -283,6 +284,23 @@ public class SaveSystem : MonoBehaviour
                 Debug.LogWarning($"Upgrade {savedUpgrade.id} not found in UpgradeManager!");
             }
         }
+
+        foreach (PlantSaveData savedPlant in data.savedPlants)
+        {
+            PlantsData matchingPlant = PlantDataManager.Instance.grownPlants
+                .Find(p => p.plantName == savedPlant.plantName && p.originSeed.seedName == savedPlant.seedName);
+
+            if (matchingPlant != null)
+            {
+                matchingPlant.number = savedPlant.number;
+                SeedInventoryUI.Instance.UpdatePlantSlot(matchingPlant.originSeed);
+            }
+            else
+            {
+                Debug.LogWarning($"Plant not found during load: {savedPlant.plantName} from seed {savedPlant.seedName}");
+            }
+        }
+
 
         foreach (SeedSaveData savedSeed in data.unlockedSeeds)
         {
@@ -339,28 +357,10 @@ public class SaveSystem : MonoBehaviour
             }
         }
 
-        int totalPlants = 0;
-        foreach (SeedSaveData savedSeed in data.unlockedSeeds)
-        {
-            SeedData matchingSeed = SeedInventoryUI.Instance.availableSeeds
-                .Find(seed => seed.seedName == savedSeed.seedName);
-
-            if (matchingSeed != null)
-            {
-                matchingSeed.unlocked = savedSeed.seedUnlocked;
-                if (ColorUtility.TryParseHtmlString("#" + savedSeed.seedPousseColorHex, out Color loadedColor))
-                {
-                    matchingSeed.pousseColor = loadedColor;
-                }
-            }
-        }
-
-
-
         GrowButton growButton = GameObject.FindFirstObjectByType<GrowButton>();
         if (growButton != null)
         {
-            growButton.SetTotalPlantesFromSave(totalPlants);
+            growButton.SetTotalPlantesFromSave(data.totalPlants);
         }
 
 

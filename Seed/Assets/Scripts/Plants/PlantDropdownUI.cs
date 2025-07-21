@@ -114,6 +114,11 @@ public class PlantDropdownUI : MonoBehaviour
 
     }
 
+    public PlantsData GetCurrentPlant()
+    {
+        return selectedPlant;
+    }
+
     public void SetSelectedPlant(PlantsData plant)
     {
         selectedPlant = plant;

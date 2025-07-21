@@ -50,24 +50,6 @@ public class MoneyManager : MonoBehaviour
         _instance = this;
         UpdateMoneyDisplay();
         UpdatePlantDisplay();
-
-        if (sellOneButton != null)
-        {
-            sellOneButton.onClick.AddListener(SellOnePlant);
-        }
-        else
-        {
-            Debug.LogError("Sell One Button is not assigned.");
-        }
-
-        if (sellAllButton != null)
-        {
-            sellAllButton.onClick.AddListener(SellAllPlants);
-        }
-        else
-        {
-            Debug.LogError("Sell Ten Button is not assigned.");
-        }
     }
 
     private PlantsData GetCurrentPlantData()
@@ -104,77 +86,50 @@ public class MoneyManager : MonoBehaviour
         onMoneyChanged?.Invoke(currentMoney); // Notifier du changement
     }
 
-    private void SellOnePlant()
+    public void SellPlants(int quantity)
     {
-        SellPlants(1);
-    }
+        if (quantity <= 0) return;
 
-    private void SellAllPlants()
-    {
-        int total = GetCurrentPlantData().number;
-        SellPlants(total);
-    }
-
-    private void SellPlants(int quantity)
-    {
-        sellAllButton.interactable = false;
-        sellOneButton.interactable = false;
-
-        try
+        PlantsData currentPlant = GetCurrentPlantData();
+        if (currentPlant == null)
         {
-            if (quantity <= 0) return;
-
-            PlantsData currentPlant = GetCurrentPlantData();
-            if (currentPlant == null)
-            {
-                PnjTextDisplay.Instance.DisplayMessagePublic("No plant selected.");
-                return;
-            }
-
-            if (currentPlant.number < quantity)
-            {
-                PnjTextDisplay.Instance.DisplayMessagePublic("Not enough plants to sell.");
-                return;
-            }
-
-            if (!int.TryParse(amountText.text, out int askedPrice))
-            {
-                PnjTextDisplay.Instance.DisplayMessagePublic("Invalid amount in input field.");
-                return;
-            }
-
-            float chance = dynamicMarket.GetSuccessChance(askedPrice, quantity);
-            bool success = Random.value < chance;
-
-            if (success)
-            {
-                AddMoney(quantity * askedPrice);
-                currentPlant.number -= quantity;
-                UpdatePlantDisplay(currentPlant.number);
-                dynamicMarket.RegisterSale();
-                PnjTextDisplay.Instance.DisplayMessagePublic("Successful sell");
-                Debug.Log($"[Market] Sale success! {quantity} of {currentPlant.plantName}, price: {askedPrice}, chance: {chance:P1}");
-            }
-            else
-            {
-                currentPlant.number -= quantity;
-                UpdatePlantDisplay(currentPlant.number);
-                dynamicMarket.RegisterFailure();
-                PnjTextDisplay.Instance.DisplayMessagePublic("The sell failed");
-                Debug.Log($"[Market] Sale failed. Plant: {currentPlant.plantName}, price: {askedPrice}, chance: {chance:P1}");
-            }
+            PnjTextDisplay.Instance.DisplayMessagePublic("No plant selected.");
+            return;
         }
-        finally
+
+        if (currentPlant.number < quantity)
         {
-            // Toujours réactiver les boutons
-            sellAllButton.interactable = true;
-            sellOneButton.interactable = true;
+            PnjTextDisplay.Instance.DisplayMessagePublic("Not enough plants to sell.");
+            return;
+        }
+
+        if (!int.TryParse(amountText.text, out int askedPrice))
+        {
+            PnjTextDisplay.Instance.DisplayMessagePublic("Invalid amount in input field.");
+            return;
+        }
+
+        float chance = dynamicMarket.GetSuccessChance(askedPrice, quantity);
+        bool success = Random.value < chance;
+
+        if (success)
+        {
+            AddMoney(quantity * askedPrice);
+            currentPlant.number -= quantity;
+            UpdatePlantDisplay(currentPlant.number);
+            dynamicMarket.RegisterSale();
+            PnjTextDisplay.Instance.DisplayMessagePublic("Successful sell you sold " + quantity + " for " + askedPrice);
+            Debug.Log($"[Market] Sale success! {quantity} of {currentPlant.plantName}, price: {askedPrice}, chance: {chance:P1}");
+        }
+        else
+        {
+           currentPlant.number -= quantity;
+           UpdatePlantDisplay(currentPlant.number);
+           dynamicMarket.RegisterFailure();
+           PnjTextDisplay.Instance.DisplayMessagePublic("The sell failed you lost " + quantity);
+           Debug.Log($"[Market] Sale failed. Plant: {currentPlant.plantName}, price: {askedPrice}, chance: {chance:P1}");
         }
     }
-
-
-
-
 
     private void UpdateMoneyDisplay()
     {

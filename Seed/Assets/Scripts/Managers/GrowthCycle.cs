@@ -149,7 +149,7 @@ public class GrowthCycle : MonoBehaviour
         }
         else
         {
-            Debug.LogError("TRUUUUC !!!");
+            /*Debug.LogError("TRUUUUC !!!");*/
         }
         // Calculer le stade actuel
         int currentStage = Mathf.Clamp(pousse / 10, 0, maxStage - 1);
@@ -171,9 +171,18 @@ public class GrowthCycle : MonoBehaviour
             }
             if (plantData != null)
             {
-                plantData.number++;
+                int bonus = 1; // valeur de base si aucun power-up
+
+                if (UpgradeManager.Instance != null)
+                {
+                    float upgradedValue = UpgradeManager.Instance.GetUpgradeValue(UpgradeType.PlantsPerHarvest);
+                    bonus = Mathf.Max(1, Mathf.RoundToInt(upgradedValue)); // minimum 1
+                }
+
+                plantData.number += bonus;
                 SeedInventoryUI.Instance.UpdatePlantSlot(plantedSeed);
             }
+
             return true;
         }
 
