@@ -40,7 +40,7 @@ public class DynamicMarket
     {
         float priceRatio = askedPrice / baseMarketPrice;
         float t = Mathf.InverseLerp(minMultiplier, maxMultiplier, priceRatio);
-        float quantityPenalty = Mathf.Log(quantity + 1) * 0.35f;
+        float quantityPenalty = Mathf.Log(quantity + 1) * 0.05f;
 
         float baseChance = Mathf.Lerp(maxChance, minChance, t + quantityPenalty);
 

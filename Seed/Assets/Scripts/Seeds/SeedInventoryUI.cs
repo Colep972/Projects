@@ -114,7 +114,7 @@ public class SeedInventoryUI : MonoBehaviour // InventoryUI
         }
     }
 
-    void SelectSeed(SeedData seed)
+    public void SelectSeed(SeedData seed)
     {
         if (seed == null)
         {

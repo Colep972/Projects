@@ -11,6 +11,7 @@ public class SaveSystem : MonoBehaviour
     [System.Serializable]
     public struct GameData
     {
+        public string selectedSeedName;
         public int totalPlants;
         public int coins;
         public string factoryName;
@@ -216,6 +217,15 @@ public class SaveSystem : MonoBehaviour
             }
         }
 
+        SeedData selected = SeedInventoryUI.Instance.selectedSeed;
+        if (selected != null)
+        {
+            data.selectedSeedName = selected.seedName;
+        }
+        else
+        {
+            data.selectedSeedName = "";
+        }
 
 
         string json = JsonUtility.ToJson(data, true);
@@ -330,6 +340,24 @@ public class SaveSystem : MonoBehaviour
             else
             {
                 Debug.LogWarning("Seed not found: " + savedSeed.seedName);
+            }
+        }
+        if (!string.IsNullOrEmpty(data.selectedSeedName))
+        {
+            SeedData selected = SeedInventoryUI.Instance.availableSeeds
+                .Find(seed => seed.seedName == data.selectedSeedName);
+
+            if (selected != null)
+            {
+                SeedInventoryUI.Instance.SelectSeed(selected);
+                if (PlantDropdownUI.Instance != null)
+                {
+                    PlantDropdownUI.Instance.SetSelectedPlantFromSeed(selected);
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Saved selected seed not found: " + data.selectedSeedName);
             }
         }
         PotUpgradeManager potUpgradeManager = GameObject.FindFirstObjectByType<PotUpgradeManager>();

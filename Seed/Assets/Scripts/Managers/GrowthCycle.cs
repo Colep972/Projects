@@ -1,7 +1,8 @@
-using UnityEngine;
-using TMPro;
-using UnityEngine.Audio;
 using System.Linq;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Audio;
 
 public class GrowthCycle : MonoBehaviour
 {
@@ -171,15 +172,20 @@ public class GrowthCycle : MonoBehaviour
             }
             if (plantData != null)
             {
-                int bonus = 1; // valeur de base si aucun power-up
+                int bonus = 1;
 
                 if (UpgradeManager.Instance != null)
                 {
-                    float upgradedValue = UpgradeManager.Instance.GetUpgradeValue(UpgradeType.PlantsPerHarvest);
-                    bonus = Mathf.Max(1, Mathf.RoundToInt(upgradedValue)); // minimum 1
+                    Upgrade upgrade = UpgradeManager.Instance.GetUpgrade(UpgradeType.PlantsPerHarvest);
+                    if (upgrade != null && upgrade.isUnlocked)
+                    {
+                        float upgradedValue = upgrade.currentValue;
+                        bonus = Mathf.Max(1, Mathf.RoundToInt(upgradedValue));
+                    }
                 }
 
                 plantData.number += bonus;
+                Debug.Log("Bonus : " + bonus);
                 SeedInventoryUI.Instance.UpdatePlantSlot(plantedSeed);
             }
 

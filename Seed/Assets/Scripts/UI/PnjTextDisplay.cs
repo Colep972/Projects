@@ -24,6 +24,7 @@ public class PnjTextDisplay : MonoBehaviour
     private int cmptMilestone;
     private int lastMilestone = 0;
     private int nextMilestone;
+    int currentProduction;
 
     private CanvasGroup textCanvasGroup;
     private CanvasGroup image1CanvasGroup;
@@ -49,6 +50,7 @@ public class PnjTextDisplay : MonoBehaviour
     {
         cmptMilestone = 0;
         nextMilestone = initialMilestone;
+        currentProduction = 0;
 
         textCanvasGroup = EnsureCanvasGroup(textDisplay?.gameObject);
         image1CanvasGroup = EnsureCanvasGroup(image1);
@@ -73,8 +75,8 @@ public class PnjTextDisplay : MonoBehaviour
     {
         if (potManager != null)
         {
-            int currentProduction = potManager.growButton.totalPlantesProduites;
-
+            currentProduction = potManager.growButton.totalPlantesProduites;
+            Debug.Log(currentProduction);
             if (currentProduction >= nextMilestone)
             {
                 if (cmptMilestone > 5 && !SeedInventoryUI.Instance.availableSeeds[1].unlocked)
