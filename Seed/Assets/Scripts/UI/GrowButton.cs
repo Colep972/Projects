@@ -14,6 +14,7 @@ public class GrowButton : MonoBehaviour
     public Transform potsParent;
     public float clickPower = 1f;  // Cette valeur sera mise à jour par l'UpgradeManager
     public int totalPlantesProduites;
+    public int plantesProduites;
 
     [Header("Audio Settings")]
     [SerializeField] public AudioSource clickSound;
@@ -38,17 +39,17 @@ public class GrowButton : MonoBehaviour
 
     public void SetTotalPlantesFromSave(int amount)
     {
-        totalPlantesProduites = amount;
+        plantesProduites = amount;
         UpdateTotalPlantesText();
     }
 
     private void OnClick()
     {
+        
         PlayClickSound();
         Debug.Log($"Clicking with power: {clickPower}");
 
         bool hasAnyPot = false;
-
         for (int i = 1; i <= 4; i++)
         {
             Transform potSlot = potsParent.Find($"Pot_Slot_{i}");
@@ -65,7 +66,9 @@ public class GrowButton : MonoBehaviour
 
                         if (plantProduced)
                         {
+                            plantesProduites += growthCycle.Production;
                             totalPlantesProduites += growthCycle.Production;
+                            SeedInventoryUI.Instance.RefreshAllPlantSlots();
                             UpdateTotalPlantesText();
                         }
                     }
@@ -83,17 +86,17 @@ public class GrowButton : MonoBehaviour
     {
         if (totalPlantesText != null)
         {
-            totalPlantesText.text = totalPlantesProduites.ToString();
+            totalPlantesText.text = plantesProduites.ToString();
         }
 
         if (all != null)
         {
-            all.text = totalPlantesProduites.ToString();
+            all.text = plantesProduites.ToString();
         }
 
         if(totalSellablePlants != null)
         {
-            totalSellablePlants.text = totalPlantesProduites.ToString();
+            totalSellablePlants.text = plantesProduites.ToString();
         }
     }
 

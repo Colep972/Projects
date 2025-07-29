@@ -146,7 +146,7 @@ public class GrowthCycle : MonoBehaviour
 
         if (currentSeed == null)
         {
-            Debug.LogError("seed NULL !!!!");
+            PnjTextDisplay.Instance.DisplayMessagePublic("Select a seed ! ");
         }
         else
         {
@@ -183,9 +183,8 @@ public class GrowthCycle : MonoBehaviour
                         bonus = Mathf.Max(1, Mathf.RoundToInt(upgradedValue));
                     }
                 }
-
+                Production = bonus;
                 plantData.number += bonus;
-                Debug.Log("Bonus : " + bonus);
                 SeedInventoryUI.Instance.UpdatePlantSlot(plantedSeed);
             }
 
@@ -297,7 +296,7 @@ public class GrowthCycle : MonoBehaviour
             // Applique la couleur de pousse définie dans la graine
             Color seedColor = currentSeed.pousseColor;
 
-            foreach (var renderer in pousseInstance.GetComponentsInChildren<Renderer>())
+            foreach (Renderer renderer in pousseInstance.GetComponentsInChildren<Renderer>())
             {
                 if (renderer.material.HasProperty("_Color"))
                 {
@@ -326,20 +325,6 @@ public class GrowthCycle : MonoBehaviour
 
             Color newColor = Color.Lerp(Color.white, Color.green, normalizedPousse);
             cubeRenderer.material.color = newColor;
-        }
-    }
-
-    private void UpdatePoussePercentageText(int percentage)
-    {
-        if (poussePercentageText == null) return;
-
-        if (!hasSeedPlanted || currentSeed == null)
-        {
-            poussePercentageText.text = "SEED"; //Display SEED if nothing is planted
-        }
-        else
-        {
-            poussePercentageText.text = $"{percentage}%"; //Display % normally
         }
     }
 

@@ -35,6 +35,8 @@ public class PnjTextDisplay : MonoBehaviour
     private Coroutine hideCoroutine;
     public static PnjTextDisplay Instance { get; private set; }
 
+    public bool priority;
+
 
     private void Awake()
     {
@@ -69,6 +71,7 @@ public class PnjTextDisplay : MonoBehaviour
         {
             Debug.LogError("PotManager reference is not assigned.");
         }
+        priority = false;
     }
 
     void Update()
@@ -79,19 +82,20 @@ public class PnjTextDisplay : MonoBehaviour
             Debug.Log(currentProduction);
             if (currentProduction >= nextMilestone)
             {
-                if (cmptMilestone > 5 && !SeedInventoryUI.Instance.availableSeeds[1].unlocked)
+                if (cmptMilestone == 6 && !SeedInventoryUI.Instance.availableSeeds[1].unlocked)
                 {
+                    Debug.Log("in cmpt : " + cmptMilestone);
                     DisplayMessagePublic("You unlocked another seed ! Continue to work hard ");
                     SeedInventoryUI.Instance.availableSeeds[1].unlocked = true;
                     SeedInventoryUI.Instance.GenerateSeedButtons();
                 }
-                if (cmptMilestone > 12 && !SeedInventoryUI.Instance.availableSeeds[2].unlocked)
+                if (cmptMilestone == 13 && !SeedInventoryUI.Instance.availableSeeds[2].unlocked)
                 {
                     DisplayMessagePublic("You unlocked another seed ! You're close to the end");
                     SeedInventoryUI.Instance.availableSeeds[2].unlocked = true;
                     SeedInventoryUI.Instance.GenerateSeedButtons();
                 }
-                if(cmptMilestone > 25 && MoneyManager.Instance.GetMoney() > 50000 && 
+                if(cmptMilestone == 26 && MoneyManager.Instance.GetMoney() > 50000 && 
                     SeedInventoryUI.Instance.plantSlotMap[SeedInventoryUI.Instance.availableSeeds[0]]
                     .GetNumber() > 50 && SeedInventoryUI.Instance.plantSlotMap[SeedInventoryUI.Instance.availableSeeds
                     [1]].GetNumber() > 50 && 
@@ -100,7 +104,10 @@ public class PnjTextDisplay : MonoBehaviour
                 {
                     DisplayMessagePublic("You successfully finish the alpha well done ");
                 }
-                DisplayMessagePublic("You produced " + currentProduction + " plants well done !");
+                if(cmptMilestone != 6 && cmptMilestone != 13)
+                {
+                    DisplayMessagePublic("You produced " + currentProduction + " plants well done !");
+                }
                 lastMilestone = nextMilestone;
                 nextMilestone = Mathf.CeilToInt(nextMilestone * milestoneMultiplier);
                 cmptMilestone++;

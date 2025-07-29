@@ -162,4 +162,13 @@ public class SeedInventoryUI : MonoBehaviour // InventoryUI
     {
         return selectedSeed;
     }
+
+    public void RefreshAllPlantSlots()
+    {
+        foreach (SeedData seed in availableSeeds)
+        {
+            UpdatePlantSlot(seed);
+        }
+    }
+
 }

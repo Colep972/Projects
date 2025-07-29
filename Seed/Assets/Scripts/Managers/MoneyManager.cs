@@ -129,6 +129,7 @@ public class MoneyManager : MonoBehaviour
            PnjTextDisplay.Instance.DisplayMessagePublic("The sell failed you lost " + quantity);
            Debug.Log($"[Market] Sale failed. Plant: {currentPlant.plantName}, price: {askedPrice}, chance: {chance:P1}");
         }
+        SeedInventoryUI.Instance.RefreshAllPlantSlots();
     }
 
     private void UpdateMoneyDisplay()
@@ -151,7 +152,7 @@ public class MoneyManager : MonoBehaviour
             PotManager potManager = Object.FindFirstObjectByType<PotManager>();
             if (potManager != null && potManager.growButton != null)
             {
-                potManager.growButton.totalPlantesProduites = updatedPlants;
+                potManager.growButton.plantesProduites = updatedPlants;
                 potManager.growButton.UpdateTotalPlantesText();
                 SeedInventoryUI.Instance.plantSlotMap[SeedInventoryUI.Instance.GetSelectedSeed()].SetNumber(updatedPlants);
             }
