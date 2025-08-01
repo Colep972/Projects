@@ -11,7 +11,7 @@ public class SeedInventoryUI : MonoBehaviour // InventoryUI
     [Header("Seed Data")]
     public List<SeedData> availableSeeds; // List of seeds the player owns
     [SerializeField] private GameObject seedButtonPrefab; // Prefab for the buttons
-    [SerializeField] private Transform seedButtonContainer; // Where buttons are placed
+    [SerializeField] public Transform seedButtonContainer; // Where buttons are placed
 
     [Header("Plant Panel")]
     [SerializeField] private Transform plantPanelContainer;
@@ -19,7 +19,7 @@ public class SeedInventoryUI : MonoBehaviour // InventoryUI
 
     public Dictionary<SeedData, PlantsUI> plantSlotMap;
 
-    private Button selectedButton;
+    public Button selectedButton;
     public SeedData selectedSeed; // The currently selected seed
     public List<Sprite> icons;
 
@@ -116,6 +116,7 @@ public class SeedInventoryUI : MonoBehaviour // InventoryUI
 
     public void SelectSeed(SeedData seed)
     {
+        Debug.Log("In the method");
         if (seed == null)
         {
             Debug.LogError("SelectSeed() called with a NULL seed!");

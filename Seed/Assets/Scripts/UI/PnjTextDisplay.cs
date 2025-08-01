@@ -79,7 +79,6 @@ public class PnjTextDisplay : MonoBehaviour
         if (potManager != null)
         {
             currentProduction = potManager.growButton.totalPlantesProduites;
-            Debug.Log(currentProduction);
             if (currentProduction >= nextMilestone)
             {
                 if (cmptMilestone == 6 && !SeedInventoryUI.Instance.availableSeeds[1].unlocked)

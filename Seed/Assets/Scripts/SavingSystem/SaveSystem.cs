@@ -1,17 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 [DefaultExecutionOrder(-10)]
 public class SaveSystem : MonoBehaviour
 {
     public static SaveSystem Instance { get; private set; }
+    private SeedData seedToSelectAfterLoad;
+
 
     [System.Serializable]
     public struct GameData
     {
         public string selectedSeedName;
+        public bool isAutoSaveEnabled;
         public int totalPlants;
         public int coins;
         public string factoryName;
@@ -227,6 +233,16 @@ public class SaveSystem : MonoBehaviour
             data.selectedSeedName = "";
         }
 
+        Toggle autoSaveToggle = GameObject.Find("Toggle")?.GetComponent<Toggle>();
+        if (autoSaveToggle != null)
+        {
+            data.isAutoSaveEnabled = autoSaveToggle.isOn;
+        }
+        else
+        {
+            Debug.LogWarning("AutoSaveToggle not found during save.");
+        }
+
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(savePath, json);
@@ -342,24 +358,23 @@ public class SaveSystem : MonoBehaviour
                 Debug.LogWarning("Seed not found: " + savedSeed.seedName);
             }
         }
+        SeedInventoryUI.Instance.GenerateSeedButtons();
+
         if (!string.IsNullOrEmpty(data.selectedSeedName))
         {
-            SeedData selected = SeedInventoryUI.Instance.availableSeeds
+            seedToSelectAfterLoad = SeedInventoryUI.Instance.availableSeeds
                 .Find(seed => seed.seedName == data.selectedSeedName);
 
-            if (selected != null)
+            if (seedToSelectAfterLoad != null)
             {
-                SeedInventoryUI.Instance.SelectSeed(selected);
-                if (PlantDropdownUI.Instance != null)
-                {
-                    PlantDropdownUI.Instance.SetSelectedPlantFromSeed(selected);
-                }
+                Invoke(nameof(DelayedSelectSeed), 0.05f); // délai très court
             }
             else
             {
                 Debug.LogWarning("Saved selected seed not found: " + data.selectedSeedName);
             }
         }
+
         PotUpgradeManager potUpgradeManager = GameObject.FindFirstObjectByType<PotUpgradeManager>();
         if (potUpgradeManager == null)
         {
@@ -385,6 +400,17 @@ public class SaveSystem : MonoBehaviour
             }
         }
 
+        Toggle autoSaveToggle = GameObject.Find("Toggle")?.GetComponent<Toggle>();
+        if (autoSaveToggle != null)
+        {
+            autoSaveToggle.isOn = data.isAutoSaveEnabled;
+        }
+        else
+        {
+            Debug.LogWarning("AutoSaveToggle not found during load.");
+        }
+
+
         GrowButton growButton = GameObject.FindFirstObjectByType<GrowButton>();
         if (growButton != null)
         {
@@ -402,4 +428,15 @@ public class SaveSystem : MonoBehaviour
     {
         return File.Exists(savePath);
     }
+
+    private void DelayedSelectSeed()
+    {
+        if (seedToSelectAfterLoad != null)
+        {
+            SeedInventoryUI.Instance.SelectSeed(seedToSelectAfterLoad);
+            PlantDropdownUI.Instance?.SetSelectedPlantFromSeed(seedToSelectAfterLoad);
+            Debug.Log("Seed selected after delay: " + seedToSelectAfterLoad.seedName);
+        }
+    }
+
 }

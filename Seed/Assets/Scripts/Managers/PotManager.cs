@@ -431,7 +431,7 @@ public class PotManager : MonoBehaviour
                         growthCycle.IncrementProduced(plantsProduced);
                         if (growButton != null)
                         {
-                            growButton.totalPlantesProduites += plantsProduced;
+                            growButton.plantesProduites += plantsProduced;
                             growButton.UpdateTotalPlantesText();
                         }
                     }

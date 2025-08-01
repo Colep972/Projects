@@ -34,7 +34,7 @@ public class MoneyManager : MonoBehaviour
     [SerializeField] private Button sellOneButton;
     [SerializeField] private Button sellAllButton;
     
-    private int currentMoney = 0;
+    private int currentMoney = 500000;
 
     [Header("Market Dynamics")]
     [SerializeField] private DynamicMarket dynamicMarket;
@@ -51,14 +51,6 @@ public class MoneyManager : MonoBehaviour
         UpdateMoneyDisplay();
         UpdatePlantDisplay();
     }
-
-    private PlantsData GetCurrentPlantData()
-    {
-        SeedData selectedSeed = SeedInventoryUI.Instance.GetSelectedSeed();
-        if (selectedSeed == null) return null;
-        return SeedInventoryUI.Instance.plantSlotMap[selectedSeed].getData();     
-    }
-
 
     public int GetMoney()
     {
@@ -86,11 +78,24 @@ public class MoneyManager : MonoBehaviour
         onMoneyChanged?.Invoke(currentMoney); // Notifier du changement
     }
 
+    public int PlantSum()
+    {
+        int sum = 0;
+        foreach(SeedData seed in SeedInventoryUI.Instance.availableSeeds)
+        {
+            if(seed.unlocked)
+            {
+                sum += SeedInventoryUI.Instance.plantSlotMap[seed].getData().number;
+            }
+        }
+        return sum;
+    }
+
     public void SellPlants(int quantity)
     {
         if (quantity <= 0) return;
 
-        PlantsData currentPlant = GetCurrentPlantData();
+        PlantsData currentPlant = PlantDropdownUI.Instance.GetCurrentPlant();
         if (currentPlant == null)
         {
             PnjTextDisplay.Instance.DisplayMessagePublic("No plant selected.");
@@ -116,15 +121,15 @@ public class MoneyManager : MonoBehaviour
         {
             AddMoney(quantity * askedPrice);
             currentPlant.number -= quantity;
-            UpdatePlantDisplay(currentPlant.number);
+            UpdatePlantDisplay(PlantSum());
             dynamicMarket.RegisterSale();
-            PnjTextDisplay.Instance.DisplayMessagePublic("Successful sell you sold " + quantity + " for " + askedPrice);
+            PnjTextDisplay.Instance.DisplayMessagePublic("Successful sell you sold " + quantity + " for " + askedPrice*quantity);
             Debug.Log($"[Market] Sale success! {quantity} of {currentPlant.plantName}, price: {askedPrice}, chance: {chance:P1}");
         }
         else
         {
            currentPlant.number -= quantity;
-           UpdatePlantDisplay(currentPlant.number);
+           UpdatePlantDisplay(PlantSum());
            dynamicMarket.RegisterFailure();
            PnjTextDisplay.Instance.DisplayMessagePublic("The sell failed you lost " + quantity);
            Debug.Log($"[Market] Sale failed. Plant: {currentPlant.plantName}, price: {askedPrice}, chance: {chance:P1}");
@@ -154,7 +159,6 @@ public class MoneyManager : MonoBehaviour
             {
                 potManager.growButton.plantesProduites = updatedPlants;
                 potManager.growButton.UpdateTotalPlantesText();
-                SeedInventoryUI.Instance.plantSlotMap[SeedInventoryUI.Instance.GetSelectedSeed()].SetNumber(updatedPlants);
             }
         }
     }
