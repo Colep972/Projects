@@ -91,6 +91,39 @@ public class MoneyManager : MonoBehaviour
         return sum;
     }
 
+    public void FirstSell(int quantity)
+    {
+        if (TutorialManager.Instance != null &&
+            TutorialManager.Instance.currentStep == TutorialStep.HarvestFirstPlant)
+        {
+            TutorialManager.Instance.AdvanceStep();
+        }
+
+        PlantsData currentPlant = PlantDropdownUI.Instance.GetCurrentPlant();
+        if (currentPlant == null)
+        {
+            PnjTextDisplay.Instance.DisplayMessagePublic("No plant selected.");
+            return;
+        }
+
+        if (currentPlant.number < quantity)
+        {
+            PnjTextDisplay.Instance.DisplayMessagePublic("Not enough plants to sell.");
+            return;
+        }
+
+        if (!int.TryParse(amountText.text, out int askedPrice))
+        {
+            PnjTextDisplay.Instance.DisplayMessagePublic("Invalid amount in input field.");
+            return;
+        }
+
+        AddMoney(quantity * askedPrice);
+        currentPlant.number -= quantity;
+        UpdatePlantDisplay(PlantSum());
+        dynamicMarket.RegisterSale();
+    }
+
     public void SellPlants(int quantity)
     {
         if (quantity <= 0) return;

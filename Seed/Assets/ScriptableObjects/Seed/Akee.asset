@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de0017d36ce7d74ab2175833d7bee6e, type: 3}
+  m_Name: Akee
+  m_EditorClassIdentifier: 
+  seedName: Akee
+  icon: {fileID: -570626215, guid: e61cec8bf98dff744ac4cc687bff23f9, type: 3}
+  poussePrefabs:
+  - {fileID: 2514652602097645593, guid: caf54ab43a52bfe488336c61085c938a, type: 3}
+  - {fileID: 2494838123749025355, guid: 3bb5794424be4134baf5f495681bb4a5, type: 3}
+  - {fileID: 9136393067668286029, guid: dbdc968a75fdcdc4d8abec6a08c98777, type: 3}
+  - {fileID: 1243197114105515729, guid: e172d32a43ce1f840a6a5e369d68d13a, type: 3}
+  pousseColor: {r: 0.13333334, g: 0.54509807, b: 0.13333334, a: 0}
+  unlocked: 1
+  ability: {fileID: 11400000, guid: 6474ff7f0f2f7664990e17e8ddac9a4c, type: 2}

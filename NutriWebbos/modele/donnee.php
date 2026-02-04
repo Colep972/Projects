@@ -131,15 +131,6 @@ function Somme_glucide ($link,$id)
 	}
 }
 
-function manquant ($link,$aliment)
-{
-	if($link)
-	{
-		$req = "INSERT INTO manquant VALUES (NULL, \"$aliment\") ";
-		executeUpdate($link,$req);
-	}
-}
-
 function Supprimer ($link,$date)
 {
 	if($link)
@@ -187,4 +178,115 @@ function ShowFood($link,$id)
 		return $res;
 	}
 }
+
+function addRecipe($link,$name,$idm)
+{
+	if($link)
+	{
+		$req = "INSERT INTO recette VALUES (NULL,\"$name\",\"$idm\")";
+		if ($res = executeUpdate ($link,$req) == NULL)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+}
+
+function getRecipeId($link,$nom)
+{
+	if($link)
+	{
+		$req = "SELECT id_r FROM recette WHERE nom = \"$nom\"";
+		$res = executeQuery($link,$req);
+		return $res;
+	}
+}
+
+function addIngredient($link,$idr,$name,$gramme)
+{
+	if($link)
+	{
+		$req = "INSERT INTO ingredients VALUES (NULL,\"$name\",\"$idr\",\"$gramme\")";
+		if ($res = executeUpdate ($link,$req) == NULL)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+}
+
+function hasRecipe($link,$idm)
+{
+	if($link)
+	{
+		$req = "SELECT nom FROM recette WHERE fk_idm = \"$idm\" ";
+		$res = executeQuery($link,$req);
+		return $res;
+	}
+}
+
+function showRecipe($link,$idm)
+{
+	if($link)
+	{
+		$req = "SELECT nom FROM recette WHERE fk_idm = \"$idm\" ";
+		$res = executeQuery($link,$req);
+		return $res;
+	}
+}
+
+function getIngredients($link,$idr)
+{
+	if($link)
+	{
+		$req = "SELECT * FROM ingredients WHERE fk_idr = \"$idr\" ";
+		$res = executeQuery($link,$req);
+		return $res;
+	}
+}
+
+function getFood($link,$nom)
+{
+	if($link)
+	{
+		$req = "SELECT * FROM aliments WHERE nom = \"$nom\"";
+		$res = executeQuery($link,$req);
+		return $res;
+	}
+}
+
+function getDataMember($link,$id)
+{
+	if($link)
+	{
+		$req = "SELECT * FROM membres WHERE id_m = \"$id\"";
+		$res = executeQuery($link,$req);
+		return $res;
+	}
+}
+
+function updateProteines($link,$pseudo,$new,$goal,$daily)
+{
+	$req = "UPDATE membres SET proteines = \"$new\", goal = \"$goal\", journalier = \"$daily\" WHERE pseudo = \"$pseudo\" ";
+	executeUpdate($link,$req);
+}
+
+function updateGlucides($link,$pseudo,$new,$goal,$daily)
+{
+	$req = "UPDATE membres SET glucides = \"$new\", goal = \"$goal\", journalier = \"$daily\" WHERE pseudo = \"$pseudo\" ";
+	executeUpdate($link,$req);
+}
+
+function updateLipides($link,$pseudo,$new,$goal,$daily)
+{
+	$req = "UPDATE membres SET lipides = \"$new\", goal = \"$goal\", journalier = \"$daily\" WHERE pseudo = \"$pseudo\" ";
+	executeUpdate($link,$req);
+}
+
 ?>

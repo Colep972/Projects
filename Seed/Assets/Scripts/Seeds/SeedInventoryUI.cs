@@ -37,9 +37,8 @@ public class SeedInventoryUI : MonoBehaviour // InventoryUI
 
     void Start()
     {
-        availableSeeds[1].unlocked = false;
-        availableSeeds[2].unlocked = false;
         GenerateSeedButtons();
+        GetUnlockedSeeds();
     }
 
     public void GenerateSeedButtons()
@@ -116,7 +115,6 @@ public class SeedInventoryUI : MonoBehaviour // InventoryUI
 
     public void SelectSeed(SeedData seed)
     {
-        Debug.Log("In the method");
         if (seed == null)
         {
             Debug.LogError("SelectSeed() called with a NULL seed!");
@@ -152,9 +150,14 @@ public class SeedInventoryUI : MonoBehaviour // InventoryUI
         TMP_Text selectedText = selectedButton.GetComponentInChildren<TMP_Text>();
         if (selectedText != null)
         {
+            
             selectedText.color = Color.green;
         }
 
+        if (TutorialManager.Instance != null && TutorialManager.Instance.currentStep == TutorialStep.GetFirstPot)
+        {
+            TutorialManager.Instance.AdvanceStep();
+        }
         Debug.Log("Selected button text changed for: " + selectedButton.name);
         selectedSeed = seed;
     }
@@ -172,4 +175,64 @@ public class SeedInventoryUI : MonoBehaviour // InventoryUI
         }
     }
 
+    public List<SeedData> GetUnlockedSeeds()
+    {
+        List<SeedData> unlockedSeeds;
+        unlockedSeeds = new List<SeedData>();
+        foreach (SeedData seed in availableSeeds)
+        {
+            if(seed.unlocked)
+            {
+                unlockedSeeds.Add(seed);
+            }
+        }
+        return unlockedSeeds;
+    }
+
+    public void AddToInventory(SeedData add, int amount)
+    {
+        foreach (SeedData seed in availableSeeds)
+        {
+            if (seed == add)
+            {
+                plantSlotMap[add].SetNumber(plantSlotMap[add].GetNumber() + amount);
+            }
+        }
+    }
+
+    public void AddPlant(int amount)
+    {
+        plantSlotMap[GetUnlockedSeeds()[Random.Range(0, GetUnlockedSeeds().Count)]].SetNumber(plantSlotMap[GetUnlockedSeeds()[Random.Range(0, GetUnlockedSeeds().Count)]].GetNumber() + amount);
+    }
+
+    public void RemovePlant(int amount)
+    {
+        plantSlotMap[GetUnlockedSeeds()[Random.Range(0, GetUnlockedSeeds().Count)]].SetNumber(plantSlotMap[GetUnlockedSeeds()[Random.Range(0, GetUnlockedSeeds().Count)]].GetNumber() - amount);
+    }
+
+    public void RemoveFromInventory(SeedData remove, int amount)
+    {
+        foreach (SeedData seed in availableSeeds)
+        {
+            if (seed == remove)
+            {
+                if(amount <= plantSlotMap[remove].GetNumber())
+                {
+                    plantSlotMap[remove].SetNumber(plantSlotMap[remove].GetNumber() - amount);
+                } 
+            }
+        }
+    }
+
+    public bool HasSeed(SeedData seed)
+    {
+        foreach(SeedData find  in availableSeeds)
+        {
+            if(seed == find)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

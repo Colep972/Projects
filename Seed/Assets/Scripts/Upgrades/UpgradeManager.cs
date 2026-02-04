@@ -126,6 +126,32 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
+    public string GetBasicDescription(Upgrade upgrade)
+    {
+        switch (upgrade.data.upgradeType)
+        {
+            case UpgradeType.ClickPower:
+                return "Increases the power of your clicks, allowing faster plant growth.";
+
+            case UpgradeType.SellPrice:
+                return "Boosts the price you get when selling plants.";
+
+            case UpgradeType.AutoGrowPower:
+                return "Improves the strength of your automatic growth per cycle.";
+
+            case UpgradeType.AutoGrowSpeed:
+                return "Reduces the time between automatic growth cycles.";
+
+            case UpgradeType.PlantsPerHarvest:
+                return "Increases the number of plants produced each harvest.";
+
+            default:
+                return "Enhances your farming abilities.";
+        }
+    }
+
+
+
     public float GetUpgradeValue(UpgradeType type)
     {
         return upgrades.ContainsKey(type) ? upgrades[type].currentValue : 0f;

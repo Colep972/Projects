@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/IntroScene.unity
     guid: b7bb744e442265b43944cfb3c3690b38
   - enabled: 1
+    path: Assets/Scenes/LoreScene.unity
+    guid: 89f3da432629fa04d815a321a631cb12
+  - enabled: 1
     path: Assets/Scenes/Clone.unity
     guid: ad87d39d75310ee4c8dfc242c05d0b63
   - enabled: 0

@@ -37,9 +37,10 @@ public class GrowButton : MonoBehaviour
         } 
     }
 
-    public void SetTotalPlantesFromSave(int amount)
+    public void SetTotalPlantesFromSave(int amount, int total)
     {
         plantesProduites = amount;
+        totalPlantesProduites = total;
         UpdateTotalPlantesText();
     }
 

@@ -1,8 +1,8 @@
 <?php 
 $dbHost = '';
-$dbUser = '';
+$dbUser = 'root';
 $dbPwd = '';
-$dbName = '';
+$dbName = 'nutrli_data';
 
 function getConnection($dbHost, $dbUser, $dbPwd, $dbName)
 {

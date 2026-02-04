@@ -51,7 +51,6 @@ public class UpgradeUI : MonoBehaviour
         int playerMoney = moneyManager.GetMoney();
         if (upgradeManager.TryPurchaseUpgrade(type, playerMoney))
         {
-            // Déduire l'argent
             moneyManager.RemoveMoney(upgrade.currentPrice);
             UpdateAllButtonsUI();
         }

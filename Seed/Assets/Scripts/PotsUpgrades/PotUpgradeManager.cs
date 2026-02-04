@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 
 public class PotUpgradeManager : MonoBehaviour
@@ -9,26 +9,25 @@ public class PotUpgradeManager : MonoBehaviour
     public PotUpgradeData potData;
     public int totalPots = 4;
 
-    public int GetScaledUpgradePrice(int currentLevel, int globalOtherLevels)
+    public int GetScaledUpgradePrice(PotUpgradeData potData, int currentLevel, int globalOtherLevels)
     {
         if (currentLevel < 0 || currentLevel >= potData.levelCosts.Length)
         {
-            Debug.LogWarning("Niveau de pot invalide");
+            Debug.LogWarning("Invalid pot level");
             return -1;
         }
 
         int basePrice = potData.levelCosts[currentLevel];
+        if (basePrice <= 0) return 0;
 
-        // Ratio de progression globale : [0, 1]
-        float globalProgressRatio = (float)globalOtherLevels / (totalPots * 3f);
+        float levelMultiplier = Mathf.Pow(1.6f, currentLevel);
+        float globalMultiplier = Mathf.Pow(1.15f, globalOtherLevels);
 
-        // Facteur de scaling plus doux (ex: jusqu’à +40%)
-        float scalingFactor = 1f + 0.4f * globalProgressRatio;
-
-        float finalPrice = basePrice * scalingFactor;
-
-        return Mathf.CeilToInt(finalPrice);
+        float scaledPrice = basePrice * levelMultiplier * globalMultiplier;
+        return Mathf.CeilToInt(scaledPrice);
     }
+
+
 
     private void Start()
     {
@@ -39,15 +38,34 @@ public class PotUpgradeManager : MonoBehaviour
             Debug.LogError("PotManager not assigned!");
     }
 
+    public string GetPotDescription(PotUpgradeData potData)
+    {
+        int level = GetPotLevel(potData.slotIndex);
+
+        switch (level)
+        {
+            case 0:
+                return potData.description = "A simple  pot to grow your seeds.";
+            case 1:
+                return potData.description = "You have an updated pot.";
+            case 2:
+                return potData.description = "Your pot can now auto grow your seeds.";
+            case 3:
+                return potData.description = "Your pot can now auto plant your seeds.";
+            default:
+                return $"{potData.potName}: Unknown level.";
+        }
+    }
+
+
     public bool TryUpgradePot(PotUpgradeData potData)
     {
         int currentLevel = GetPotLevel(potData.slotIndex);
-
         if (currentLevel >= 3)
             return false;
 
-        int cost = potData.levelCosts[currentLevel];
-
+        int globalOtherLevels = GetGlobalUpgradeLevelsExcluding(potData.slotIndex);
+        int cost = GetScaledUpgradePrice(potData, currentLevel, globalOtherLevels);
         if (moneyManager.GetMoney() < cost)
             return false;
 
@@ -56,6 +74,27 @@ public class PotUpgradeManager : MonoBehaviour
 
         return true;
     }
+
+    public int GetUpgradeCost(PotUpgradeData potData)
+    {
+        int currentLevel = GetPotLevel(potData.slotIndex);
+        if (currentLevel >= 3)
+            return -1;
+        int globalOtherLevels = GetGlobalUpgradeLevelsExcluding(potData.slotIndex);
+        return GetScaledUpgradePrice(potData, currentLevel, globalOtherLevels);
+    }
+
+    public int GetGlobalUpgradeLevelsExcluding(int excludedSlot)
+    {
+        int total = 0;
+        for (int i = 0; i < totalPots; i++)
+        {
+            if (i == excludedSlot) continue;
+            total += GetPotLevel(i);
+        }
+        return total;
+    }
+
 
     // Maintenant public
     public int GetPotLevel(int slotIndex)
@@ -99,14 +138,6 @@ public class PotUpgradeManager : MonoBehaviour
                 potManager.potStateSlot4 = level;
                 break;
         }
-    }
-
-    public int GetUpgradeCost(PotUpgradeData potData)
-    {
-        int currentLevel = GetPotLevel(potData.slotIndex);
-        if (currentLevel >= 3)
-            return -1;
-        return potData.levelCosts[currentLevel];
     }
 
     public bool IsMaxLevel(PotUpgradeData potData)

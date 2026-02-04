@@ -43,7 +43,6 @@ public class MenuManager : MonoBehaviour
     public void StartGame()
     {
         GameState.shouldLoadGame = false;
-        Debug.Log("oooooooooouuuut");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         
     }
@@ -51,9 +50,7 @@ public class MenuManager : MonoBehaviour
     public void LoadGame()
     {
         GameState.shouldLoadGame = true;
-        Debug.Log("iiiiiiiiiiiiin");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-       
     }
 
 

@@ -5,9 +5,9 @@ using UnityEngine;
 public class Upgrade
 {
     public UpgradeData data;
-    public int currentLevel { get; private set; }
+    public int currentLevel { get; set; }
     public bool isUnlocked { get; private set; }
-    public float currentValue { get; private set; }
+    public float currentValue { get; set; }
     public int currentPrice { get; private set; }
 
     public Upgrade(UpgradeData data)
@@ -50,5 +50,22 @@ public class Upgrade
             UpgradeManager.Instance.ApplyUpgradeEffects(this);
         }
     }
+
+    public bool LevelDown()
+    {
+        if (currentLevel <= 1)
+            return false;
+
+        currentLevel = Mathf.Max(1, currentLevel - 1);
+        UpdateValueFromLevel();
+        return true;
+    }
+
+    // New: ensure currentValue matches currentLevel
+    public void UpdateValueFromLevel()
+    {
+        currentValue = data.baseValue + data.valueIncrement * (currentLevel - 1);
+    }
+
 
 }

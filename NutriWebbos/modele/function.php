@@ -1,4 +1,5 @@
 <?php
+require_once("donnee.php");
 function Calc_meta ($Sexe,$masse,$taille,$age)
 {
 	if ($Sexe == 'homme')
@@ -61,31 +62,158 @@ function kcal ($gramme, $kcal)
 	return $k;
 }
 
-function macro ($macro,$quantite)
+function macro ($link,$macro,$pseudo,$quantite,$id)
 {
+	$macronutriment = getDataMember($link,$id);
+	$m = $macronutriment->fetch();
+	$daily = $m['journalier'] + $quantite;
+	$return = 0;
 	switch($macro)
 	{
 		case 'Glucide':
-			return $quantite*4;
+			$return = $m['glucides']+(($quantite/2)/4);
+			updateGlucides($link,$pseudo,$return,$quantite);
 			break;
 		case 'Lipide':
-			return $quantite*9;
+			$return = $m['lipides']+(($quantite/2)/9);
+			updateLipides($link,$pseudo,$return);
 			break;
 		case 'Proteine':
-			return $quantite*4;
+			$return = $m['proteines']+(($quantite/2)/4);
+			updateProteines($link,$pseudo,$return);
 			break;
 	}
 }
 
-function obj ($obj,$nb_cal,$macro,$q)
+function macro1 ($link,$macro,$macro1,$pseudo,$quantite,$id)
+{
+	$macronutriment = getDataMember($link,$id);
+	$m = $macronutriment->fetch();
+	$daily = $m['journalier'] + $quantite;
+	$return = 0;
+	switch($macro)
+	{
+		case 'Glucide':
+			$return = $m['glucides']+(($quantite/2)/4);
+			updateGlucides($link,$pseudo,$return,$quantite,$daily);
+			break;
+		case 'Lipide':
+			$return = $m['lipides']+(($quantite/2)/9);
+			updateLipides($link,$pseudo,$return,$quantite,$daily);
+			break;
+		case 'Proteine':
+			$return = $m['proteines']+(($quantite/2)/4);
+			updateProteines($link,$pseudo,$return,$quantite,$daily);
+			break;
+	}
+	switch($macro1)
+	{
+		case 'Glucide':
+			$return = $m['glucides']+(($quantite/2)/4);
+			updateGlucides($link,$pseudo,$return,$quantite,$daily);
+			break;
+		case 'Lipide':
+			$return = $m['lipides']+(($quantite/2)/9);
+			updateLipides($link,$pseudo,$return,$quantite,$daily);
+			break;
+		case 'Proteine':
+			$return = $m['proteines']+(($quantite/2)/4);
+			updateProteines($link,$pseudo,$return,$quantite,$daily);
+			break;
+	}
+}
+
+function macro2 ($link,$macro,$macro1,$macro2,$quantite,$pseudo,$id)
+{
+	$return = 0;
+	$macronutriment = getDataMember($link,$id);
+	$m = $macronutriment->fetch();
+	$daily = $m['journalier'] + $quantite;
+	switch($macro)
+	{
+		case 'Glucide':
+			$return = $m['glucides']+(($quantite/2)/4);
+			updateGlucides($link,$pseudo,$return,$daily);
+			break;
+		case 'Lipide':
+			$return = $m['lipides']+(($quantite/2)/9);
+			updateLipides($link,$pseudo,$return,$daily);
+			break;
+		case 'Proteine':
+			$return = $m['proteines']+(($quantite/2)/4);
+			updateProteines($link,$pseudo,$return,$daily);
+			break;
+	}
+	switch($macro1)
+	{
+		case 'Glucide':
+			$return = $m['glucides']+(($quantite/2)/4);
+			updateGlucides($link,$pseudo,$return,$daily);
+			break;
+		case 'Lipide':
+			$return = $m['lipides']+(($quantite/2)/9);
+			updateLipides($link,$pseudo,$return,$daily);
+			break;
+		case 'Proteine':
+			$return = $m['proteines']+(($quantite/2)/4);
+			updateProteines($link,$pseudo,$return,$daily);
+			break;
+	}
+	switch($macro2)
+	{
+		case 'Glucide':
+			$return = $m['glucides']+(($quantite/2)/4);
+			updateGlucides($link,$pseudo,$return,$daily);
+			break;
+		case 'Lipide':
+			$return = $m['lipides']+(($quantite/2)/9);
+			updateLipides($link,$pseudo,$return,$daily);
+			break;
+		case 'Proteine':
+			$return = $m['proteines']+(($quantite/2)/4);
+			updateProteines($link,$pseudo,$return,$daily);
+			break;
+	}
+}
+
+function obj ($link,$obj,$macro,$q,$pseudo,$id)
+{
+
+	switch($obj)
+	{
+		case 'Deficit': 
+			//On rajoute nb_cal dans membres
+			//On enlève 
+			macro($link,$macro,$pseudo,-$q,$id);
+			break;
+		case 'Surplus':
+			macro($link,$macro,$pseudo,$q,$id);
+			break;
+	}
+} 
+
+function obj1 ($link,$obj,$macro,$macro1,$q,$pseudo,$id)
 {
 	switch($obj)
 	{
 		case 'Deficit': 
-			$nb_cal-macro($macro,$quantite);
+			macro1($link,$macro,$macro1,$pseudo,-$q,$id);
 			break;
 		case 'Surplus':
-			$nb_cal+macro($macro,$q);
+			macro1($link,$macro,$macro1,$pseudo,$q,$id);
+			break;
+	}
+} 
+
+function obj2 ($link,$obj,$macro,$macro1,$macro2,$q,$pseudo,$id)
+{
+	switch($obj)
+	{
+		case 'Deficit': 
+			macro2($link,$macro,$macro1,$macro2,$pseudo,-$q,$id);
+			break;
+		case 'Surplus':
+			macro2($link,$macro,$macro1,$macro2,$pseudo,$q,$id);
 			break;
 	}
 } 

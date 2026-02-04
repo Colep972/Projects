@@ -15,5 +15,8 @@ MonoBehaviour:
   potName: pot 4
   icon: {fileID: 21300000, guid: 4636509d751564147b8bc5e2659a281e, type: 3}
   slotIndex: 3
-  levelCosts: 32000000e80300008813000088130000
+  levelCosts: ee020000ee020000ee020000ee020000
   description: 
+  baseCost: 750
+  levelMultiplier: 2
+  potMultiplier: 1.2

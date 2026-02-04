@@ -6,11 +6,13 @@ public class PlantQuantityValidator : MonoBehaviour
 {
     [SerializeField] private TMP_InputField quantityInputField;
     [SerializeField] private Button confirmButton;
+    private bool firstSell;
 
     private void Start()
     {
         quantityInputField.onValueChanged.AddListener(OnInputChanged);
         confirmButton.onClick.AddListener(OnConfirmClicked);
+        firstSell = false;
     }
 
     private void OnInputChanged(string input)
@@ -63,6 +65,14 @@ public class PlantQuantityValidator : MonoBehaviour
             return;
         }
 
-        MoneyManager.Instance.SellPlants(quantity);
+        if (!firstSell)
+        {
+            MoneyManager.Instance.FirstSell(quantity);
+            firstSell = true;
+        }
+        else
+        {
+            MoneyManager.Instance.SellPlants(quantity);
+        }
     }
 }

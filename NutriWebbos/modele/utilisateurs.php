@@ -14,7 +14,7 @@ function registerFullUser($pseudo,$hashPwd,$link,$kcal,$dep,$glu,$lip,$prot)
 {
 	if ($link)
     {
-        $req = "INSERT INTO membres VALUES (NULL,\"$pseudo\",\"$hashPwd\",0,\"$kcal\",\"$dep\",\"$glu\",\"$prot\",\"$lip\")";
+        $req = "INSERT INTO membres VALUES (NULL,\"$pseudo\",\"$hashPwd\",0,\"$kcal\",\"$dep\",\"$glu\",\"$prot\",\"$lip\",\"$kcal\",\"$dep\",NULL)";
         executeUpdate($link,$req);
     }
 }
@@ -23,7 +23,7 @@ function registerUser($pseudo,$hashPwd,$link,$mail)
 {
 	if ($link)
     {
-        $req = "INSERT INTO membres VALUES (NULL,\"$pseudo\",\"$hashPwd\",0,NULL,NULL,NULL,NULL,NULL,\"$mail\")";
+        $req = "INSERT INTO membres VALUES (NULL,\"$pseudo\",\"$hashPwd\",0,NULL,NULL,NULL,NULL,NULL,\"$mail\",NULL,NULL,NULL)";
         executeUpdate($link,$req);
     }
 }

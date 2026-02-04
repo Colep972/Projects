@@ -57,6 +57,8 @@ public class PotManager : MonoBehaviour
 
     public bool isFirstPotGotten = false;
 
+    private AbilityRunner _runner;
+
 
     public int GetPotState(int slotIndex)
     {
@@ -107,6 +109,10 @@ public class PotManager : MonoBehaviour
                 {
                     AssignPotToSlot(potSlot1, _potStateSlot1);
                     isFirstPotGotten = true;
+                    if (TutorialManager.Instance.currentStep == TutorialStep.None)
+                    {
+                        TutorialManager.Instance.AdvanceStep();
+                    }
                 }
             }
         }
@@ -184,6 +190,7 @@ public class PotManager : MonoBehaviour
             }
         }
         UpdatePots();
+        _runner = FindFirstObjectByType<AbilityRunner>();
     }
 
     void Update()
@@ -196,6 +203,10 @@ public class PotManager : MonoBehaviour
                 DestroyImmediate(obj);
             }
             objectsToDestroy.Clear();
+        }
+        if (_runner != null)
+        {
+            //Does something
         }
     }
 
@@ -432,6 +443,7 @@ public class PotManager : MonoBehaviour
                         if (growButton != null)
                         {
                             growButton.plantesProduites += plantsProduced;
+                            growButton.totalPlantesProduites += plantsProduced;
                             growButton.UpdateTotalPlantesText();
                         }
                     }

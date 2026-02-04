@@ -8,7 +8,10 @@
 	require_once("../modele/function.php");
 	$connexion = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 	$cat = getCat($connexion);
-	
+	$id = getId($connexion,$_SESSION['pseudo']);
+	$idm = $id->fetch();
+	$recipe = hasRecipe($connexion,$idm['id_m']);
+	$r = $recipe->fetch();
 	if (!empty($_GET))
 	{
 		foreach($_GET as $k => $v)
@@ -16,14 +19,28 @@
 			$cats = str_replace('_',' ',$k);
 			$cid = getCategorieId($connexion,$cats);
 			$i = $cid->fetch();
-			$food = ShowFood($connexion,$i['id_c']);
+			if($i)
+			{
+				$food = ShowFood($connexion,$i['id_c']);
+			}
+			else
+			{
+				$food = ShowFood($connexion,"Recettes");
+			}
+			$recipes = showRecipe($connexion,$idm['id_m']);
 		}
 	}
 	foreach($_GET as $k => $v)
 	{
-		if ($v == 'choisir')
+		if ($v == 'Choisir')
 		{
 			$gramme = true;
+		}
+		elseif ($v == 'Saisir')
+		{
+			$gramme = true;
+			$recette = true;
+			$idrecipe = getRecipeId($connexion,$k);
 		}
 		$aliment = str_replace('_',' ',$k);
 		$chaine = ':';
@@ -39,32 +56,56 @@
 		}
 			
 		if (isset($_POST['Valider']))
-		{
-			$id = getId($connexion,$_SESSION['pseudo']);
-			$i = $id->fetch(); 
-			if (isset($spe))
+		{ 
+			if(!isset($recette))
 			{
-				$reponse = aff_full_aliments($connexion,$nom,$spe);
-			}
-			else 
-			{
-				$reponse = aff_aliments($connexion,$nom);
-			}
-			$rep = $reponse->fetch();
-			$newk = kcal($_POST['gramme'],$rep['kcal']);
-			$newp = Proteine($_POST['gramme'],$rep['proteines']);
-			$newg = Glucide($_POST['gramme'],$rep['glucides']);
-			$newl = Lipide($_POST['gramme'],$rep['lipides']);
-			if(isset($spe))
-			{
-				insert_full_aliments($connexion,$i['id_m'],$nom,$newk,$newg,$newl,$newp,$_POST['gramme'],$date,$spe);
-				echo ' '.$nom.' : '.$spe.' a bien été ajouté.';
+				if (isset($spe))
+				{
+					$reponse = aff_full_aliments($connexion,$nom,$spe);
+				}
+				else 
+				{
+					$reponse = aff_aliments($connexion,$nom);
+				}
+				$rep = $reponse->fetch();
+				$newk = kcal($_POST['gramme'],$rep['kcal']);
+				$newp = Proteine($_POST['gramme'],$rep['proteines']);
+				$newg = Glucide($_POST['gramme'],$rep['glucides']);
+				$newl = Lipide($_POST['gramme'],$rep['lipides']);
+				if(isset($spe))
+				{
+					insert_full_aliments($connexion,$idm['id_m'],$nom,$newk,$newg,$newl,$newp,$_POST['gramme'],$date,$spe);
+					echo ' '.$nom.' : '.$spe.' a bien été ajouté.';
+				}
+				else
+				{
+					insert_aliments($connexion,$idm['id_m'],$nom,$newk,$newg,$newl,$newp,$_POST['gramme'],$date);
+					echo ' '.$nom.' a bien été ajouté.';
+				} 
 			}
 			else
 			{
-				insert_aliments($connexion,$i['id_m'],$nom,$newk,$newg,$newl,$newp,$_POST['gramme'],$date);
-				echo ' '.$nom.' a bien été ajouté.';
-			} 
+				$proteines = 0;
+				$lipides = 0;
+				$glucides = 0;
+				$kcal = 0;
+				while($idr = $idrecipe->fetch())
+				{
+					$ingredient = getIngredients($connexion,$idr['id_r']);
+					while($ing = $ingredient->fetch())
+					{
+						$nourriture = getFood($connexion,$ing['nom']);
+						$n = $nourriture->fetch();
+						$proteines += round(($n['proteines'] * $_POST['gramme'])/100,1);
+						$lipides += round(($n['lipides'] * $_POST['gramme'])/100,1);
+						$glucides += round(($n['glucides'] * $_POST['gramme'])/100,1);
+						$kcal += round(($n['kcal'] * $_POST['gramme'])/100,1);
+					}
+				}
+				insert_aliments ($connexion,$idm['id_m'],$nom,$kcal,$glucides,$lipides,$proteines,$_POST['gramme'],$date);
+				echo 'La recette '.$nom.' a bien été ajouté.';
+			}
+			
 		}
 	}
 	
@@ -98,27 +139,17 @@
 		<form>
 			<div class="gestion_container">
 				<?php
+				
 					while($c = $cat->fetch())
 					{
-						echo'<input class="cat" type="submit" value="'.$c['nom'].'" name="'.$c['nom'].'"> ';
+						if($c['nom'] != "Recettes" OR !empty($r))
+						{
+							echo'<input class="cat" type="submit" value="'.$c['nom'].'" name="'.$c['nom'].'"> ';
+						}
 					}
 					echo '<br />';
 					echo '</div>';
-					if (!empty($_GET))
-					{
-						while ($f = $food->fetch())
-						{
-							if (empty($f['specificites']))
-							{
-								echo '<table class="table"> <tr> <td> '.$f['nom'].' </td> <td> <input class="choisir" type="submit" value="choisir" name="'.$f['nom'].'" autofocus> </td> </tr> </table>';
-							}
-							else
-							{
-								$al = ''.$f['nom'].' : '.$f['specificites'].' ';
-								echo '<table class="table"> <tr> <td> '.$al.' </td> <td> <input class="choisir" type="submit" value="choisir" name="'.$al.'" autofocus> </td> </tr></table>';
-							}
-						}
-					}
+					&
 				?>
 				<br />
 		</form>

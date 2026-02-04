@@ -1,4 +1,7 @@
 <?php 
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
 	include_once("../modele/cookieconnect.php");
 	$connexion = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 	$admin= EstAdmin($connexion,$_SESSION['pseudo']);
@@ -16,6 +19,7 @@
 	$lipide = Somme_lipide($connexion,$i['id_m']);
 	$l = $lipide->fetch();
 	$glucide = Somme_glucide($connexion,$i['id_m']);
+	Reinitialiser($connexion,date("y-m-d"));
 	$g = $glucide -> fetch();
 	if (!empty($_POST))
 	{
@@ -28,7 +32,7 @@
 	}
 	if ($a['admin'] == '1')
 	{
-		echo '<a href="../view/admin.php" title="admin"> Admin </a><br />';
+		echo '<a href="admin.php" title="admin"> admin </a><br />';
 	}
 	if (empty($mail['email']))
 	{
@@ -44,7 +48,13 @@
 		<title> Espace Perso - Nutriwebbos </title>
 		<link rel="stylesheet" href="../public/css/Nutrition.css"/>
 		<link rel="icon" type="image/png" href="../public/images/logo.png" /> 
-		<script src="Nutrition.js"> </script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+<!-- Your custom script LAST -->
+<script defer src="../public/js/Nutrition.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
 	</head>
 	<body>
 		<header>
@@ -76,6 +86,9 @@
 								</div>
 								<div>
 									Pour définir tes objectifs ça va se passer <a class="ici" href="objectif.php" title="gestion"> là </a>.
+								</div>
+								<div>
+								Tu veux créer ta recette pour te faciliter la vie ? C\'est <a class="ici" href="recette.php" title="recette"> à cet endroit </a>.
 								</div>';
 							echo'
 								<div class="Compteur">
@@ -97,6 +110,9 @@
 								</div>
 								<div>
 									Pour définir tes objectifs ça va se passer <a class="ici" href="objectif.php" title="gestion"> là </a>.
+								</div>
+								<div>
+								Tu veux créer ta recette pour te faciliter la vie ? C\'est <a class="ici" href="Recette.php" title="recette"> à cet endroit </a>.
 								</div>';
 							echo'
 								<div class="Compteur">
@@ -109,8 +125,8 @@
 					}
 					?>
 					<br />
-					<div>
-						<table class="Journal">
+					<div id="day-log">
+						<table id="journal-table" class="Journal">
 							<thead>
 								<tr>
 									<th> Aliment </th>
@@ -127,7 +143,6 @@
 								if ($donnees['specificites'] != NULL)
 								{
 									echo'
-									<div>
 										<tr>
 											<td data-label="Aliment"> ' . $donnees['nom'] . ' : ' . $donnees['specificites'] . ' </td>
 											<td data-label="Apport Energétique"> ' . $donnees['kcal'] . '  </td>
@@ -139,12 +154,11 @@
 												<td><input type="submit" value ="Supprimer" name="'.$donnees['ajout'].'"/></td>
 											</form>
 										</tr>
-									</div>';
+									';
 								}
 								else
 								{
 									echo'
-									<div>
 										<tr>
 											<td data-label="Aliment"> ' . $donnees['nom'] . ' </td>
 											<td data-label="Apport Energétique"> ' . $donnees['kcal'] . '  </td>
@@ -155,13 +169,19 @@
 											<form method="post">
 												<td><input type="submit" value ="Supprimer" name="'.$donnees['ajout'].'"/></td>
 											</form>
-										</tr>
-									</div>';
+										</tr>';
 								}
 							}
 							
 							?>
 							</table>
+							<div id="totaux-data"
+							     data-kcal="<?php echo $k['SELECTION']; ?>"
+							     data-glucides="<?php echo $g['SELECTION']; ?>"
+							     data-lipides="<?php echo $l['SELECTION']; ?>"
+							     data-proteines="<?php echo $p['SELECTION']; ?>">
+							</div>
+							<button id="pdfBtn">Télécharger le PDF</button>
 						</div>
 		</div>
 		<hr>

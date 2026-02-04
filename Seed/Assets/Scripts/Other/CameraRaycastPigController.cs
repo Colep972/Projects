@@ -30,36 +30,6 @@ public class CameraRaycastPigController : MonoBehaviour
     private void Update()
     {
         PerformRaycast();
-
-        if (_PotManager != null)
-        {
-            if (!_PotManager.isFirstPotGotten)
-            {
-                if (!hasShownTutorialOnce && !tutorialMessageShown)
-                {
-                    Debug.Log("Affichage du message tutoriel");
-                    DisplayTutorialMessage();
-                    tutorialMessageShown = true;
-                    hasShownTutorialOnce = true; // important
-                }
-                   
-                if (SaveSystem.Instance.firstPotAgain)
-                {
-                    Debug.Log("Save System");
-                    _PotManager.isFirstPotGotten = true;
-                }
-            }
-            else
-            {
-                if (tutorialMessageShown)
-                {
-                    Debug.Log("[COCHON] Pot obtenu, on masque le message de tutoriel.");
-                    tutorialMessageShown = false;
-                    PnjTextDisplay.Instance.HideConsoleBox();
-                    PnjTextDisplay.Instance.isPersistentMessageActive = false;
-                }
-            }
-        }
     }
 
     private void PerformRaycast()
@@ -108,10 +78,5 @@ public class CameraRaycastPigController : MonoBehaviour
             PnjTextDisplay.Instance.DisplayMessagePublic(message);
             lastMessageTime = Time.time;
         }
-    }
-
-    private void DisplayTutorialMessage()
-    {
-        PnjTextDisplay.Instance.DisplayPersistentMessage("Get a pot by going in the shop, plant a seed, and grow it to 100 %.");
     }
 }

@@ -63,10 +63,10 @@ public class PotGridGenerator : MonoBehaviour
         if (gridLayout != null)
         {
             gridLayout.cellSize = buttonSize;
-            gridLayout.spacing = new Vector2(spacing, spacing);
+            gridLayout.spacing = new Vector2(600, spacing);
             gridLayout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
             gridLayout.constraintCount = columns;
-            gridLayout.childAlignment = TextAnchor.UpperCenter;
+            gridLayout.childAlignment = TextAnchor.UpperLeft;
         }
     }
 
@@ -135,7 +135,10 @@ public class PotGridGenerator : MonoBehaviour
         // Mise à jour des visuels
         icon.sprite = potRef.potData.icon;
         if (nameText != null) nameText.text = potRef.potData.potName;
-        if (descriptionText != null) descriptionText.text = potRef.potData.description;
+        if (descriptionText != null)
+        {
+            descriptionText.text = potUpgradeManager.GetPotDescription(potRef.potData);
+        }
 
         int currentLevel = cost >= 0 ? potUpgradeManager.GetPotLevel(potRef.potData.slotIndex) : 3;
         levelText.text = $"Level {currentLevel}/3";

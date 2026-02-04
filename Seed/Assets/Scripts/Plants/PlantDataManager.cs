@@ -28,7 +28,7 @@ public class PlantDataManager : MonoBehaviour
         foreach (SeedData seed in availableSeeds)
         {
             SeedData seedCopy = seed;
-            string plantName = "Plant of " + seedCopy.seedName;
+            string plantName = seedCopy.seedName;
             grownPlants.Add(new PlantsData(plantName, seedCopy, 0, icons[cmpt]));
             cmpt++;
         }

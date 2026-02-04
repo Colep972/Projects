@@ -109,6 +109,7 @@ display:block;
 .Journal
 {
 border-collapse:collapse;
+page-break-inside: avoid;
 }
 
 td,th

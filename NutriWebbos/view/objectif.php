@@ -1,8 +1,28 @@
 <?php
 	include_once("../modele/cookieconnect.php");
+	require_once("../modele/function.php");
+	$connexion = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
+	$id = getId($connexion,$_SESSION['pseudo']);
+	$i = $id->fetch();
+	$data = getDataMember($connexion,$i['id_m']);
+	$d = $data->fetch();
 	if(isset($_POST['Valider']))
 	{
-		obj($_POST['Objectifs'],$_POST['calorie'],$_POST['Macro']);
+		switch (count($_POST['Macro'])) 
+		{
+			case '1':
+				obj($connexion,$_POST['Objectifs'],$_POST['Macro'][0],$_POST['calorie'],$_SESSION['pseudo'],$i['id_m']);
+				break;
+			case '2':
+				 obj1($connexion,$_POST['Objectifs'],$_POST['Macro'][0],$_POST['Macro'][1],$_POST['calorie'],$_SESSION['pseudo'],$i['id_m']);
+				break;
+			case '3':
+				obj2($connexion,$_POST['Objectifs'],$d['journalier'],$_POST['Macro'][0],$_POST['Macro'][1],$_POST['Macro'][2],$_POST['Macro'][1],$_POST['calorie'],$_SESSION['pseudo'],$i['id_m']);
+				break;
+			default:
+				break;
+		}
+		//updateGoal($link,$id,$obj)
 	}
 ?>
 
@@ -73,18 +93,18 @@
 					<fieldset>
 						<div class="obj_item">
 							<h3> Objectifs </h3>
-							<input type="radio" name="Objectifs" id="Déficit" value="Déficit">
+							<input type="radio" name="Objectifs" id="Déficit" value="Deficit">
 							<label for="Déficit"> Déficit </label><br />
 							<input type="radio" name="Objectifs" id="Surplus" value="Surplus">
 							<label for="Surplus"> Surplus </label><br />
 							<input type="number" name="calorie" placeholder="Calories" required>
 							<h3> Choix </h3>
-							<input type="checkbox" id="Proteines" name="Macro" value="Proteines">
-							<label for="proteines"> Protéines </label><br />
-							<input type="checkbox" id="Glucides" name="Macro" value="Glucides">
-							<label for="proteines"> Glucides </label><br />
-							<input type="checkbox" id="Lipides" name="Macro" value="Lipides">
-							<label for="proteines"> Lipides </label><br />
+							<input type="checkbox" id="Proteines" name="Macro[]" value="Proteine">
+							<label for="Proteines"> Protéines </label><br />
+							<input type="checkbox" id="Glucides" name="Macro[]" value="Glucide">
+							<label for="Glucides"> Glucides </label><br />
+							<input type="checkbox" id="Lipides" name="Macro[]" value="Lipide">
+							<label for="Lipides"> Lipides </label><br />
 							<input class="User_submit" type="submit" name="Valider" value="Valider">
 						</div>
 					</fieldset>

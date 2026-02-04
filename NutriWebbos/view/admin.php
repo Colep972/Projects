@@ -1,4 +1,7 @@
 <?php
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
 	session_start();
 	require_once("../modele/model.php");
 	require_once("../modele/utilisateurs.php");
@@ -18,7 +21,7 @@
 	{
 		
 	}
-		
+?>
 <!doctype html>
 <html lang="fr">
 	<head>
@@ -49,11 +52,65 @@
 			{
 				echo'
 					<form method="post">
-						<select id="admin">
+						<select name="admin" id="admin">
 							<option value="gestion"> Gestion </option>
 							<option value="membres"> Membres </option>
 						</select>
+                        <input type="submit" value="Choisir" name="Choisir">
 					</form>';
+                    if(isset($_POST['Choisir']))
+                    {
+                        switch($_POST['admin'])
+                        {
+                            case 'gestion':
+                                echo '
+                                <form method="post">
+                                    <fieldset>
+                                        <div class="form_item">
+                                            <label for="categorie"> Catégorie </label>
+                                            <select id="categorie" name="categorie">';
+                                                    while ($c = $cat->fetch()) 
+                                                    {
+                                                        echo '<option value="' . htmlspecialchars($c['id_c']) . '">' . htmlspecialchars($c['nom']) . '</option>';
+                                                    }
+                                            echo'
+                                            </select>
+                                            <label for="nom"> Aliment </label>
+                                            <input type="text" id="nom" name="nom" required>
+                                            <label for="nom"> Spécificités </label>
+                                            <input type="text" id="spe" name="spe">
+                                            <label for="kcal"> Kcal </label>	
+                                            <input type="number" id="kcal" name="kcal" step="0.01" required>
+                                            <label for ="glucide"> Glucide </label>	
+                                            <input type="number" id="glucide" name="glucide" step="0.01" required>
+                                            <label for="proteine"> Proteine </label>	
+                                            <input type="number" id="proteine" name="proteine" step="0.01" required>	
+                                            <label for="lipide"> Lipide </label>
+                                            <input type="number" id="lipide" name="lipide" step="0.01" required>	
+                                            <input type="submit" value="Ajouter" name="Ajouter">
+                                        </div>
+                                    </fieldset>
+                                </form>
+                                <form method="post">
+									<fieldset>
+										<div class="form_item">
+											<label for="Ajout"> Ajouter une catégorie : </label>
+											<input type="text" id="Ajout" name="categorie" required>
+											<input type="submit" value="Valider" name="Valider">
+										</div>
+									</fieldset>
+								</form>
+                                ';
+                                break;
+                            case 'membres':
+                                echo 'membres';
+                                break;
+                            default:
+                                echo'not in';
+                                break;
+                        }
+                    }
+                    
 			}
 			else
 			{
@@ -70,34 +127,32 @@
 					
 					<div class="form_container">
 						<form method="post">
-							<fieldset>
-								<div class="form_item">
-									<label for="categorie"> Catégorie </label>
-									<select id="categorie" name="categorie">
-										<?php
-										$i = 0;
-											while($c = $cat->fetch())
-												{
-													echo \'<option value="'.$c['id_c'].'">'.$c['nom'].'</option>\';
-												}
-										?>
-									</select>
-									<label for="nom"> Aliment </label>
-									<input type="text" id="nom" name="nom" required>
-									<label for="nom"> Spécificités </label>
-									<input type="text" id="spe" name="spe">
-									<label for="kcal"> Kcal </label>	
-									<input type="number" id="kcal" name="kcal" step="0.01" required>
-									<label for ="glucide"> Glucide </label>	
-									<input type="number" id="glucide" name="glucide" step="0.01" required>
-									<label for="proteine"> Proteine </label>	
-									<input type="number" id="proteine" name="proteine" step="0.01" required>	
-									<label for="lipide"> Lipide </label>
-									<input type="number" id="lipide" name="lipide" step="0.01" required>	
-									<input type="submit" value="Ajouter" name="Ajouter">
-								</div>
-							</fieldset>
-							</form>
+                                    <fieldset>
+                                        <div class="form_item">
+                                            <label for="categorie"> Catégorie </label>
+                                            <select id="categorie" name="categorie">';
+                                                    while ($c = $cat->fetch()) 
+                                                    {
+                                                        echo '<option value="' . htmlspecialchars($c['id_c']) . '">' . htmlspecialchars($c['nom']) . '</option>';
+                                                    }
+                                            echo'
+                                            </select>
+                                            <label for="nom"> Aliment </label>
+                                            <input type="text" id="nom" name="nom" required>
+                                            <label for="nom"> Spécificités </label>
+                                            <input type="text" id="spe" name="spe">
+                                            <label for="kcal"> Kcal </label>	
+                                            <input type="number" id="kcal" name="kcal" step="0.01" required>
+                                            <label for ="glucide"> Glucide </label>	
+                                            <input type="number" id="glucide" name="glucide" step="0.01" required>
+                                            <label for="proteine"> Proteine </label>	
+                                            <input type="number" id="proteine" name="proteine" step="0.01" required>	
+                                            <label for="lipide"> Lipide </label>
+                                            <input type="number" id="lipide" name="lipide" step="0.01" required>	
+                                            <input type="submit" value="Ajouter" name="Ajouter">
+                                        </div>
+                                    </fieldset>
+                                </form>
 						
 							<div class="form_container">
 								<form method="post">

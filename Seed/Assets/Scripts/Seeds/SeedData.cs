@@ -8,4 +8,5 @@ public class SeedData : ScriptableObject
     public GameObject[] poussePrefabs;
     public Color pousseColor;
     public bool unlocked;
+    public AbilitiesData ability;
 }

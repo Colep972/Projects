@@ -1,14 +1,16 @@
+ï»¿using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
+using static Unity.Collections.Unicode;
 
 public class GrowthCycle : MonoBehaviour
 {
     public int Produced { get; private set; } = 0;
     public int GrowPower { get; private set; } = 1;
-    public int GrowSpeed { get; private set; } = 1;
+    public int GrowSpeed { get; set; } = 1;
     public int Production { get; private set; } = 1;
     public bool isAutoGrowing { get; set; } = false;
     public bool isAutoPlanting { get; set; } = false;
@@ -31,7 +33,7 @@ public class GrowthCycle : MonoBehaviour
     public AudioSource produceAudio;
     public AudioMixerGroup sfxAudioMixerGroup;
 
-    private const int maxStage = 4;
+    public const int maxStage = 4;
     private const float minScaleX = 0.06f;
     private const float maxScaleX = 0.75f;
     private GameObject currentPousse;
@@ -44,6 +46,10 @@ public class GrowthCycle : MonoBehaviour
     public bool isMouseOver = false;
 
     private bool hasSeedPlanted = false;
+
+    private AbilityRunner _runner;
+
+    private Dictionary<SeedData, float> plantStartTimes;
 
     private void Start()
     {
@@ -58,7 +64,10 @@ public class GrowthCycle : MonoBehaviour
         hasSeedPlanted = false;
         currentSeed = null;
         UpdateSeedStateVisual();
-    }
+        // existing start code...
+        _runner = FindFirstObjectByType<AbilityRunner>();
+        plantStartTimes = new Dictionary<SeedData, float>();
+}
 
     private void OnMouseEnter()
     {
@@ -126,7 +135,7 @@ public class GrowthCycle : MonoBehaviour
 
     public bool IncrementPousse(float clickPower)
     {
-        // Si déjà prêt à produire, ne rien faire
+        // Si dÃ©jÃ  prÃªt Ã  produire, ne rien faire
         if (isReadyToProduce)
         {
             return false;
@@ -134,15 +143,8 @@ public class GrowthCycle : MonoBehaviour
 
         if (!hasSeedPlanted)
         {
-            PnjTextDisplay.Instance.DisplayMessagePublic("Cannot grow! No seed planted. Seed can be found in your inventory (red bag) !");
             return false;
         }
-
-        
-        int powerIncrement = Mathf.RoundToInt(clickPower);
-        Debug.Log($"Incrementing growth by {powerIncrement} (from clickPower: {clickPower})");
-
-        pousse += powerIncrement;
 
         if (currentSeed == null)
         {
@@ -155,9 +157,13 @@ public class GrowthCycle : MonoBehaviour
         // Calculer le stade actuel
         int currentStage = Mathf.Clamp(pousse / 10, 0, maxStage - 1);
 
-        // Vérifier si on a atteint le stade final
+        // VÃ©rifier si on a atteint le stade final
         if (pousse >= maxStage * 10)
         {
+            if (TutorialManager.Instance.currentStep == TutorialStep.PlantFirstSeed)
+            {
+                TutorialManager.Instance.AdvanceStep();
+            }
             Debug.Log("Plant reached max stage!");
             SeedData plantedSeed = currentSeed;
             ActivateSeedState();
@@ -188,10 +194,44 @@ public class GrowthCycle : MonoBehaviour
                 SeedInventoryUI.Instance.UpdatePlantSlot(plantedSeed);
             }
 
+            if (_runner != null && plantedSeed != null) // use plantedSeed, not currentSeed
+            {
+                AbilityContext ctx = _runner.HandleAction(AbilityContext.ActionType.Harvest, plantedSeed);
+                // InventoryFlux will now trigger
+            }
+
             return true;
         }
 
-        // Mettre à jour les visuels
+        if (_runner != null && currentSeed != null)
+        {
+            AbilityContext ctx = _runner.HandleAction(AbilityContext.ActionType.Click, currentSeed);
+
+            // Base growth in stage units
+            float basePercent = Random.Range(0.015f, 0.025f); // 2â€“3%
+            int baseIncrement = Mathf.RoundToInt(basePercent * (maxStage * 10));
+
+            // Apply clickPower from abilities (bonus or penalty)
+            baseIncrement = Mathf.RoundToInt(baseIncrement * ctx.clickPower);
+
+            // Add any flat growthDelta from abilities (some abilities may modify it)
+            int bonusIncrement = Mathf.RoundToInt(ctx.growthDelta);
+
+            // Final growth applied to the plant
+            pousse += baseIncrement + bonusIncrement;
+
+            Debug.Log($"[GrowthCycle] Base: {basePercent * 100:F1}%, ClickPower: {ctx.clickPower:F2}, BaseIncrement: {baseIncrement}, BonusIncrement: {bonusIncrement}, Total: {pousse}");
+        }
+
+
+
+
+
+
+
+
+
+        // Mettre Ã  jour les visuels
         UpdateGrowthStage(currentStage);
         UpdateCubeAppearance();
 
@@ -229,6 +269,42 @@ public class GrowthCycle : MonoBehaviour
         isReadyToProduce = false;
         Debug.Log("Planting seed: " + currentSeed.seedName);
         StartNewCycle();
+        if (_runner != null && currentSeed != null)
+        {
+            int activePots = 0;
+            for (int i = 0; i < 4; i++)
+                if (PotManager.Instance.GetSlotByIndex(i) != null) activePots++;
+
+            AbilityContext ctx = _runner.HandleAction(AbilityContext.ActionType.Plant, currentSeed, activePots);
+
+            // Check if the plant should be canceled
+            if (ctx.cancelPlant)
+            {
+                Debug.Log("[GrowthCycle] Planting canceled by ability!");
+                hasSeedPlanted = false;
+                currentSeed = null;
+                UpdateSeedStateVisual();
+                return;
+            }
+
+            if (ctx.growthDelta > 0f)
+            {
+                {
+                    pousse += Mathf.RoundToInt(ctx.growthDelta);
+                    UpdateSeedStateVisual();
+                    UpdateCubeAppearance();
+                }
+            }
+
+        }
+
+
+        if (TutorialManager.Instance != null &&
+            TutorialManager.Instance.currentStep == TutorialStep.SelectFirstSeed)
+        {
+            TutorialManager.Instance.AdvanceStep();
+        }
+
     }
 
     void OnValidate()
@@ -275,6 +351,25 @@ public class GrowthCycle : MonoBehaviour
         UpdateSeedStateVisual();
     }
 
+    public void OnPlant(SeedData seed)
+    {
+        plantStartTimes[seed] = Time.time;
+    }
+
+    public void OnHarvest(SeedData seed, AbilityRunner runner)
+    {
+        float duration = 0f;
+        if (plantStartTimes.ContainsKey(seed))
+        {
+            duration = Time.time - plantStartTimes[seed];
+            plantStartTimes.Remove(seed);
+        }
+
+        // Send context with growthDuration
+        var ctx = runner.HandleAction(AbilityContext.ActionType.Harvest, seed);
+        ctx.growthDuration = duration;
+    }
+
     private void UpdateGrowthStage(int stage)
     {
         if (currentPousse != null)
@@ -293,7 +388,7 @@ public class GrowthCycle : MonoBehaviour
             GameObject pousseInstance = Instantiate(currentSeed.poussePrefabs[stage], transform);
             currentPousse = pousseInstance;
 
-            // Applique la couleur de pousse définie dans la graine
+            // Applique la couleur de pousse dÃ©finie dans la graine
             Color seedColor = currentSeed.pousseColor;
 
             foreach (Renderer renderer in pousseInstance.GetComponentsInChildren<Renderer>())

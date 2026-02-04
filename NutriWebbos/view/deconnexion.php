@@ -4,6 +4,6 @@
 	setcookie('log','',time()-3600);
 	setcookie('psswd','',time()-3600);
 	setcookie('accept_cookie',false,time()-3600,'/',null,false,true);
-	header('Location:'.$_SERVER['HTTP_REFERER'].'');
+	header('Location: https://nutriwebbbos.fr/index.php');
 	exit();
 ?>

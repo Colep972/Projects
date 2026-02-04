@@ -11,14 +11,21 @@ public class SaveSystem : MonoBehaviour
 {
     public static SaveSystem Instance { get; private set; }
     private SeedData seedToSelectAfterLoad;
+    [SerializeField] private Toggle autoSaveToggle;
 
 
     [System.Serializable]
     public struct GameData
     {
+        public bool tutorialCompleted;
+        public int tutorialStep;
         public string selectedSeedName;
+        public int nextMilestone;
+        public int milestoneCmpt;
+        public int currentProduction;
         public bool isAutoSaveEnabled;
         public int totalPlants;
+        public int sumTotalPlants;
         public int coins;
         public string factoryName;
         public bool hasShownTutorialOnce;
@@ -133,15 +140,17 @@ public class SaveSystem : MonoBehaviour
         }
         GameData data = new GameData
         {
+            sumTotalPlants = PnjTextDisplay.Instance.potManager.growButton.totalPlantesProduites,
             coins = MoneyManager.Instance.GetMoney(),
             factoryName = name.getFactoryName(),
             pots = new List<PotData>(),
             upgrades = new List<UpgradeSaveData>(),
             unlockedSeeds = new List<SeedSaveData>(),
             savedPlants = new List<PlantSaveData>(),
-            potUpgrades = new List<PotUpgradeSaveData>()
+            potUpgrades = new List<PotUpgradeSaveData>(),
+            tutorialCompleted = TutorialManager.Instance.tutorialCompleted,
+            tutorialStep = (int)TutorialManager.Instance.currentStep,
         };
-
         CameraRaycastPigController pigController = GameObject.FindFirstObjectByType<CameraRaycastPigController>();
         if (pigController != null)
         {
@@ -233,7 +242,6 @@ public class SaveSystem : MonoBehaviour
             data.selectedSeedName = "";
         }
 
-        Toggle autoSaveToggle = GameObject.Find("Toggle")?.GetComponent<Toggle>();
         if (autoSaveToggle != null)
         {
             data.isAutoSaveEnabled = autoSaveToggle.isOn;
@@ -243,7 +251,10 @@ public class SaveSystem : MonoBehaviour
             Debug.LogWarning("AutoSaveToggle not found during save.");
         }
 
+        data.nextMilestone = PnjTextDisplay.Instance.GetNextMilestone();
+        data.milestoneCmpt = PnjTextDisplay.Instance.GetMilestoneCount();
 
+        
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(savePath, json);
         Debug.Log("Game saved to: " + savePath);
@@ -263,7 +274,9 @@ public class SaveSystem : MonoBehaviour
 
         string json = File.ReadAllText(savePath);
         GameData data = JsonUtility.FromJson<GameData>(json);
-        CameraRaycastPigController pigController = GameObject.FindFirstObjectByType<CameraRaycastPigController>();
+        TutorialManager.Instance.currentStep = (TutorialStep)data.tutorialStep;
+        TutorialManager.Instance.tutorialCompleted = data.tutorialCompleted;
+        /*CameraRaycastPigController pigController = GameObject.FindFirstObjectByType<CameraRaycastPigController>();
         if (pigController != null)
         {
             Debug.Log("not nuuuuuuuuuuuuuulll");
@@ -272,6 +285,12 @@ public class SaveSystem : MonoBehaviour
         else
         {
             Debug.LogWarning("Pig controller not found during load.");
+        }*/
+
+        if (PnjTextDisplay.Instance != null)
+        {
+            PnjTextDisplay.Instance.SetNextMilestone(data.nextMilestone);
+            PnjTextDisplay.Instance.SetMilestoneCount(data.milestoneCmpt);
         }
 
         MoneyManager.Instance.SetMoney(data.coins);
@@ -400,7 +419,6 @@ public class SaveSystem : MonoBehaviour
             }
         }
 
-        Toggle autoSaveToggle = GameObject.Find("Toggle")?.GetComponent<Toggle>();
         if (autoSaveToggle != null)
         {
             autoSaveToggle.isOn = data.isAutoSaveEnabled;
@@ -414,9 +432,12 @@ public class SaveSystem : MonoBehaviour
         GrowButton growButton = GameObject.FindFirstObjectByType<GrowButton>();
         if (growButton != null)
         {
-            growButton.SetTotalPlantesFromSave(data.totalPlants);
+            growButton.SetTotalPlantesFromSave(data.totalPlants, data.sumTotalPlants);
+            //PnjTextDisplay.Instance.SetCurrentProduction(data.sumTotalPlants);
+
         }
 
+        
 
 
 

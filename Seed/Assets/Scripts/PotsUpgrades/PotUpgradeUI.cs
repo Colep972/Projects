@@ -67,29 +67,32 @@ public class PotUpgradeUI : MonoBehaviour
 
     private void UpdateButtonUI(PotUpgradeButton button)
     {
-        // Mise à jour de l'icône
+        // Icon
         button.icon.sprite = button.potData.icon;
 
-        // Obtenir le niveau actuel et les informations
+        // Get current level and status
+        int currentLevel = potUpgradeManager.GetPotLevel(button.potData.slotIndex);
         bool isMaxLevel = potUpgradeManager.IsMaxLevel(button.potData);
-        int cost = potUpgradeManager.GetUpgradeCost(button.potData);
+
+        // Get scaled cost
+        int cost = -1;
+        if (!isMaxLevel)
+        {
+            int globalOtherLevels = potUpgradeManager.GetGlobalUpgradeLevelsExcluding(button.potData.slotIndex);
+            cost = potUpgradeManager.GetScaledUpgradePrice(button.potData, currentLevel, globalOtherLevels);
+        }
+
         bool canAfford = cost >= 0 && moneyManager.GetMoney() >= cost;
 
-        // Mettre à jour les textes
+        // Text updates
         button.nameText.text = button.potData.potName;
-        button.descriptionText.text = button.potData.description;
-
-        // Pour le texte de niveau, montrer le niveau actuel et max
-        int currentLevel = cost >= 0 ? isMaxLevel ? 3 : cost / button.potData.levelCosts[0] : 3;
+        button.descriptionText.text = potUpgradeManager.GetPotDescription(button.potData);
         button.levelText.text = $"Level {currentLevel}/3";
-
-        // Pour le prix, montrer le coût du prochain niveau ou "MAX"
         button.priceText.text = isMaxLevel ? "MAX" : $"${cost}";
 
-        // Mise à jour de l'apparence
+        // Interactivity and color
         button.button.interactable = !isMaxLevel && canAfford;
 
-        // Choix de la couleur
         if (isMaxLevel)
             button.icon.color = lockedColor;
         else if (!canAfford)

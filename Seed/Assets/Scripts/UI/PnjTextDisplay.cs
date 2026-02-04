@@ -24,7 +24,7 @@ public class PnjTextDisplay : MonoBehaviour
     private int cmptMilestone;
     private int lastMilestone = 0;
     private int nextMilestone;
-    int currentProduction;
+    private int currentProduction;
 
     private CanvasGroup textCanvasGroup;
     private CanvasGroup image1CanvasGroup;
@@ -54,24 +54,23 @@ public class PnjTextDisplay : MonoBehaviour
         nextMilestone = initialMilestone;
         currentProduction = 0;
 
+        Debug.Log($"Parent GameObject active: {gameObject.activeSelf}");
+        foreach (Transform child in transform)
+        {
+            Debug.Log($"Child {child.name} active: {child.gameObject.activeSelf}");
+        }
+
+
         textCanvasGroup = EnsureCanvasGroup(textDisplay?.gameObject);
         image1CanvasGroup = EnsureCanvasGroup(image1);
         image2CanvasGroup = EnsureCanvasGroup(image2);
-
-        if (textDisplay != null)
-        {
-            textDisplay.gameObject.SetActive(false);
-            textCanvasGroup.alpha = 1;
-        }
-
-        if (image1 != null) image1.SetActive(false);
-        if (image2 != null) image2.SetActive(false);
 
         if (potManager == null)
         {
             Debug.LogError("PotManager reference is not assigned.");
         }
         priority = false;
+        DisplayMessagePublic("Test");
     }
 
     void Update()
@@ -83,23 +82,24 @@ public class PnjTextDisplay : MonoBehaviour
             {
                 if (cmptMilestone == 6 && !SeedInventoryUI.Instance.availableSeeds[1].unlocked)
                 {
-                    Debug.Log("in cmpt : " + cmptMilestone);
                     DisplayMessagePublic("You unlocked another seed ! Continue to work hard ");
                     SeedInventoryUI.Instance.availableSeeds[1].unlocked = true;
                     SeedInventoryUI.Instance.GenerateSeedButtons();
+                    PlantDropdownUI.Instance.PopulateDropdown();
                 }
-                if (cmptMilestone == 13 && !SeedInventoryUI.Instance.availableSeeds[2].unlocked)
+                if (cmptMilestone == 11 && !SeedInventoryUI.Instance.availableSeeds[2].unlocked)
                 {
                     DisplayMessagePublic("You unlocked another seed ! You're close to the end");
                     SeedInventoryUI.Instance.availableSeeds[2].unlocked = true;
                     SeedInventoryUI.Instance.GenerateSeedButtons();
+                    PlantDropdownUI.Instance.PopulateDropdown();
                 }
-                if(cmptMilestone == 26 && MoneyManager.Instance.GetMoney() > 50000 && 
+                if(cmptMilestone == 15 && MoneyManager.Instance.GetMoney() > 50000 && 
                     SeedInventoryUI.Instance.plantSlotMap[SeedInventoryUI.Instance.availableSeeds[0]]
-                    .GetNumber() > 50 && SeedInventoryUI.Instance.plantSlotMap[SeedInventoryUI.Instance.availableSeeds
-                    [1]].GetNumber() > 50 && 
+                    .GetNumber() > 500 && SeedInventoryUI.Instance.plantSlotMap[SeedInventoryUI.Instance.availableSeeds
+                    [1]].GetNumber() > 500 && 
                     SeedInventoryUI.Instance.plantSlotMap[SeedInventoryUI.Instance.availableSeeds[2]]
-                    .GetNumber() > 50)
+                    .GetNumber() > 500)
                 {
                     DisplayMessagePublic("You successfully finish the alpha well done ");
                 }
@@ -215,24 +215,58 @@ public class PnjTextDisplay : MonoBehaviour
 
     public void DisplayPersistentMessage(string message)
     {
-        if (currentCoroutine != null)
-        {
-            StopCoroutine(currentCoroutine);
-            currentCoroutine = null;
-        }
-
         isPersistentMessageActive = true;
-
         textDisplay.text = message;
+
         textDisplay.gameObject.SetActive(true);
         if (image1 != null) image1.SetActive(true);
         if (image2 != null) image2.SetActive(true);
 
+        // Réinitialise l'alpha au cas où
         var textCG = textDisplay.GetComponent<CanvasGroup>();
         if (textCG != null) textCG.alpha = 1f;
-        if (image1 != null && image1.TryGetComponent(out CanvasGroup cg1)) cg1.alpha = 1f;
-        if (image2 != null && image2.TryGetComponent(out CanvasGroup cg2)) cg2.alpha = 1f;
     }
 
+
+
+    public void HidePersistentMessage()
+    {
+        isPersistentMessageActive = false;
+
+        if (textDisplay != null) textDisplay.gameObject.SetActive(false);
+        if (image1 != null) image1.SetActive(false);
+        if (image2 != null) image2.SetActive(false);
+    }
+
+
+    public int GetNextMilestone()
+    {
+        return nextMilestone;
+    }
+
+    public void SetNextMilestone(int value)
+    {
+        nextMilestone = value;
+    }
+
+    public int GetMilestoneCount()
+    {
+        return cmptMilestone;
+    }
+
+    public void SetMilestoneCount(int count)
+    {
+        cmptMilestone = count;
+    }
+
+    public int GetCurrentProduction()
+    {
+        return currentProduction;
+    }
+
+    public void SetCurrentProduction(int count)
+    {
+        currentProduction = count;
+    }
 
 }

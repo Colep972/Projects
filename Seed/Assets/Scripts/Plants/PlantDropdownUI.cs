@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.Events;
+
 
 public class PlantDropdownUI : MonoBehaviour
 {
@@ -17,6 +19,7 @@ public class PlantDropdownUI : MonoBehaviour
 
     private GameObject currentSelectedUI;
     [SerializeField] private TextMeshProUGUI plantAmountText;
+    public UnityEvent<PlantsData> onPlantSelected;
     public static PlantDropdownUI Instance { get; private set; }
 
     private void Awake()
@@ -57,6 +60,7 @@ public class PlantDropdownUI : MonoBehaviour
     {
         plantList = PlantDataManager.Instance.grownPlants;
         PopulateDropdown();
+        onPlantSelected = new UnityEvent<PlantsData>();
     }
 
     public void ToggleDropdown()
@@ -68,23 +72,28 @@ public class PlantDropdownUI : MonoBehaviour
         }
     }
 
-    void PopulateDropdown()
+    public void PopulateDropdown()
     {
         int cmpt = 0;
         foreach (Transform child in contentContainer)
             Destroy(child.gameObject);
+
+        PlantsData firstUnlocked = null;
 
         foreach (PlantsData plant in plantList)
         {
             if (plant.originSeed == null || !plant.originSeed.unlocked)
                 continue;
 
-            GameObject item = Instantiate(plantItemPrefab, contentContainer);
+            if (firstUnlocked == null)
+                firstUnlocked = plant;
 
+            GameObject item = Instantiate(plantItemPrefab, contentContainer);
             Button itemButton = item.GetComponent<Button>();
 
             PlantItemUI ui = item.GetComponent<PlantItemUI>();
             ui.Set(plant, cmpt);
+
             itemButton.onClick.AddListener(() =>
             {
                 int choice = 0;
@@ -96,23 +105,35 @@ public class PlantDropdownUI : MonoBehaviour
                     Destroy(currentSelectedUI);
 
                 currentSelectedUI = Instantiate(plantItemPrefab, selectedPlantContainer);
+
                 switch (plant.plantName)
                 {
-                    case "Plant of Seed 0": choice = 0; 
-                    break;
-                    case "Plant of Seed 1": choice = 1; 
-                    break;
-                    case "Plant of Seed 2": choice = 2; 
-                    break;
+                    case "Akee": choice = 0; break;
+                    case "Araca Una": choice = 1; break;
+                    case "Clivia": choice = 2; break;
+                    case "Gabiroba": choice = 3; break;
+                    case "Jaboticaba": choice = 4; break;
+                    case "Kumquat": choice = 5; break;
+                    case "Pitomba": choice = 6; break;
                 }
 
                 currentSelectedUI.GetComponent<PlantItemUI>().Set(plant, choice);
+
+                //Notify listeners that a plant was selected
+                onPlantSelected.Invoke(plant);
             });
 
-            cmpt++;
         }
 
+        // Auto-select first unlocked plant once
+        if (selectedPlant != null && firstUnlocked != null)
+        {
+            SetSelectedPlant(firstUnlocked);
+            // Optionally close the dropdown list if it’s open
+            if (dropdownListPanel != null) dropdownListPanel.SetActive(false);
+        }
     }
+
 
     public PlantsData GetCurrentPlant()
     {

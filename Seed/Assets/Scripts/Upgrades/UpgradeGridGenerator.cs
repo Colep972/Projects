@@ -65,10 +65,10 @@ public class UpgradeGridGenerator : MonoBehaviour
         if (gridLayout != null)
         {
             gridLayout.cellSize = buttonSize;
-            gridLayout.spacing = new Vector2(spacing, spacing);
+            gridLayout.spacing = new Vector2(600, spacing);
             gridLayout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
             gridLayout.constraintCount = columns;
-            gridLayout.childAlignment = TextAnchor.UpperCenter;
+            gridLayout.childAlignment = TextAnchor.UpperLeft;
         }
     }
 
@@ -102,6 +102,8 @@ public class UpgradeGridGenerator : MonoBehaviour
         Image icon = buttonObj.transform.Find("Icon")?.GetComponent<Image>();
         TextMeshProUGUI levelText = buttonObj.transform.Find("Level")?.GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI priceText = buttonObj.transform.Find("Price")?.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI descriptionText = buttonObj.transform.Find("Description")?.GetComponent<TextMeshProUGUI>();
+
 
         if (icon == null || levelText == null || priceText == null)
         {
@@ -135,6 +137,8 @@ public class UpgradeGridGenerator : MonoBehaviour
             }
             levelText.text = $"Lvl {upgrade.currentLevel}/{upgradeData.maxLevel}";
             priceText.text = $"${nextPrice}";
+            if (descriptionText != null)
+                descriptionText.text = upgradeManager.GetBasicDescription(upgrade);
 
             // Mise à jour de l'interactivité et de la couleur
             button.interactable = !isMaxLevel && canAfford;
