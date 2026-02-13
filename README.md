@@ -8,13 +8,21 @@ Bienvenue dans ce dossier regroupant plusieurs projets réalisés lors de diffé
 - **Description** :  
   Lors d'un stage de 2 mois et demi j'ai eu l'opportunité de développer le site web de Couleurs Services, dans ce site web on retrouve la présentation de Couleurs Services et ses offres ainsi qu'un petit questionnaire pour aider au mieux les personnes désireuses de bénéficier des services.
 
-## 2. **NutriWebbos**
+## 2. **Enter the Potato**
+
+- **Type** : Jeu vidéo (arena / survival)
+- **Technologie** : Unreal Engine (C++ uniquement, sans Blueprint)
+- **Description** :
+Projet de jeu vidéo dans lequel le joueur incarne un chevalier plongé dans une arène fermée. L’objectif est simple : survivre le plus longtemps possible face à des vagues successives d’ennemis, sans mourir.
+Le gameplay repose sur le combat en temps réel, la gestion des déplacements et l’anticipation des attaques adverses. Le projet a été développé entièrement en C++, ce qui m’a permis d’approfondir la programmation bas niveau du moteur, la gestion des entités, ainsi que les mécaniques de combat et de vagues.
+
+## 3. **NutriWebbos**
 - **Type** : Site web de nutrition  
 - **Technologies** : Développement web  
 - **Description** :  
   Projet personnel permettant de s'informer sur des notions comme le métabolisme et les macronutriments. Le site propose un calculateur de métabolisme basal, de dépenses énergétiques journalières et des besoins en macronutriments. Un espace personnel permet de suivre sa consommation alimentaire quotidienne, avec un journal qui se réinitialise automatiquement à minuit.
 
-## 3. **Seed**
+## 4. **Seed**
 - **Type** : Jeu vidéo (clicker)  
 - **Technologie** : Unity (moteur 3D)  
 - **Description** :  
